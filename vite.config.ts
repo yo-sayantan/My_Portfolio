@@ -15,7 +15,8 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
     },
     plugins: [react()],
-    base: '/My_Portfolio/',
+    // Set base URL depending on deployment platform
+    base: process.env.DEPLOY_TARGET === 'github' ? '/My_Portfolio/' : '/',
     define: {
       // API Key injection removed to prevent Netlify Secret Scanning errors.
       // The frontend will now communicate via the backend proxy.

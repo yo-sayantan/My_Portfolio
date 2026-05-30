@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[context.production.environment]
+  DEPLOY_TARGET = "netlify"
+
+# Redirect all routes to index.html for SPA support
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
