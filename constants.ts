@@ -10,7 +10,7 @@ const SOCIAL_LINKS_DATA = {
   phone: "+917381183721",
 };
 
-const SUMMARY_DATA = "Experienced Senior Software Engineer with nearly 5 years of expertise in Java backend development, AWS cloud architectures, and Microservices. I specialize in building high-performance, scalable systems while leveraging AI-driven workflows including prompt engineering, MCP Servers, and AI agents to maximize productivity and code quality. Committed to continuous innovation, I drive engineering excellence through modern tech stacks and intelligent solutions.";
+const SUMMARY_DATA = "Experienced Senior Software Engineer with over {{YRS}} years of expertise in Java backend development, AWS cloud architectures, and Microservices. I specialize in architecting high-performance, highly concurrent systems that solve complex, data-heavy enterprise challenges. By seamlessly blending traditional robust engineering with a touch of modern AI-driven workflows, I am able to significantly accelerate development lifecycles and maximize code quality. I am deeply committed to continuous innovation, mentoring cross-functional teams, and driving engineering excellence through scalable, intelligent solutions.";
 
 const EXPERIENCES_DATA: Experience[] = [
   {

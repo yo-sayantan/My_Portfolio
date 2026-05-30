@@ -4,12 +4,34 @@ import { SUMMARY, AWARDS } from '../constants';
 import { Bot, Trophy, Target, Brain, Sparkles, Terminal, Github, Command } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
+const ChatGPTIcon = (props: any) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.073zm-9.022 12.108a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-2.1466zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.8956zm16.0993 3.8558L12.5973 8.3829v-2.3324a.0804.0804 0 0 1 .0332-.0615l4.3178-2.4952a4.4992 4.4992 0 0 1 6.1408 2.1466 4.4755 4.4755 0 0 1 .5346 3.0137l-.1419-.0852-4.7829-2.7582a.7712.7712 0 0 0-.7806 0l-5.8428 3.3685zm.8344-7.5146a4.4945 4.4945 0 0 1 2.8812 1.0409l-.1419.0804-4.783 2.7581a.7948.7948 0 0 0-.3927.6813v6.7369l-2.0199-1.1685a.071.071 0 0 1-.0379-.052V8.7308a4.504 4.504 0 0 1 4.4944-4.4944zM10.9754 3.993a4.4755 4.4755 0 0 1 4.5422-.4446v5.6728a.7712.7712 0 0 0-.3879-.6765l-5.8144-3.3543 2.0201-1.1685a.0757.0757 0 0 1 .071 0l4.8303 2.7865z" />
+  </svg>
+);
+
+const ClaudeIcon = (props: any) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z" />
+  </svg>
+);
+
 const About: React.FC = () => {
+  const experienceYears = React.useMemo(() => {
+    const startDate = new Date('2020-05-01');
+    const today = new Date();
+    const diffTime = Math.abs(today.getTime() - startDate.getTime());
+    const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
+    return diffYears.toFixed(1);
+  }, []);
+
+  const dynamicSummary = SUMMARY.replace('{{YRS}}', experienceYears);
+
   const tools = [
     { name: 'Cursor', icon: Command, color: 'text-blue-400', bg: 'group-hover/item:bg-blue-500/10', border: 'group-hover/item:border-blue-500/50', iconColor: 'group-hover/item:text-blue-400' },
+    { name: 'Claude', icon: ClaudeIcon, color: 'text-amber-500', bg: 'group-hover/item:bg-amber-500/10', border: 'group-hover/item:border-amber-500/50', iconColor: 'group-hover/item:text-amber-500' },
     { name: 'Copilot', icon: Github, color: 'text-white', bg: 'group-hover/item:bg-slate-500/10', border: 'group-hover/item:border-slate-500/50', iconColor: 'group-hover/item:text-white' },
-    { name: 'Claude', icon: Sparkles, color: 'text-green-400', bg: 'group-hover/item:bg-green-500/10', border: 'group-hover/item:border-green-500/50', iconColor: 'group-hover/item:text-green-400' },
-    { name: 'MCP Agents', icon: Bot, color: 'text-purple-400', bg: 'group-hover/item:bg-purple-500/10', border: 'group-hover/item:border-purple-500/50', iconColor: 'group-hover/item:text-purple-400' },
+    { name: 'MCPs', icon: Bot, color: 'text-purple-400', bg: 'group-hover/item:bg-purple-500/10', border: 'group-hover/item:border-purple-500/50', iconColor: 'group-hover/item:text-purple-400' },
   ];
 
   return (
@@ -35,7 +57,7 @@ const About: React.FC = () => {
               <h3 className="text-2xl font-bold text-slate-800 dark:text-white">Engineering Philosophy</h3>
             </div>
             <p className="text-lg text-slate-700 dark:text-slate-300 leading-loose font-medium animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards">
-              {SUMMARY}
+              {dynamicSummary}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               {['Java Champion', 'Backend Engineer', 'AI Enthusiast'].map(tag => (
@@ -81,7 +103,7 @@ const About: React.FC = () => {
 
                   <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">Intelligent Workflow</h3>
                   <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium">
-                    Leveraging advanced LLMs to accelerate architectural decision-making, automate complex test coverage, and refine system designs. Transforming natural language into robust, production-ready infrastructure code.
+                    Fully integrating modern AI tools like GPT, Claude, Cursor, MCP Servers, and Generative AI agents into the development lifecycle. This involves prompt engineering, deploying and integrating MCP Servers, and orchestrating generative AI agents to drastically accelerate architecture decisions and automate test coverage. Transforming natural language into robust, production-ready infrastructure code.
                   </p>
 
                   {/* Tool Tokens */}
