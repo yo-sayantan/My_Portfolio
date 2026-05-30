@@ -10,7 +10,7 @@ const SOCIAL_LINKS_DATA = {
   phone: "+917381183721",
 };
 
-const SUMMARY_DATA = "Experienced Senior Software Engineer with nearly 5 years of expertise in Java backend development, AWS cloud architectures, and Microservices. I specialize in building high-performance, scalable systems while leveraging AI-driven workflows—including prompt engineering, MCP Servers, and AI agents—to maximize productivity and code quality. Committed to continuous innovation, I drive engineering excellence through modern tech stacks and intelligent solutions.";
+const SUMMARY_DATA = "Experienced Senior Software Engineer with nearly 5 years of expertise in Java backend development, AWS cloud architectures, and Microservices. I specialize in building high-performance, scalable systems while leveraging AI-driven workflows including prompt engineering, MCP Servers, and AI agents to maximize productivity and code quality. Committed to continuous innovation, I drive engineering excellence through modern tech stacks and intelligent solutions.";
 
 const EXPERIENCES_DATA: Experience[] = [
   {
@@ -24,7 +24,7 @@ const EXPERIENCES_DATA: Experience[] = [
       'Spearheading the modernization of the PreciseID tool to deliver advanced fraud analytics and robust verification policies.',
       'Architecting a high-throughput API Gateway to efficiently orchestrate data flow between microservices and redirect requests with low latency.',
       'Orchestrating containerized microservices using Docker and Kubernetes, ensuring high availability and seamless server management.',
-      'Championing an AI-first culture by integrating GitHub Copilot, Cursor, and GPT-5 into the development lifecycle, boosting team productivity by 30%.'
+      'Championing an AI-first culture by integrating GitHub Copilot, Cursor, and Claude into the development lifecycle, boosting team productivity by 30%.'
     ],
     skills: ['Java', 'Microservices', 'Docker', 'Kubernetes', 'API Gateway', 'Fraud Detection', 'AI Agents', 'Cursor']
   },
@@ -221,6 +221,12 @@ const CERTIFICATIONS_DATA: Certification[] = [
 ];
 
 const AWARDS_DATA: Award[] = [
+  {
+    title: "NIKE Technology Transformation",
+    issuer: "Experian",
+    year: "2026",
+    description: "You drove Change, owned Outcomes & delivered Impacts."
+  },
   {
     title: "Spot Award",
     issuer: "Oracle",

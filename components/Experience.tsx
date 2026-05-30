@@ -186,14 +186,14 @@ const Experience: React.FC = () => {
                           <div className="flex flex-col xl:flex-row justify-between items-start gap-3 md:gap-4 mb-4 md:mb-6">
                             <div className="space-y-1 md:space-y-2 w-full">
                                <ScrollReveal delay="delay-200" variant="slide-right">
-                                   <h3 className="text-xl md:text-3xl font-bold text-slate-900 dark:text-white transition-all duration-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 group-hover:scale-[1.01] origin-left">
+                                   <h3 className="text-xl md:text-3xl font-black text-slate-900 dark:text-white transition-all duration-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 group-hover:scale-[1.01] origin-left">
                                      {exp.role}
                                    </h3>
                                </ScrollReveal>
                                <ScrollReveal delay="delay-300" variant="slide-right">
-                                   <div className="flex items-center justify-between md:justify-start gap-2 text-primary-600 dark:text-primary-400 font-bold text-base md:text-xl transition-all duration-300 group-hover:text-primary-700 dark:group-hover:text-primary-300 group-hover:scale-[1.01] origin-left">
+                                   <div className="flex items-center justify-between md:justify-start gap-2 text-primary-600 dark:text-primary-400 font-extrabold text-base md:text-xl transition-all duration-300 group-hover:text-primary-700 dark:group-hover:text-primary-300 group-hover:scale-[1.01] origin-left">
                                      <div className="flex items-center gap-2">
-                                        <Briefcase className="w-4 h-4 md:w-6 md:h-6" />
+                                        <Briefcase className="w-5 h-5 md:w-6 md:h-6 stroke-[3px]" />
                                         {exp.company}
                                      </div>
                                      {/* Mobile Date pill shown inline for better space */}
@@ -211,8 +211,8 @@ const Experience: React.FC = () => {
 
                           <ul className="space-y-3 md:space-y-4 mb-6">
                             {exp.description.map((item, i) => (
-                              <li key={i} className="flex items-start gap-3 text-slate-700 dark:text-slate-300 text-sm md:text-lg leading-relaxed group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-primary-400 mt-1 flex-shrink-0 group-hover:translate-x-1 transition-transform stroke-[3px]" />
+                              <li key={i} className="flex items-start gap-3 text-slate-700 dark:text-slate-200 font-semibold text-sm md:text-lg leading-relaxed group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-rose-500 mt-1 flex-shrink-0 group-hover:translate-x-1 transition-transform stroke-[3px]" />
                                 {item}
                               </li>
                             ))}

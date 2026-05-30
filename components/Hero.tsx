@@ -90,22 +90,22 @@ const Hero: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center gap-5 mb-12 w-full sm:w-auto opacity-0 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
               <a
                 href="#projects"
-                className="group relative px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-primary-500/20 transition-all duration-300 hover:-translate-y-1 overflow-hidden w-full sm:w-auto flex justify-center"
+                className="group relative px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-extrabold text-lg shadow-xl hover:shadow-2xl hover:shadow-primary-500/20 transition-all duration-300 hover:-translate-y-1 overflow-hidden w-full sm:w-auto flex justify-center"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <span className="relative flex items-center gap-2">
+                <span className="relative flex items-center gap-2 group-hover:text-white transition-colors duration-300">
                   View Engineering Work
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[3px]" />
                 </span>
               </a>
               <a
                 href="#contact"
-                className="group relative px-8 py-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-1 overflow-hidden w-full sm:w-auto flex justify-center"
+                className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-white font-black text-lg shadow-xl hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden w-full sm:w-auto flex justify-center"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <span className="relative flex items-center gap-2 group-hover:text-white transition-colors duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <span className="relative flex items-center gap-2 transition-colors duration-300">
                   Let's Connect
-                  <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <Mail className="w-6 h-6 group-hover:scale-110 transition-transform stroke-[3px]" />
                 </span>
               </a>
             </div>
