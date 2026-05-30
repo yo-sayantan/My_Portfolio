@@ -100,6 +100,21 @@ const EDUCATION_DATA: Education[] = [
 
 const PROJECTS_DATA: Project[] = [
   {
+    id: 'quickbooks-integration',
+    title: 'QuickBooks Integration',
+    type: 'Work',
+    techStack: ['Java', 'QuickBooks API', 'OAuth', 'Microservices', 'Data Synchronization'],
+    description: 'Designed and implemented a strategic integration between HighRadius Credit and QuickBooks. Engineered new credit limit functionalities that improved payment efficiency and directly drove the acquisition of new enterprise clients.',
+    longDescription: 'This high-impact, proprietary integration serves as a secure bridge between the HighRadius Credit and QuickBooks. The primary technical mandate involved handling complex OAuth authentication, fetching and processing raw invoices and transactions, and engineering an intelligent engine to process credits. By ensuring real-time bidirectional synchronization, the system guaranteed that both HighRadius and QuickBooks data remained perfectly aligned after transaction processing—a feature that became a major selling point for new client acquisition.',
+    features: [
+      'Secure QuickBooks OAuth Authentication',
+      'Bidirectional Data Synchronization Engine',
+      'Advanced Credit Limit Processing Algorithms',
+      'Automated Invoice & Transaction Fetching',
+      'Real-time Financial Ledger Updates'
+    ]
+  },
+  {
     id: 'book-exchange',
     title: 'Book Exchange Ecosystem',
     type: 'Personal',
@@ -191,6 +206,52 @@ const PROJECTS_DATA: Project[] = [
       'Bash Scripts for Automated Testing'
     ],
     link: 'https://github.com/yo-sayantan/OS_Scheduling'
+  },
+  {
+    id: 'my-portfolio',
+    title: 'My Career Portfolio',
+    type: 'Personal',
+    techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'AI Integrations'],
+    description: 'A dynamic, highly interactive personal portfolio website showcasing professional experience, projects, and skills. Built with modern web technologies and featuring advanced AI-driven conversational capabilities.',
+    longDescription: 'This project serves as a comprehensive digital resume. It leverages React and Vite for blazing-fast performance, TypeScript for robust type safety, and Tailwind CSS for a stunning, responsive design. The platform integrates intelligent AI chatbots to provide an interactive experience for visitors seeking to learn more about my background.',
+    features: [
+      'Modern React & Vite Architecture',
+      'Fully Responsive & Interactive UI',
+      'AI-Powered Chat Assistant',
+      'Dynamic Content Rendering',
+      'Performance Optimized'
+    ]
+  },
+  {
+    id: 'school-connect',
+    title: 'School Connect',
+    type: 'Personal',
+    techStack: ['Java', 'Spring Boot', 'Database', 'RESTful APIs'],
+    description: 'A comprehensive educational platform designed to streamline communication and management between students, teachers, and administrators. Developed scalable backend services to handle complex academic workflows.',
+    longDescription: 'SchoolConnect is a robust application engineered to digitize school administration. It provides a centralized hub for managing student records, grading systems, and real-time notifications. The architecture utilizes a scalable backend designed to handle high concurrency during peak usage times, such as exam result publications.',
+    features: [
+      'Centralized Academic Management',
+      'Real-time Notification System',
+      'Scalable Backend Architecture',
+      'Secure Role-Based Access Control',
+      'Streamlined Grading & Reporting'
+    ]
+  },
+  {
+    id: 'beautiful-bengal',
+    title: 'Beautiful Bengal',
+    type: 'Personal',
+    techStack: ['Web Development', 'UI/UX Design', 'Frontend'],
+    description: 'A visually immersive web platform dedicated to showcasing the rich cultural heritage and tourism potential of Bengal. Focused on delivering a highly engaging and aesthetic user experience.',
+    longDescription: 'Beautiful Bengal v3 is a passion project aimed at promoting regional tourism through a digital lens. The application features stunning visual galleries, interactive maps, and curated travel guides. The frontend was meticulously crafted to ensure seamless navigation, fast load times, and a responsive design that looks perfect on both mobile and desktop devices.',
+    features: [
+      'Immersive Visual Galleries',
+      'Interactive Tourism Maps',
+      'Curated Travel Guides',
+      'Responsive Mobile-First Design',
+      'Optimized Asset Loading'
+    ],
+    link: 'https://github.com/yo-sayantan/Beautiful_Bengal_v3'
   }
 ];
 

@@ -101,6 +101,61 @@ const Projects: React.FC = () => {
           </div>
         );
 
+      case 'os-scheduler':
+        return (
+          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
+             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
+               <rect x="160" y="60" width="80" height="80" rx="8" className="fill-slate-100 dark:fill-slate-800 stroke-blue-500 group-hover:stroke-blue-400 transition-colors" strokeWidth="3" />
+               <rect x="175" y="75" width="50" height="50" rx="4" className="fill-blue-500/20 stroke-blue-400" strokeWidth="2" />
+               <path d="M140 70 h20 M140 90 h20 M140 110 h20 M140 130 h20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
+               <path d="M240 70 h20 M240 90 h20 M240 110 h20 M240 130 h20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
+               <path d="M170 40 v20 M190 40 v20 M210 40 v20 M230 40 v20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
+               <path d="M170 140 v20 M190 140 v20 M210 140 v20 M230 140 v20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
+               <circle cx="200" cy="100" r="10" className="fill-blue-400 animate-pulse" />
+             </svg>
+          </div>
+        );
+
+      case 'my-portfolio':
+        return (
+          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-1">
+             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
+               <path d="M120 140 Q 150 100 200 120 T 280 80" fill="none" stroke="currentColor" strokeWidth="3" className="text-purple-400" strokeDasharray="6,6" />
+               <rect x="150" y="50" width="100" height="70" rx="10" className="fill-white dark:fill-slate-800 stroke-purple-500" strokeWidth="3" />
+               <path d="M150 85 h100" stroke="currentColor" strokeWidth="2" className="text-slate-200 dark:text-slate-700" />
+               <circle cx="180" cy="105" r="5" className="fill-purple-400 animate-bounce" style={{animationDelay: '0ms'}} />
+               <circle cx="200" cy="105" r="5" className="fill-purple-400 animate-bounce" style={{animationDelay: '150ms'}} />
+               <circle cx="220" cy="105" r="5" className="fill-purple-400 animate-bounce" style={{animationDelay: '300ms'}} />
+               <path d="M220 120 l20 20 l-10 -20 Z" className="fill-white dark:fill-slate-800 stroke-purple-500" strokeWidth="3" strokeLinejoin="round" />
+             </svg>
+          </div>
+        );
+
+      case 'school-connect':
+        return (
+          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
+             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
+               <polygon points="200,50 280,90 200,130 120,90" className="fill-blue-100 dark:fill-blue-900/30 stroke-blue-500 group-hover:-translate-y-2 transition-transform duration-500" strokeWidth="3" strokeLinejoin="round" />
+               <path d="M150 110 v30 Q 200 160 250 140 v-30" fill="none" stroke="currentColor" strokeWidth="3" className="text-blue-400 group-hover:-translate-y-2 transition-transform duration-500" />
+               <line x1="280" y1="90" x2="280" y2="140" stroke="currentColor" strokeWidth="2" className="text-blue-500 group-hover:-translate-y-2 transition-transform duration-500" />
+               <circle cx="280" cy="140" r="5" className="fill-blue-500 group-hover:-translate-y-2 transition-transform duration-500" />
+             </svg>
+          </div>
+        );
+
+      case 'beautiful-bengal':
+        return (
+          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
+             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
+               <rect x="100" y="40" width="200" height="120" rx="8" className="fill-slate-100 dark:fill-slate-800 stroke-amber-500" strokeWidth="4" />
+               <circle cx="250" cy="70" r="20" className="fill-amber-400 group-hover:scale-110 transition-transform duration-500" style={{ transformOrigin: '250px 70px' }} />
+               <path d="M100 160 Q 150 100 200 160" className="fill-green-500/20 stroke-green-500" strokeWidth="2" />
+               <path d="M150 160 Q 220 80 300 160" className="fill-green-600/20 stroke-green-600" strokeWidth="2" />
+               <rect x="90" y="30" width="220" height="140" rx="12" fill="none" className="stroke-slate-300 dark:stroke-slate-600 group-hover:stroke-amber-400 transition-colors duration-500" strokeWidth="2" strokeDasharray="8,8" />
+             </svg>
+          </div>
+        );
+
       default:
         if (project.type === 'Work') {
           return (
