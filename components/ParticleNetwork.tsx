@@ -136,8 +136,8 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
 
     const initParticles = () => {
       particles = [];
-      // Increase density
-      const particleCount = Math.min(Math.floor((width * height) / 7000), 250);
+      // Increase density by ~75%
+      const particleCount = Math.min(Math.floor((width * height) / 4000), 438);
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle(width, height));
       }
