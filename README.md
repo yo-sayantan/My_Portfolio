@@ -1,4 +1,4 @@
-# Sayantan Biswas - Personal Portfolio
+# My_Portfolio – Modern Personal Portfolio
 
 This repository contains the source code for my personal portfolio website. It serves as a comprehensive digital resume, showcasing my professional experience, skills in enterprise software development (Java, AWS, AI), and highlighted projects. The application is built using a modern stack featuring React, TypeScript, Vite, and TailwindCSS for a highly dynamic, interactive user experience.
 
