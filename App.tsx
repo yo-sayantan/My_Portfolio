@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ParticleNetwork from './components/ParticleNetwork';
 import AIChatbot from './components/AIChatbot';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [isDark, setIsDark] = useState(false);
@@ -53,6 +54,7 @@ function App() {
         <Contact />
       </main>
       
+      <ScrollToTop />
       <AIChatbot />
       <Footer />
     </div>
