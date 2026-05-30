@@ -225,19 +225,19 @@ const AWARDS_DATA: Award[] = [
     title: "NIKE Technology Transformation",
     issuer: "Experian",
     year: "2026",
-    description: "You drove Change, owned Outcomes & delivered Impacts."
+    description: "Awarded for exceptional leadership in driving strategic change, owning complex technical outcomes, and delivering measurable impacts during the comprehensive modernization of core fraud-detection workflows."
   },
   {
     title: "Spot Award",
     issuer: "Oracle",
     year: "2023",
-    description: "For exceptional delivery of the Payment Service Integration project ahead of schedule."
+    description: "Recognized for the outstanding, accelerated delivery of the high-throughput Payment Service Integration with Mastercard and HSBC. The project was completed significantly ahead of schedule, optimizing revenue recognition and enabling seamless global transactions."
   },
   {
     title: "Star Performer",
     issuer: "HighRadius",
     year: "2021",
-    description: "Recognized for outstanding contributions to the Credit Cloud module and team mentorship."
+    description: "Honored for instrumental technical contributions to the Credit Cloud module. Recognized for engineering a highly concurrent parallel processing engine, while consistently mentoring team members and elevating the team's overall code quality."
   }
 ];
 

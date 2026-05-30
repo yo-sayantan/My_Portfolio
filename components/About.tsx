@@ -145,7 +145,7 @@ const About: React.FC = () => {
           </div>
 
           {/* Impact Block */}
-          <div className="md:col-span-6 grid grid-rows-2 gap-6">
+          <div className="md:col-span-6 grid grid-rows-3 gap-6">
             <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-6 hover:-translate-y-1 transition-transform group">
               <div className="p-4 bg-green-100/50 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl group-hover:scale-110 transition-transform">
                 <Target className="w-8 h-8" />
@@ -162,9 +162,20 @@ const About: React.FC = () => {
                 <Sparkles className="w-8 h-8" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Innovation</h4>
+                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Client Engagement</h4>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                   Pioneered a configurable Dynamic Notification engine, driving a <span className="text-slate-900 dark:text-white font-bold">25% increase</span> in client engagement through personalized, rule-based alerting systems.
+                </p>
+              </div>
+            </div>
+            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-6 hover:-translate-y-1 transition-transform group">
+              <div className="p-4 bg-orange-100/50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-2xl group-hover:scale-110 transition-transform">
+                <Brain className="w-8 h-8" />
+              </div>
+              <div>
+                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">AI-Driven Innovation</h4>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  Architected an AI-native engineering ecosystem by integrating Generative AI agents and intelligent coding assistants. Automated complex workflows to boost overall team productivity by <span className="text-slate-900 dark:text-white font-bold">50%</span> and dramatically accelerate project delivery.
                 </p>
               </div>
             </div>
