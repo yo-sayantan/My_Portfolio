@@ -1,7 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # Sayantan Biswas - Personal Portfolio
 
 This repository contains the source code for my personal portfolio website. It serves as a comprehensive digital resume, showcasing my professional experience, skills in enterprise software development (Java, AWS, AI), and highlighted projects. The application is built using a modern stack featuring React, TypeScript, Vite, and TailwindCSS for a highly dynamic, interactive user experience.
