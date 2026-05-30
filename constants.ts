@@ -24,9 +24,11 @@ const EXPERIENCES_DATA: Experience[] = [
       'Spearheading the modernization of the PreciseID tool to deliver advanced fraud analytics and robust verification policies.',
       'Architecting a high-throughput API Gateway to efficiently orchestrate data flow between microservices and redirect requests with low latency.',
       'Orchestrating containerized microservices using Docker and Kubernetes, ensuring high availability and seamless server management.',
-      'Championing an AI-first culture by integrating GitHub Copilot, Cursor, and Claude into the development lifecycle, boosting team productivity by 30%.'
+      'Led the end-to-end architectural migration of legacy applications to AWS using Docker, while upgrading core systems from JDK8 to JDK21 to maximize scalability and performance.',
+      'Modernized the user interfaces of multiple enterprise portals by upgrading legacy codebases to the latest JavaScript frameworks, ensuring seamless cross-browser compatibility and highly responsive frontend performance.',
+      'Championing an AI-first culture by integrating Claude, Cursor, MCP servers, and other AI tools into the development lifecycle, boosting team productivity by almost 50%.'
     ],
-    skills: ['Java', 'Microservices', 'Docker', 'Kubernetes', 'API Gateway', 'Fraud Detection', 'AI Agents', 'Cursor']
+    skills: ['Java', 'Microservices', 'AWS', 'Docker', 'Kubernetes', 'Jenkins', 'API Gateway', 'Claude', 'Cursor', 'MCPs', 'AI Agents']
   },
   {
     id: 'oracle',
@@ -40,7 +42,7 @@ const EXPERIENCES_DATA: Experience[] = [
       'Designed and implemented scalable microservices architectures to facilitate robust payment service integrations.',
       'Partnered with Tax and Project Management teams to innovate and launch new financial products on Fusion Payables for global enterprise and government clients.',
       'Leveraged advanced PL/SQL optimization, SQLHC, and AWR analysis to boost database performance and ensure data integrity.',
-      'Integrated AI-driven workflows (ChatGPT, Claude, Gemini) to automate coding tasks and documentation, achieving a 30% increase in productivity.',
+      'Integrated AI-driven workflows (ChatGPT, Claude, Gemini) to automate coding tasks and documentation, achieving 30% increase in productivity.',
       'Established comprehensive automated testing frameworks using JUnit and UTPL/SQL to guarantee software quality.'
     ],
     skills: ['Java', 'Oracle Cloud', 'Docker', 'Microservices', 'PL/SQL', 'Generative AI', 'Payment Integrations', 'JUnit']
@@ -220,7 +222,8 @@ const PROJECTS_DATA: Project[] = [
       'AI-Powered Chat Assistant',
       'Dynamic Content Rendering',
       'Performance Optimized'
-    ]
+    ],
+    link: 'https://github.com/yo-sayantan/My_Portfolio'
   },
   {
     id: 'school-connect',

@@ -418,10 +418,14 @@ const Projects: React.FC = () => {
                     <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 opacity-75">
                        <div className="flex items-center gap-2 mb-2">
                          <Lock className="text-slate-400" size={20} />
-                         <h4 className="font-bold text-slate-900 dark:text-white">Internal Project</h4>
+                         <h4 className="font-bold text-slate-900 dark:text-white">
+                           {selectedProject.type === 'Work' ? 'Internal Project' : 'Private Repository'}
+                         </h4>
                        </div>
                        <p className="text-xs text-slate-500 dark:text-slate-400">
-                         The source code for this project is proprietary and cannot be shared publicly due to company policies.
+                         {selectedProject.type === 'Work' 
+                           ? 'The source code for this project is proprietary and cannot be shared publicly due to company policies.' 
+                           : 'The source code for this project is kept private and is not available for public access.'}
                        </p>
                     </div>
                   )}
