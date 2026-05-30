@@ -205,11 +205,11 @@ const SKILLS_DATA: Skill[] = [
   },
   {
     category: "AI & Productivity",
-    items: ["GitHub Copilot", "Cursor", "GPT5", "ChatGPT-4o", "MCP Servers", "AI Agents", "Prompt Engineering"]
+    items: ["GitHub Copilot", "Cursor", "GPT5", "Claude Code", "Ollama", "MCP Servers", "AI Agents", "Prompt Engineering"]
   },
   {
     category: "DevOps & Tools",
-    items: ["CI/CD", "JBoss", "Git/GitHub", "JUnits", "Maven/Gradle", "XML/JSON", "Regex", "ADF"]
+    items: ["CI/CD", "Jenkins", "JBoss", "Git/GitHub", "JUnits", "Maven/Gradle", "XML/JSON", "Regex", "ADF"]
   }
 ];
 

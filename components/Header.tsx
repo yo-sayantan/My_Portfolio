@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
       // Handle Active Section Highlighting
       const sections = document.querySelectorAll('section');
       let current = 'hero';
-      
+
       // Check which section is currently in the middle of the viewport
       const scrollPosition = window.scrollY + (window.innerHeight / 2);
 
@@ -28,10 +28,22 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
         const sectionHeight = section.offsetHeight;
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-           current = section.getAttribute('id') || 'hero';
+          current = section.getAttribute('id') || 'hero';
         }
       });
-      setActiveSection(current);
+
+      setActiveSection((prev) => {
+        if (prev !== current) {
+          // Keep URL hash in sync with scroll position
+          const currentHash = window.location.hash.replace('#', '');
+          // Update URL without jumping
+          if (current !== currentHash) {
+            const newUrl = current === 'hero' ? window.location.pathname : `#${current}`;
+            window.history.replaceState(null, '', newUrl);
+          }
+        }
+        return current;
+      });
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -49,39 +61,17 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
     { name: 'Contact', href: '#contact', id: 'contact' },
   ];
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    
-    const element = document.querySelector(href);
-    if (!element) return;
-
-    // Slight delay to allow for visual feedback/animation before scroll starts
-    setTimeout(() => {
-      // Adjusted offset to 0. This utilizes the section's top padding (typically py-32) 
-      // to sit *under* the sticky header, placing the content nicely near the top.
-      const headerOffset = 0;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }, 100);
-  };
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        isScrolled 
-          ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-white/10 py-3 shadow-sm' 
-          : 'bg-transparent py-6'
-      }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${isScrolled
+        ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-white/10 py-3 shadow-sm'
+        : 'bg-transparent py-6'
+        }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a 
-          href="#" 
-          onClick={(e) => handleNavClick(e, '#hero')}
+        <a
+          href="#hero"
           className="flex items-center gap-2 group"
         >
           <div className="bg-gradient-to-br from-primary-500 to-blue-600 p-2 rounded-xl text-white shadow-lg shadow-primary-500/30 group-hover:scale-105 transition-transform duration-300">
@@ -97,15 +87,14 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
           {navLinks.map((link) => {
             if (link.showScrolled && !isScrolled) return null;
             const isActive = activeSection === link.id;
-            
+
             return (
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
                 className={`px-4 py-2 rounded-full text-sm transition-all duration-300 
-                  ${isActive 
-                    ? 'bg-slate-900 text-white font-bold shadow-md' 
+                  ${isActive
+                    ? 'bg-slate-900 text-white font-bold shadow-md'
                     : 'text-slate-600 dark:text-slate-300 font-medium hover:font-bold hover:bg-slate-950 hover:text-white dark:hover:bg-white dark:hover:text-slate-950 hover:shadow-lg hover:-translate-y-0.5'}
                   ${link.showScrolled ? 'animate-in fade-in slide-in-from-right-4 duration-500' : ''}`}
               >
@@ -113,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
               </a>
             );
           })}
-          
+
           <div className="ml-4 pl-4 border-l border-slate-200/20 dark:border-slate-700/30 flex items-center gap-3">
             <button
               onClick={toggleTheme}
@@ -121,24 +110,22 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
               aria-label="Toggle Theme"
             >
               <div className="relative w-[18px] h-[18px]">
-                <Sun 
-                  size={18} 
-                  className={`absolute inset-0 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                    isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
-                  }`} 
+                <Sun
+                  size={18}
+                  className={`absolute inset-0 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+                    }`}
                 />
-                <Moon 
-                  size={18} 
-                  className={`absolute inset-0 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                    !isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
-                  }`} 
+                <Moon
+                  size={18}
+                  className={`absolute inset-0 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${!isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
+                    }`}
                 />
               </div>
               <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-10 transition-opacity rounded-full" />
             </button>
 
-            <a 
-              href="/resume.pdf" 
+            <a
+              href="/Sayantan_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-500 hover:to-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/40 hover:-translate-y-0.5 px-6 py-2.5 rounded-full shadow-lg"
