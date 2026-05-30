@@ -16,11 +16,15 @@ function App() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Ensure page starts at top on reload/load by disabling browser scroll restoration
+    // Only scroll to top on a clean load (no hash). If there IS a hash
+    // (e.g. someone shared a link like site.com/#contact), let the browser
+    // handle it naturally so it scrolls to the correct section.
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   const toggleTheme = () => {

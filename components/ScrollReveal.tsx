@@ -6,7 +6,9 @@ interface ScrollRevealProps {
   className?: string;
   threshold?: number;
   delay?: string; // CSS class for delay e.g. "delay-100"
-  variant?: 'fade-up' | 'zoom-in' | 'fade-in' | 'slide-left' | 'slide-right';
+  variant?: 'fade-up' | 'zoom-in' | 'fade-in' | 'slide-left' | 'slide-right' | 'scale-rotate' | 'blur-in' | 'slide-up-spring';
+  /** Inline delay in ms — useful for staggered children */
+  staggerMs?: number;
 }
 
 const ScrollReveal: React.FC<ScrollRevealProps> = ({ 
@@ -14,7 +16,8 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   className = "", 
   threshold = 0.1,
   delay = "delay-0",
-  variant = "fade-up"
+  variant = "fade-up",
+  staggerMs,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -22,13 +25,11 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Update visibility state based on intersection
-        // This allows the animation to replay whenever the element enters or leaves the viewport
         setIsVisible(entry.isIntersecting);
       },
       {
         threshold,
-        rootMargin: '0px 0px -10% 0px' // Trigger slightly earlier
+        rootMargin: '0px 0px -8% 0px'
       }
     );
 
@@ -46,25 +47,35 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   const getAnimationClasses = () => {
     switch (variant) {
       case 'zoom-in':
-        return isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95';
+        return isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90';
       case 'fade-in':
         return isVisible ? 'opacity-100' : 'opacity-0';
       case 'slide-left':
-        return isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8';
+        return isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12';
       case 'slide-right':
-        return isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8';
+        return isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12';
+      case 'scale-rotate':
+        return isVisible ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-90 -rotate-2';
+      case 'blur-in':
+        return isVisible ? 'opacity-100 blur-0 translate-y-0' : 'opacity-0 blur-sm translate-y-6';
+      case 'slide-up-spring':
+        return isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-[0.97]';
       case 'fade-up':
       default:
-        // Changed translate-y-8 to translate-y-4 for a more subtle effect
-        return isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4';
+        return isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6';
     }
   };
 
-  // duration-700 makes it slower and more elegant
+  const inlineStyle: React.CSSProperties = {};
+  if (staggerMs) {
+    inlineStyle.transitionDelay = `${staggerMs}ms`;
+  }
+
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out transform ${delay} ${getAnimationClasses()} ${className}`}
+      style={inlineStyle}
+      className={`transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] transform ${delay} ${getAnimationClasses()} ${className}`}
     >
       {children}
     </div>

@@ -11,7 +11,32 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
+  // Track when a hash-link click triggers a smooth scroll — during that period
+  // we must NOT call replaceState or it will overwrite the target hash mid-scroll
+  // and cancel/confuse the browser's native smooth-scroll.
+  const isNavigatingRef = React.useRef(false);
+  const navTimeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
+
   useEffect(() => {
+    // Intercept hash-link clicks so we can set the "navigating" flag
+    const handleHashClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest('a[href^="#"]');
+      if (!anchor) return;
+
+      // Mark that we are doing a programmatic smooth-scroll
+      isNavigatingRef.current = true;
+
+      // Clear any previous timeout
+      if (navTimeoutRef.current) clearTimeout(navTimeoutRef.current);
+
+      // Allow enough time for the smooth scroll to settle (1.2s covers most cases)
+      navTimeoutRef.current = setTimeout(() => {
+        isNavigatingRef.current = false;
+      }, 1200);
+    };
+
+    document.addEventListener('click', handleHashClick, true);
+
     const handleScroll = () => {
       // Handle background transparency
       setIsScrolled(window.scrollY > 20);
@@ -20,7 +45,6 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
       const sections = document.querySelectorAll('section');
       let current = 'hero';
 
-      // Check which section is currently in the middle of the viewport
       const scrollPosition = window.scrollY + (window.innerHeight / 2);
 
       sections.forEach((section) => {
@@ -33,10 +57,9 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
       });
 
       setActiveSection((prev) => {
-        if (prev !== current) {
-          // Keep URL hash in sync with scroll position
+        // Only update the URL hash when NOT in the middle of a smooth-scroll navigation
+        if (prev !== current && !isNavigatingRef.current) {
           const currentHash = window.location.hash.replace('#', '');
-          // Update URL without jumping
           if (current !== currentHash) {
             const newUrl = current === 'hero' ? window.location.pathname : `#${current}`;
             window.history.replaceState(null, '', newUrl);
@@ -48,7 +71,11 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleHashClick, true);
+      if (navTimeoutRef.current) clearTimeout(navTimeoutRef.current);
+    };
   }, []);
 
   const navLinks = [
