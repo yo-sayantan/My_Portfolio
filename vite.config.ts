@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
     },
     plugins: [react()],
+    base: '/My_Portfolio/',
     define: {
       // API Key injection removed to prevent Netlify Secret Scanning errors.
       // The frontend will now communicate via the backend proxy.
