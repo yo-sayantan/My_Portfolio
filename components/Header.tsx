@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
           onClick={(e) => handleNavClick(e, '#hero')}
           className="flex items-center gap-2 group"
         >
-          <div className="bg-gradient-to-br from-primary-500 to-blue-600 p-2 rounded-xl text-white shadow-lg shadow-primary-500/30 group-hover:rotate-12 transition-transform duration-300">
+          <div className="bg-gradient-to-br from-primary-500 to-blue-600 p-2 rounded-xl text-white shadow-lg shadow-primary-500/30 group-hover:scale-105 transition-transform duration-300">
             <Code2 size={20} />
           </div>
           <span className={`text-xl font-bold tracking-tight transition-colors ${isScrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'}`}>

@@ -17,7 +17,7 @@ const About: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="mb-16 text-center md:text-left">
           <ScrollReveal>
-            <h2 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tighter mb-4">Beyond the Code</h2>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Beyond the Code</h2>
           </ScrollReveal>
           <ScrollReveal delay="delay-100">
             <div className="h-1.5 w-24 bg-primary-600 rounded-full md:mx-0 mx-auto"></div>

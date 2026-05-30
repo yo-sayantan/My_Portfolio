@@ -1,16 +1,18 @@
 
 import { Experience, Project, Skill, Certification, Education, Award } from './types';
 
-export const SOCIAL_LINKS = {
+// --- Raw Data Definitions ---
+
+const SOCIAL_LINKS_DATA = {
   github: "https://github.com/yo-sayantan",
   linkedin: "https://www.linkedin.com/in/yo-sayantan",
   email: "sayantanbiswas.mycareer@gmail.com",
   phone: "+917381183721",
 };
 
-export const SUMMARY = "Experienced Senior Software Engineer with nearly 5 years of expertise in Java backend development, AWS cloud architectures, and Microservices. I specialize in building high-performance, scalable systems while leveraging AI-driven workflows—including prompt engineering, MCP Servers, and AI agents—to maximize productivity and code quality. Committed to continuous innovation, I drive engineering excellence through modern tech stacks and intelligent solutions.";
+const SUMMARY_DATA = "Experienced Senior Software Engineer with nearly 5 years of expertise in Java backend development, AWS cloud architectures, and Microservices. I specialize in building high-performance, scalable systems while leveraging AI-driven workflows—including prompt engineering, MCP Servers, and AI agents—to maximize productivity and code quality. Committed to continuous innovation, I drive engineering excellence through modern tech stacks and intelligent solutions.";
 
-export const EXPERIENCES: Experience[] = [
+const EXPERIENCES_DATA: Experience[] = [
   {
     id: 'experian',
     company: 'Experian',
@@ -33,13 +35,15 @@ export const EXPERIENCES: Experience[] = [
     period: 'Aug 2022 – Nov 2024',
     location: 'Hyderabad, Telangana',
     description: [
-      'Led a strategic partnership integration with Mastercard and HSBC, significantly enhancing revenue streams for Oracle Fusion Cloud Financials.',
-      'Architected and maintained dynamic Docker deployments on Oracle VM, achieving seamless Oracle DB integration and improving environment stability.',
-      'Collaborated extensively with Tax and Project Management teams to innovate and launch new financial products and services.',
-      'Leveraged advanced PL/SQL optimization techniques to boost database performance, ensuring rock-solid reliability and data integrity.',
-      'Conducted deep-dive SQLHC and AWR analysis to implement critical data-fix scripts for performance tuning.'
+      'Spearheaded a strategic payment service integration with Mastercard and HSBC for Oracle Fusion Cloud Financials, optimizing revenue recognition and client cash flow.',
+      'Architected and managed dynamic Docker deployments on Oracle VM, ensuring seamless Oracle DB integration and high system availability.',
+      'Designed and implemented scalable microservices architectures to facilitate robust payment service integrations.',
+      'Partnered with Tax and Project Management teams to innovate and launch new financial products on Fusion Payables for global enterprise and government clients.',
+      'Leveraged advanced PL/SQL optimization, SQLHC, and AWR analysis to boost database performance and ensure data integrity.',
+      'Integrated AI-driven workflows (ChatGPT, Claude, Gemini) to automate coding tasks and documentation, achieving a 30% increase in productivity.',
+      'Established comprehensive automated testing frameworks using JUnit and UTPL/SQL to guarantee software quality.'
     ],
-    skills: ['Java', 'Oracle Cloud', 'Docker', 'PL/SQL', 'System Design']
+    skills: ['Java', 'Oracle Cloud', 'Docker', 'Microservices', 'PL/SQL', 'Generative AI', 'Payment Integrations', 'JUnit']
   },
   {
     id: 'highradius-assoc',
@@ -48,13 +52,14 @@ export const EXPERIENCES: Experience[] = [
     period: 'Jun 2021 – Jul 2022',
     location: 'Hyderabad, Telangana',
     description: [
-      'Played a core role in the design and development of the HighRadius Credit application using Java, Spring, Hibernate, and ExtJS.',
-      'Optimized system performance by implementing strategic multithreading solutions and leveraging AWS cloud infrastructure.',
-      'Spearheaded the integration of QuickBooks and WorldPay, designing novel credit limit functionalities that directly contributed to new client acquisition.',
-      'Engineered a highly flexible Dynamic Notification system, enabling customized in-portal alerts tailored to specific merchant criteria.',
+      'Architected and developed core modules for the HighRadius Credit application using Java, Spring, Hibernate, ExtJS, and MySQL, implementing robust RESTful APIs.',
+      'Spearheaded the integration of QuickBooks and WorldPay to enable dynamic credit limit functionalities, directly driving new client acquisition and improving payment efficiency.',
+      'Optimized system performance by implementing strategic multithreading solutions in Java, significantly reducing latency for critical core processes.',
+      'Engineered a highly flexible Dynamic Notification System, enabling customized in-portal alerts based on specific merchant criteria to boost user engagement.',
+      'Delivered over 50+ functional enhancements and software features based on client requirements, while resolving critical production bottlenecks.',
       'Mentored and trained a cohort of 20 interns and new hires, fostering best practices in SaaS development.'
     ],
-    skills: ['Java', 'Spring Boot', 'AWS', 'Hibernate', 'MySQL', 'Multithreading']
+    skills: ['Java', 'Spring Boot', 'Hibernate', 'MySQL', 'ExtJS', 'REST API', 'Multithreading', 'Payment Integrations']
   },
   {
     id: 'highradius-junior',
@@ -72,7 +77,7 @@ export const EXPERIENCES: Experience[] = [
   }
 ];
 
-export const EDUCATION: Education[] = [
+const EDUCATION_DATA: Education[] = [
   {
     school: "Birla Institute of Technology & Science (BITS) Pilani",
     degree: "M. Tech. (Software Engineering)",
@@ -93,7 +98,7 @@ export const EDUCATION: Education[] = [
   }
 ];
 
-export const PROJECTS: Project[] = [
+const PROJECTS_DATA: Project[] = [
   {
     id: 'book-exchange',
     title: 'Book Exchange Ecosystem',
@@ -108,7 +113,7 @@ export const PROJECTS: Project[] = [
       'Responsive React UI with Dark Mode Support',
       'RESTful API Design with Swagger Documentation'
     ],
-    link: 'https://github.com/yo-sayantan/book-exchange'
+    link: 'https://github.com/yo-sayantan/Book_Exchange_Project'
   },
   {
     id: 'quick-task',
@@ -124,7 +129,7 @@ export const PROJECTS: Project[] = [
       'Customizable Task Categories & Priorities',
       'Push Notifications for Deadlines'
     ],
-    link: 'https://github.com/yo-sayantan/quick-task'
+    link: 'https://github.com/yo-sayantan/QuickTask_Pro'
   },
   {
     id: 'legal-entity',
@@ -169,8 +174,7 @@ export const PROJECTS: Project[] = [
       'Portfolio Rebalancing Alerts',
       'Visual Data Analysis with Matplotlib',
       'Google Sheets Bi-directional Sync'
-    ],
-    link: 'https://github.com/yo-sayantan/investment-tracker'
+    ]
   },
   {
     id: 'os-scheduler',
@@ -186,11 +190,11 @@ export const PROJECTS: Project[] = [
       'Performance Metrics (Turnaround Time, Wait Time)',
       'Bash Scripts for Automated Testing'
     ],
-    link: 'https://github.com/yo-sayantan/os-scheduler'
+    link: 'https://github.com/yo-sayantan/OS_Scheduling'
   }
 ];
 
-export const SKILLS: Skill[] = [
+const SKILLS_DATA: Skill[] = [
   {
     category: "Backend Engineering",
     items: ["Java", "SpringBoot", "Microservices", "Hibernate", "REST/SOAP", "System Design", "DSA"]
@@ -209,14 +213,14 @@ export const SKILLS: Skill[] = [
   }
 ];
 
-export const CERTIFICATIONS: Certification[] = [
+const CERTIFICATIONS_DATA: Certification[] = [
   { name: "OCI Foundations Associate", date: "11/2023", issuer: "Oracle" },
   { name: "Product Essentials Program", date: "06/2021" },
   { name: "Basic Python Certification", date: "06/2019" },
   { name: "NIIT Java Certification", date: "05/2018" }
 ];
 
-export const AWARDS: Award[] = [
+const AWARDS_DATA: Award[] = [
   {
     title: "Spot Award",
     issuer: "Oracle",
@@ -230,3 +234,50 @@ export const AWARDS: Award[] = [
     description: "Recognized for outstanding contributions to the Credit Cloud module and team mentorship."
   }
 ];
+
+// --- Logical Grouping for Structured Access ---
+
+export interface PortfolioData {
+  personal: {
+    name: string;
+    role: string;
+    summary: string;
+    socialLinks: typeof SOCIAL_LINKS_DATA;
+  };
+  professional: {
+    experiences: Experience[];
+    skills: Skill[];
+    projects: Project[];
+    certifications: Certification[];
+    awards: Award[];
+    education: Education[];
+  };
+}
+
+export const PORTFOLIO_DATA: PortfolioData = {
+  personal: {
+    name: "Sayantan Biswas",
+    role: "Senior Software Engineer",
+    summary: SUMMARY_DATA,
+    socialLinks: SOCIAL_LINKS_DATA
+  },
+  professional: {
+    experiences: EXPERIENCES_DATA,
+    skills: SKILLS_DATA,
+    projects: PROJECTS_DATA,
+    certifications: CERTIFICATIONS_DATA,
+    awards: AWARDS_DATA,
+    education: EDUCATION_DATA
+  }
+};
+
+// --- Backward Compatibility Exports ---
+// These are kept to ensure existing imports in other files don't break.
+export const SOCIAL_LINKS = SOCIAL_LINKS_DATA;
+export const SUMMARY = SUMMARY_DATA;
+export const EXPERIENCES = EXPERIENCES_DATA;
+export const PROJECTS = PROJECTS_DATA;
+export const SKILLS = SKILLS_DATA;
+export const EDUCATION = EDUCATION_DATA;
+export const CERTIFICATIONS = CERTIFICATIONS_DATA;
+export const AWARDS = AWARDS_DATA;

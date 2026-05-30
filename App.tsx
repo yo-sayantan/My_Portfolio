@@ -34,8 +34,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-transparent relative transition-colors duration-500 flex flex-col">
+      
       <ParticleNetwork isDark={isDark} />
+      
       <Header isDark={isDark} toggleTheme={toggleTheme} />
+      
       <main className="relative z-10 flex-grow">
         <Hero />
         <Skills />
@@ -45,6 +48,7 @@ function App() {
         <Education />
         <Contact />
       </main>
+      
       <AIChatbot />
       <Footer />
     </div>

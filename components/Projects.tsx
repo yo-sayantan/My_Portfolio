@@ -1,13 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { PROJECTS } from '../constants';
-import { Code2, Github, Lock, X, ExternalLink, CheckCircle } from 'lucide-react';
+import { Code2, Github, Lock, X, ExternalLink, CheckCircle, Loader2, ArrowRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import { Project } from '../types';
 
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'All' | 'Work' | 'Personal'>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   
   const filteredProjects = PROJECTS.filter(p => filter === 'All' || p.type === filter);
 
@@ -15,6 +16,8 @@ const Projects: React.FC = () => {
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
+      // Reset redirect state when modal opens
+      setIsRedirecting(false);
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -22,6 +25,19 @@ const Projects: React.FC = () => {
       document.body.style.overflow = 'unset';
     };
   }, [selectedProject]);
+
+  const handleGithubClick = (e: React.MouseEvent, link: string) => {
+    e.stopPropagation();
+    if (isRedirecting) return;
+
+    setIsRedirecting(true);
+    
+    // Simulate a brief loading/preparation phase for visual feedback
+    setTimeout(() => {
+      window.open(link, '_blank');
+      setIsRedirecting(false);
+    }, 1500);
+  };
 
   const renderDoodle = (project: Project) => {
     switch (project.id) {
@@ -132,8 +148,9 @@ const Projects: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col items-center mb-20">
           <ScrollReveal>
-            <h2 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tighter mb-6">
-              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-purple-500">Projects</span>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Featured </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-purple-500">Projects</span>
             </h2>
           </ScrollReveal>
           
@@ -166,16 +183,18 @@ const Projects: React.FC = () => {
                     border border-slate-200 dark:border-slate-800 overflow-hidden 
                     transition-all duration-500 
                     hover:-translate-y-4 hover:scale-[1.03] hover:shadow-[0_20px_80px_-15px_rgba(14,165,233,0.3)] hover:border-primary-500/30
-                    cursor-pointer
+                    cursor-pointer flex flex-col
                  `}
               >
                  {/* Project Visual / Doodle Background */}
-                 <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 transition-colors duration-500 group-hover:from-primary-50/50 group-hover:to-purple-50/50 dark:group-hover:from-primary-900/20 dark:group-hover:to-purple-900/20">
+                 <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 transition-colors duration-500 group-hover:from-primary-50/50 group-hover:to-purple-50/50 dark:group-hover:from-primary-900/20 dark:group-hover:to-purple-900/20 z-0">
                     {renderDoodle(project)}
                  </div>
                  
-                 {/* Content Overlay */}
-                 <div className="absolute inset-0 p-8 flex flex-col justify-end z-10 pointer-events-none">
+                 {/* Content Overlay - Removed complex pointer-events for better touch support */}
+                 <div className="relative z-10 p-8 flex flex-col h-full">
+                    
+                    {/* Icon Header */}
                     <div className="mb-auto">
                        <div className="flex justify-between items-start mb-4">
                           <div className={`p-3 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 text-slate-900 dark:text-white group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
@@ -184,7 +203,8 @@ const Projects: React.FC = () => {
                        </div>
                     </div>
 
-                    <div className="relative pointer-events-auto">
+                    {/* Text Content */}
+                    <div>
                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
                          {project.title}
                        </h3>
@@ -205,24 +225,26 @@ const Projects: React.FC = () => {
                           )}
                        </div>
 
-                        {/* Action Button */}
-                        <div className="pt-4 border-t border-slate-200/50 dark:border-slate-700/50 mt-auto">
+                        {/* Action Buttons */}
+                        <div className="pt-4 border-t border-slate-200/50 dark:border-slate-700/50 mt-auto flex items-center gap-3">
+                            {/* Main 'See Details' Button for better mobile interaction */}
+                            <button type="button" className="py-2.5 px-6 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm shadow-md group-hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+                                See Project
+                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+
+                            {/* Secondary Github Button */}
                             {project.link ? (
-                                <div className="flex items-center justify-between w-full group/btn">
-                                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                                        View Details & Code
-                                    </span>
-                                    <button 
-                                      onClick={(e) => { e.stopPropagation(); window.open(project.link, '_blank'); }}
-                                      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 dark:bg-white text-white dark:text-slate-900 shadow-lg transform transition-transform duration-300 hover:scale-110 active:scale-95 hover:rotate-12 z-20"
-                                    >
-                                        <Github size={20} />
-                                    </button>
-                                </div>
+                                <button 
+                                  onClick={(e) => handleGithubClick(e, project.link!)}
+                                  className="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 ml-auto"
+                                  title="View Code"
+                                >
+                                    <Github size={20} />
+                                </button>
                             ) : (
-                                <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 opacity-75">
-                                    <Lock size={14} />
-                                    <span className="text-xs font-bold uppercase tracking-wider">Internal Project</span>
+                                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-600 border border-slate-100 dark:border-slate-800 cursor-not-allowed ml-auto" title="Private Repo">
+                                    <Lock size={16} />
                                 </div>
                             )}
                         </div>
@@ -239,17 +261,18 @@ const Projects: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
           <div 
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300" 
-            onClick={() => setSelectedProject(null)}
+            onClick={() => !isRedirecting && setSelectedProject(null)}
           ></div>
-          <div className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl relative z-10 animate-in zoom-in-95 duration-300 border border-slate-200 dark:border-white/10 flex flex-col">
+          <div className={`bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl relative z-10 animate-in zoom-in-95 duration-300 border border-slate-200 dark:border-white/10 flex flex-col transition-opacity duration-300 ${isRedirecting ? 'pointer-events-none opacity-90' : ''}`}>
              
              {/* Modal Header */}
-             <div className="relative h-48 md:h-64 shrink-0 bg-slate-100 dark:bg-slate-950 overflow-hidden group">
+             <div className={`relative h-48 md:h-64 shrink-0 bg-slate-100 dark:bg-slate-950 overflow-hidden group ${isRedirecting ? 'opacity-50' : ''}`}>
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-purple-500/10">
                    {renderDoodle(selectedProject)}
                 </div>
                 <button 
                   onClick={() => setSelectedProject(null)}
+                  disabled={isRedirecting}
                   className="absolute top-6 right-6 p-2.5 bg-white/20 backdrop-blur-md border border-white/10 text-slate-900 dark:text-white rounded-full hover:bg-white/40 transition-colors z-20"
                 >
                   <X size={20} />
@@ -265,7 +288,7 @@ const Projects: React.FC = () => {
              </div>
 
              {/* Modal Content */}
-             <div className="p-6 md:p-10 grid lg:grid-cols-3 gap-10">
+             <div className={`p-6 md:p-10 grid lg:grid-cols-3 gap-10 transition-opacity duration-300 ${isRedirecting ? 'opacity-50' : ''}`}>
                
                {/* Main Info - Left Col */}
                <div className="lg:col-span-2 space-y-8">
@@ -310,16 +333,31 @@ const Projects: React.FC = () => {
                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
                          Check out the repository to see the implementation details and contribution guidelines.
                        </p>
-                       <a 
-                         href={selectedProject.link}
-                         target="_blank"
-                         rel="noopener noreferrer"
-                         className="flex items-center justify-center gap-2 w-full py-3 bg-gray-800 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity"
+                       <button 
+                         onClick={(e) => handleGithubClick(e, selectedProject.link!)}
+                         disabled={isRedirecting}
+                         className={`
+                           flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm 
+                           transition-all duration-300 shadow-lg
+                           ${isRedirecting 
+                              ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-wait translate-y-0 shadow-none' 
+                              : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:-translate-y-0.5 hover:shadow-xl active:scale-95'
+                           }
+                         `}
                        >
-                         <Github size={18} />
-                         View on GitHub
-                         <ExternalLink size={14} className="ml-1" />
-                       </a>
+                         {isRedirecting ? (
+                            <>
+                              <Loader2 size={18} className="animate-spin" />
+                              <span className="animate-pulse">Redirecting to GitHub...</span>
+                            </>
+                         ) : (
+                            <>
+                              <Github size={18} />
+                              <span>View on GitHub</span>
+                              <ExternalLink size={14} className="ml-0.5 opacity-70" />
+                            </>
+                         )}
+                       </button>
                     </div>
                   ) : (
                     <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 opacity-75">

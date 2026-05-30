@@ -18,7 +18,7 @@ const Skills: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <ScrollReveal>
-            <h2 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tighter mb-4">Technical Arsenal</h2>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Technical Arsenal</h2>
           </ScrollReveal>
           <ScrollReveal delay="delay-100">
             <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
@@ -41,7 +41,7 @@ const Skills: React.FC = () => {
                   {skillGroup.items.map((skill) => (
                     <span 
                       key={skill}
-                      className="px-3 py-1.5 text-sm font-bold text-slate-700 dark:text-slate-300 bg-white/20 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg shadow-sm hover:bg-white/40 dark:hover:bg-white/10 transition-colors"
+                      className="px-3 py-1.5 text-sm font-bold text-slate-700 dark:text-slate-300 bg-white/20 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg shadow-sm hover:bg-white/40 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-primary-500 cursor-default"
                     >
                       {skill}
                     </span>

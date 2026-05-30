@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
@@ -43,11 +44,16 @@
                   'background-position': 'right center'
                 },
               },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
             },
             animation: {
               'spin-slow': 'spin 8s linear infinite',
               'bounce-slow': 'bounce 3s infinite',
               'gradient-x': 'gradient-x 3s ease infinite',
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
             }
           },
         },
@@ -64,12 +70,14 @@
     "url": "https://aistudiocdn.com/url@^0.11.4",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
     "path": "https://aistudiocdn.com/path@^0.12.7",
-    "vite": "https://aistudiocdn.com/vite@^7.2.4"
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "nodemailer": "https://aistudiocdn.com/nodemailer@^7.0.10"
   }
 }
 </script>
 </head>
-  <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white antialiased transition-colors duration-500">
+  <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-white antialiased transition-colors duration-500 select-none">
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

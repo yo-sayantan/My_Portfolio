@@ -17,7 +17,7 @@ const Education: React.FC = () => {
                             <div className="p-3 bg-primary-100/50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl">
                                 <GraduationCap className="w-8 h-8" />
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Education</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Education</h2>
                         </div>
                     </ScrollReveal>
                 </div>
@@ -51,7 +51,7 @@ const Education: React.FC = () => {
                             <div className="p-3 bg-purple-100/50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl">
                                 <Award className="w-8 h-8" />
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Certifications</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Certifications</h2>
                         </div>
                     </ScrollReveal>
                 </div>

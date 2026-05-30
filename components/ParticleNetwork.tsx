@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface ParticleNetworkProps {
   isDark: boolean;
@@ -7,7 +7,10 @@ interface ParticleNetworkProps {
 
 const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // Using refs for mouse state to avoid re-renders/closure staleness in animation loop
+  // Initialize based on window width to prevent flash of content
+  // Disable on Mobile (< 768px) and Tablet (< 1024px)
+  const [isHidden, setIsHidden] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+  
   const interactionRef = useRef({
     x: -1000,
     y: -1000,
@@ -15,6 +18,18 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
   });
 
   useEffect(() => {
+    const checkScreenSize = () => {
+        // Disable on Mobile (< 768px) and Tablet (< 1024px)
+        setIsHidden(window.innerWidth < 1024);
+    };
+    
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    if (isHidden) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -23,16 +38,14 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
 
     let width = window.innerWidth;
     let height = window.innerHeight;
-    let particles: Particle[] = [];
     
-    const resizeCanvas = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      initParticles();
-    };
+    // Set actual canvas size to match display size for sharp rendering
+    canvas.width = width;
+    canvas.height = height;
 
+    let particles: Particle[] = [];
+    let animationFrameId: number;
+    
     class Particle {
       x: number;
       y: number;
@@ -41,9 +54,9 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
       baseVx: number;
       baseVy: number;
 
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
+      constructor(w: number, h: number) {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
         
         // Slower movement for viscous liquid feel, but slightly faster than dead stop
         const angle = Math.random() * Math.PI * 2;
@@ -55,7 +68,7 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
         this.vy = this.baseVy;
       }
 
-      update() {
+      update(w: number, h: number) {
         // Smooth return to base velocity (viscosity/damping)
         this.vx += (this.baseVx - this.vx) * 0.01;
         this.vy += (this.baseVy - this.vy) * 0.01;
@@ -112,12 +125,12 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Screen wrapping for continuous flow
-        if (this.x < 0) { this.x = width; }
-        else if (this.x > width) { this.x = 0; }
+        // Screen wrapping for continuous flow using passed dimensions
+        if (this.x < 0) { this.x = w; }
+        else if (this.x > w) { this.x = 0; }
         
-        if (this.y < 0) { this.y = height; }
-        else if (this.y > height) { this.y = 0; }
+        if (this.y < 0) { this.y = h; }
+        else if (this.y > h) { this.y = 0; }
       }
     }
 
@@ -126,15 +139,23 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
       // Increase density
       const particleCount = Math.min(Math.floor((width * height) / 7000), 250);
       for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+        particles.push(new Particle(width, height));
       }
+    };
+
+    const resizeCanvas = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initParticles();
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
       
       // Update physics
-      particles.forEach(p => p.update());
+      particles.forEach(p => p.update(width, height));
 
       // Reset click state after frame
       if (interactionRef.current.isClicked) {
@@ -169,12 +190,9 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
             ctx.stroke();
           }
         }
-        
-        // Removed the code block that draws lines directly to the mouse cursor.
-        // This prevents the "converging at one point" visual artifact.
       }
 
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -190,20 +208,25 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ isDark }) => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mousedown', handleMouseDown);
     
-    initParticles();
+    // Initialize
+    resizeCanvas(); 
     animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mousedown', handleMouseDown);
+      cancelAnimationFrame(animationFrameId);
     };
-  }, [isDark]);
+  }, [isDark, isHidden]);
+
+  if (isHidden) return null;
 
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
+      style={{ width: '100%', height: '100%' }}
     />
   );
 };
