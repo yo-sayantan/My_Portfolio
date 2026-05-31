@@ -183,7 +183,7 @@ const Contact: React.FC = () => {
                     </span>
                   </h2>
                   <p className="text-slate-600 dark:text-slate-400 text-lg mb-10 max-w-md leading-relaxed font-medium">
-                    Have a project in mind? Looking for a consultant? Or just want to talk tech? I'm always open to discussing new projects and opportunities.
+                    Whether you are tackling a complex engineering challenge, envisioning a new product, or just want to talk about the bleeding edge of AI, I'm always curious to connect and explore how we can build something impactful.
                   </p>
                 </ScrollReveal>
 
@@ -240,8 +240,8 @@ const Contact: React.FC = () => {
                 <div className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] p-6 md:p-10 shadow-2xl border border-slate-100 dark:border-slate-800">
 
                   <div className="mb-8">
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Send a Message</h3>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">I usually respond within 24 hours.</p>
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Start a Conversation</h3>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Drop a line below. I'll get back to you within 24 hours.</p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
