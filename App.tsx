@@ -17,15 +17,16 @@ function App() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Only scroll to top on a clean load (no hash). If there IS a hash
-    // (e.g. someone shared a link like site.com/#contact), let the browser
-    // handle it naturally so it scrolls to the correct section.
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    if (!window.location.hash) {
-      window.scrollTo(0, 0);
+    
+    // Always load the main page on refresh. If a hash is present, 
+    // remove it from the URL silently and scroll to the top.
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
     }
+    window.scrollTo(0, 0);
   }, []);
 
   const toggleTheme = () => {
