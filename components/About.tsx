@@ -29,9 +29,9 @@ const About: React.FC = () => {
 
   const tools = [
     { name: 'Cursor', icon: Command, color: 'text-blue-400', bg: 'group-hover/item:bg-blue-500/10', border: 'group-hover/item:border-blue-500/50', iconColor: 'group-hover/item:text-blue-400' },
+    { name: 'ChatGPT', icon: ChatGPTIcon, color: 'text-emerald-400', bg: 'group-hover/item:bg-emerald-500/10', border: 'group-hover/item:border-emerald-500/50', iconColor: 'group-hover/item:text-emerald-500 dark:group-hover/item:text-emerald-400' },
     { name: 'Claude', icon: ClaudeIcon, color: 'text-amber-500', bg: 'group-hover/item:bg-amber-500/10', border: 'group-hover/item:border-amber-500/50', iconColor: 'group-hover/item:text-amber-500' },
-    { name: 'Copilot', icon: Github, color: 'text-white', bg: 'group-hover/item:bg-slate-500/10', border: 'group-hover/item:border-slate-500/50', iconColor: 'group-hover/item:text-white' },
-    { name: 'MCPs', icon: Bot, color: 'text-purple-400', bg: 'group-hover/item:bg-purple-500/10', border: 'group-hover/item:border-purple-500/50', iconColor: 'group-hover/item:text-purple-400' },
+    { name: 'MCPs', icon: Bot, color: 'text-purple-400', bg: 'group-hover/item:bg-purple-500/10', border: 'group-hover/item:border-purple-500/50', iconColor: 'group-hover/item:text-purple-500 dark:group-hover/item:text-purple-400' },
   ];
 
   return (
@@ -68,79 +68,72 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Expanded AI Focus Block - Redesigned for "AI Generated" Look */}
-          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden">
-            {/* Animated Gradient Border */}
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 via-purple-500 to-blue-600 opacity-40 group-hover:opacity-100 transition-all duration-500 blur-sm group-hover:blur-md"></div>
+          {/* Expanded AI Focus Block - 3D Hover & Modern AI Glassmorphic Theme */}
+          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg border-2 border-slate-200/50 dark:border-white/10 group-hover:border-indigo-500/50 dark:group-hover:border-cyan-400/50 shadow-lg hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(34,211,238,0.2)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02]">
+            
+            {/* Hover-based Shifting Inner Glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-violet-500/0 to-cyan-500/0 group-hover:from-indigo-500/10 group-hover:via-violet-500/10 group-hover:to-cyan-500/10 transition-colors duration-700 pointer-events-none"></div>
+            
+            {/* Animated Glow Orbs - More prominent on hover */}
+            <div className="absolute top-[-50%] left-[-50%] w-full h-full bg-indigo-500/5 group-hover:bg-indigo-500/20 blur-[80px] animate-pulse rounded-full pointer-events-none transition-colors duration-700"></div>
+            <div className="absolute bottom-[-50%] right-[-50%] w-full h-full bg-cyan-500/5 group-hover:bg-cyan-500/20 blur-[80px] animate-pulse rounded-full delay-700 pointer-events-none transition-colors duration-700"></div>
 
-            {/* Card Content - Always Dark for Tech Feel */}
-            <div className="absolute inset-[2px] bg-slate-950 rounded-[2.4rem] overflow-hidden z-10">
+            <div className="relative h-full p-8 flex flex-col justify-between z-10">
 
-              {/* Dynamic Background */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.1),transparent_50%)]"></div>
-              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-
-              {/* Animated Glow Orbs */}
-              <div className="absolute top-[-50%] left-[-50%] w-full h-full bg-cyan-500/10 blur-[80px] animate-pulse rounded-full"></div>
-              <div className="absolute bottom-[-50%] right-[-50%] w-full h-full bg-purple-500/10 blur-[80px] animate-pulse rounded-full delay-700"></div>
-
-              <div className="relative h-full p-8 flex flex-col justify-between">
-
-                <div>
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                      <Bot className="w-6 h-6 text-cyan-400" />
-                    </div>
-                    <div className="px-3 py-1 rounded-full bg-cyan-950/50 border border-cyan-500/30 flex items-center gap-2">
-                      <span className="relative flex h-1.5 w-1.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span>
-                      </span>
-                      <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">AI Native</span>
-                    </div>
+              <div>
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="p-2.5 rounded-xl bg-indigo-100/50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
+                    <Bot className="w-6 h-6" />
                   </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">Intelligent Workflow</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium">
-                    Fully integrating modern AI tools like GPT, Claude, Cursor, MCP Servers, and Generative AI agents into the development lifecycle. This involves prompt engineering, deploying and integrating MCP Servers, and orchestrating generative AI agents to drastically accelerate architecture decisions and automate test coverage. Transforming natural language into robust, production-ready infrastructure code.
-                  </p>
-
-                  {/* Tool Tokens */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {tools.map((tool) => (
-                      <div key={tool.name} className={`px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 transition-all duration-300 flex items-center gap-2 group/item cursor-default backdrop-blur-sm ${tool.bg} ${tool.border}`}>
-                        <tool.icon className={`w-3 h-3 text-slate-500 transition-colors ${tool.iconColor}`} />
-                        <span className={`text-[11px] font-bold text-slate-300 transition-colors ${tool.iconColor}`}>{tool.name}</span>
-                      </div>
-                    ))}
+                  <div className="px-3 py-1 rounded-full bg-indigo-100/50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-500/30 flex items-center gap-2">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500"></span>
+                    </span>
+                    <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-400 uppercase tracking-widest">AI Native</span>
                   </div>
                 </div>
 
-                {/* Interactive Terminal/Code Snippet Visual */}
-                <div className="mt-auto p-4 rounded-xl bg-black/60 border border-white/5 font-mono text-[10px] text-slate-400 leading-relaxed relative overflow-hidden shadow-inner">
-                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent opacity-50"></div>
-                  <div className="flex items-center gap-2 mb-2 text-slate-600 border-b border-white/5 pb-2">
-                    <Terminal size={10} />
-                    <span>agent.process_task()</span>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="flex gap-2">
-                      <span className="text-slate-600">1</span>
-                      <span><span className="text-purple-400">const</span> <span className="text-blue-400">context</span> = <span className="text-green-400">await</span> load(docs);</span>
-                    </p>
-                    <p className="flex gap-2">
-                      <span className="text-slate-600">2</span>
-                      <span><span className="text-purple-400">return</span> <span className="text-yellow-400">generate</span>(context);</span>
-                    </p>
-                  </div>
-                  <div className="mt-2 flex items-center gap-1.5 text-cyan-500/70">
-                    <span className="w-1 h-1 bg-cyan-500 rounded-full animate-pulse"></span>
-                    <span>Optimizing...</span>
-                  </div>
-                </div>
+                <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-3 tracking-tight">Intelligent Workflow</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">
+                  Fully integrating modern AI tools like GPT, Claude, Cursor, MCP Servers, and Generative AI agents into the development lifecycle. This involves prompt engineering, deploying and integrating MCP Servers, and orchestrating generative AI agents to drastically accelerate architecture decisions and automate test coverage. Transforming natural language into robust, production-ready infrastructure code.
+                </p>
 
+                {/* Tool Tokens */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {tools.map((tool) => (
+                    <div key={tool.name} className={`px-3 py-1.5 rounded-lg bg-white/20 dark:bg-white/5 border border-slate-200 dark:border-white/10 transition-all duration-300 flex items-center gap-2 group/item cursor-default backdrop-blur-sm ${tool.bg} ${tool.border}`}>
+                      <tool.icon className={`w-3 h-3 text-slate-500 transition-colors ${tool.iconColor}`} />
+                      <span className={`text-[11px] font-bold text-slate-700 dark:text-slate-300 transition-colors ${tool.iconColor}`}>{tool.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              {/* Interactive Terminal/Code Snippet Visual */}
+              <div className="mt-auto p-4 rounded-xl bg-white/50 dark:bg-black/60 border border-slate-200 dark:border-white/5 font-mono text-[10px] text-slate-400 leading-relaxed relative overflow-hidden shadow-inner backdrop-blur-md">
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent opacity-50"></div>
+                <div className="flex items-center gap-2 mb-2 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700/50 pb-2">
+                  <Terminal size={10} />
+                  <span>agent.process_task()</span>
+                </div>
+                <div className="space-y-1">
+                  <p className="flex gap-2">
+                    <span className="text-slate-500 dark:text-slate-600">1</span>
+                    <span><span className="text-purple-600 dark:text-purple-400">const</span> <span className="text-blue-600 dark:text-blue-400">context</span> = <span className="text-emerald-600 dark:text-emerald-400">await</span> load(docs);</span>
+                  </p>
+                  <p className="flex gap-2">
+                    <span className="text-slate-500 dark:text-slate-600">2</span>
+                    <span><span className="text-purple-600 dark:text-purple-400">return</span> <span className="text-indigo-600 dark:text-indigo-400">generate</span>(context);</span>
+                  </p>
+                </div>
+                <div className="mt-2 flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400/80">
+                  <span className="w-1 h-1 bg-indigo-500 dark:bg-indigo-400 rounded-full animate-pulse"></span>
+                  <span>Optimizing architecture...</span>
+                </div>
+              </div>
+
             </div>
           </div>
 

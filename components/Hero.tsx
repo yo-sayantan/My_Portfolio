@@ -52,13 +52,13 @@ const Hero: React.FC = () => {
           <div className="flex flex-col items-start text-left order-2 lg:order-1 relative z-20">
 
             {/* Status Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-slate-200/20 backdrop-blur-xl shadow-lg mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '0s' }}>
+            {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-slate-200/20 backdrop-blur-xl shadow-lg mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '0s' }}>
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
               </span>
               <span className="text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-300">Looking for Exciting Opportunities</span>
-            </div>
+            </div> */}
 
             {/* Main Headline - Increased leading and padding to prevent clipping */}
             <h1 className="text-6xl md:text-8xl xl:text-9xl font-black tracking-tight mb-14 leading-tight opacity-0 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
