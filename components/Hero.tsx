@@ -94,7 +94,7 @@ const Hero: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative flex items-center gap-2 group-hover:text-white transition-colors duration-300">
-                  View Engineering Work
+                  View My Projects
                   <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[3px]" />
                 </span>
               </a>
