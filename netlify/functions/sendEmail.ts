@@ -169,7 +169,10 @@ export default async (req: Request) => {
         hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
       });
 
-      const senderInitial = body.name.trim().charAt(0).toUpperCase();
+      const nameParts = body.name.trim().split(/\s+/);
+      const senderInitial = nameParts.length > 1 
+        ? (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase()
+        : nameParts[0].charAt(0).toUpperCase();
 
       const htmlContent = `
       <!DOCTYPE html>
@@ -256,10 +259,14 @@ export default async (req: Request) => {
                                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                                   <tr>
                                     <!-- Avatar -->
-                                    <td style="width: 56px; vertical-align: top;">
-                                      <div style="width: 52px; height: 52px; border-radius: 16px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 22px; font-weight: 800; line-height: 52px; text-align: center;">
-                                        ${senderInitial}
-                                      </div>
+                                    <td style="width: 56px; vertical-align: top; padding-top: 2px;">
+                                      <table role="presentation" width="52" height="52" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 16px; overflow: hidden;">
+                                        <tr>
+                                          <td align="center" valign="middle" style="width: 52px; height: 52px; color: #ffffff; font-size: 20px; font-weight: 800; text-align: center; font-family: 'Inter', -apple-system, sans-serif;">
+                                            ${senderInitial}
+                                          </td>
+                                        </tr>
+                                      </table>
                                     </td>
                                     <!-- Info -->
                                     <td style="padding-left: 16px; vertical-align: top;">
