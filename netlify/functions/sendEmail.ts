@@ -36,8 +36,8 @@ export default async (req: Request) => {
     const body = await req.json() as EmailPayload;
     const userAgent = req.headers.get('user-agent') || 'Unknown';
     // Netlify headers for IP
-    const ip = req.headers.get('x-nf-client-connection-ip') || req.headers.get('client-ip') || 'Unknown'; 
-    
+    const ip = req.headers.get('x-nf-client-connection-ip') || req.headers.get('client-ip') || 'Unknown';
+
     if (!body.email || !body.message) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
         status: 400,
@@ -73,12 +73,12 @@ export default async (req: Request) => {
     if (isTranscript) {
       // CASE 1: SEND TRANSCRIPT TO USER (Chat UI Style)
       const transcriptList = body.transcript || [];
-      
+
       // Generate Chat Bubbles HTML
       const chatBubbles = transcriptList.map((msg: any) => {
         const isUser = msg.sender === 'user';
         const time = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        
+
         return `
           <div style="margin-bottom: 20px; display: flex; justify-content: ${isUser ? 'flex-end' : 'flex-start'}; align-items: flex-end;">
             ${!isUser ? `
@@ -93,10 +93,10 @@ export default async (req: Request) => {
                 font-size: 14px; 
                 line-height: 1.5;
                 box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-                ${isUser 
-                  ? 'background-color: #0ea5e9; color: white; border-bottom-right-radius: 4px;' 
-                  : 'background-color: #f8fafc; color: #334155; border: 1px solid #e2e8f0; border-bottom-left-radius: 4px;'
-                }
+                ${isUser
+            ? 'background-color: #0ea5e9; color: white; border-bottom-right-radius: 4px;'
+            : 'background-color: #f8fafc; color: #334155; border: 1px solid #e2e8f0; border-bottom-left-radius: 4px;'
+          }
               ">
                 ${msg.text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
               </div>
@@ -121,7 +121,7 @@ export default async (req: Request) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
       <body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: 'Segoe UI', sans-serif;">
-        <div style="max-width: 1000px; margin: 40px auto; background-color: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+        <div style="width: 100%; margin: 40px auto; background-color: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #0f172a, #1e293b); padding: 20px 30px; text-align: center;">
@@ -160,13 +160,13 @@ export default async (req: Request) => {
 
     } else {
       // CASE 2: SEND CONTACT FORM TO OWNER — Premium Notification Email
-      const subjectLine = body.subject 
-        ? `⚡ New Inquiry · ${body.subject}` 
+      const subjectLine = body.subject
+        ? `⚡ New Inquiry · ${body.subject}`
         : `⚡ New Inquiry from ${body.name}`;
 
-      const sentAt = new Date().toLocaleString('en-US', { 
-        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
-        hour: '2-digit', minute: '2-digit', timeZoneName: 'short' 
+      const sentAt = new Date().toLocaleString('en-US', {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
       });
 
       const senderInitial = body.name.trim().charAt(0).toUpperCase();
@@ -205,19 +205,14 @@ export default async (req: Request) => {
             <td align="center" style="padding: 40px 16px;">
               
               <!-- Main Container -->
-              <table role="presentation" width="1000" cellpadding="0" cellspacing="0" style="max-width: 1000px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.06);">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.06);">
                 
                 <!-- ========== HEADER with Abstract Elements ========== -->
                 <tr>
-                  <td style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f172a 100%); padding: 0; position: relative;">
+                  <td style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #312e81 60%, #1e293b 100%); padding: 0;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding: 24px 40px; position: relative;">
-                          
-                          <!-- Abstract Decorative Orbs (inline SVG circles for email compatibility) -->
-                          <div style="position: absolute; top: -30px; right: -20px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.35) 0%, transparent 70%); pointer-events: none;"></div>
-                          <div style="position: absolute; bottom: -40px; left: 30px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(14,165,233,0.25) 0%, transparent 70%); pointer-events: none;"></div>
-                          <div style="position: absolute; top: 20px; left: 50%; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, rgba(168,85,247,0.20) 0%, transparent 70%); pointer-events: none;"></div>
+                        <td style="padding: 24px 40px;">
                           
                           <!-- Accent Line -->
                           <div style="width: 50px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, #6366f1, #0ea5e9, #a855f7); margin-bottom: 12px;"></div>
