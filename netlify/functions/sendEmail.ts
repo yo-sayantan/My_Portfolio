@@ -121,10 +121,10 @@ export default async (req: Request) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
       <body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: 'Segoe UI', sans-serif;">
-        <div style="max-width: 600px; margin: 40px auto; background-color: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+        <div style="max-width: 1000px; margin: 40px auto; background-color: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
           
           <!-- Header -->
-          <div style="background: linear-gradient(135deg, #0f172a, #1e293b); padding: 30px; text-align: center;">
+          <div style="background: linear-gradient(135deg, #0f172a, #1e293b); padding: 20px 30px; text-align: center;">
             <h2 style="color: white; margin: 0; font-size: 24px; font-weight: 700;">Chat Transcript</h2>
             <p style="color: #94a3b8; margin: 8px 0 0; font-size: 14px;">A copy of your conversation with ${OWNER.name}'s Portfolio Assistant</p>
           </div>
@@ -205,14 +205,14 @@ export default async (req: Request) => {
             <td align="center" style="padding: 40px 16px;">
               
               <!-- Main Container -->
-              <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.06);">
+              <table role="presentation" width="1000" cellpadding="0" cellspacing="0" style="max-width: 1000px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.06);">
                 
                 <!-- ========== HEADER with Abstract Elements ========== -->
                 <tr>
                   <td style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f172a 100%); padding: 0; position: relative;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding: 44px 40px 40px; position: relative;">
+                        <td style="padding: 24px 40px; position: relative;">
                           
                           <!-- Abstract Decorative Orbs (inline SVG circles for email compatibility) -->
                           <div style="position: absolute; top: -30px; right: -20px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.35) 0%, transparent 70%); pointer-events: none;"></div>
@@ -220,7 +220,7 @@ export default async (req: Request) => {
                           <div style="position: absolute; top: 20px; left: 50%; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, rgba(168,85,247,0.20) 0%, transparent 70%); pointer-events: none;"></div>
                           
                           <!-- Accent Line -->
-                          <div style="width: 50px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, #6366f1, #0ea5e9, #a855f7); margin-bottom: 20px;"></div>
+                          <div style="width: 50px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, #6366f1, #0ea5e9, #a855f7); margin-bottom: 12px;"></div>
                           
                           <!-- Header Text -->
                           <h1 style="margin: 0 0 6px; font-size: 26px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; line-height: 1.2;">
@@ -231,7 +231,7 @@ export default async (req: Request) => {
                           </p>
                           
                           <!-- Timestamp Badge -->
-                          <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top: 12px;">
                             <tr>
                               <td style="background-color: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 8px 14px;">
                                 <span style="font-size: 11px; color: #cbd5e1; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
