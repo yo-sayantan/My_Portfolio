@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Code2, Download, Sun, Moon } from 'lucide-react';
+import { OWNER } from '../ownerConfig';
 
 interface HeaderProps {
   isDark: boolean;
@@ -105,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
             <Code2 size={20} />
           </div>
           <span className={`text-xl font-bold tracking-tight transition-colors ${isScrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'}`}>
-            Sayantan<span className="text-primary-500">.Dev</span>
+            {OWNER.firstName}<span className="text-primary-500">.Dev</span>
           </span>
         </a>
 
@@ -152,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
             </button>
 
             <a
-              href="/Sayantan_Resume.pdf"
+              href={`/${OWNER.firstName}_Resume.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-500 hover:to-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/40 hover:-translate-y-0.5 px-6 py-2.5 rounded-full shadow-lg"

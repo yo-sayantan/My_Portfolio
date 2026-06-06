@@ -2,6 +2,7 @@
 import React from 'react';
 import { SOCIAL_LINKS } from '../constants';
 import { Github, Linkedin, Heart, Mail } from 'lucide-react';
+import { OWNER } from '../ownerConfig';
 
 const Footer: React.FC = () => {
   const socialIcons = [
@@ -33,7 +34,7 @@ const Footer: React.FC = () => {
            {/* Brand Section - Left */}
            <div className="flex items-center gap-3">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">
-                Sayantan<span className="text-primary-500">.Dev</span>
+                {OWNER.firstName}<span className="text-primary-500">.Dev</span>
               </h3>
               <span className="hidden md:block text-slate-300 dark:text-slate-700 h-4 border-l border-slate-300 dark:border-slate-700 mx-1"></span>
               <p className="hidden md:block text-sm font-medium text-slate-500 dark:text-slate-500 leading-none">
@@ -65,7 +66,7 @@ const Footer: React.FC = () => {
         {/* Bottom Section */}
         <div className="flex flex-row items-center justify-between gap-3 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
           <p>
-            © {new Date().getFullYear()} Sayantan Biswas.
+            © {new Date().getFullYear()} {OWNER.name}.
           </p>
           <p className="flex items-center gap-1.5">
             Made with <Heart className="w-3 h-3 text-red-500 fill-red-500 animate-pulse" /> using React

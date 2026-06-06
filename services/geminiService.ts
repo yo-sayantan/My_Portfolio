@@ -1,11 +1,12 @@
 
 import { PORTFOLIO_DATA } from '../constants';
+import { OWNER } from '../ownerConfig';
 
 // Construct a rich context object for the AI
 const { personal, professional } = PORTFOLIO_DATA;
 
 const SYSTEM_INSTRUCTION = `
-You are the AI assistant for ${personal.name}, a Senior Software Engineer expert in Java backend, cloud microservices, and API design.
+You are the AI assistant for ${personal.name}, a ${personal.role} expert in Java backend, cloud microservices, and API design.
 Highlight his ability to architect scalable systems and leverage AI-driven workflows (Prompt Engineering, AI Agents, MCP).
 
 **Context from Portfolio Data:**
@@ -21,9 +22,9 @@ Highlight his ability to architect scalable systems and leverage AI-driven workf
 - **Education:** B.Tech from KIIT (9.13 CGPA), M.Tech from BITS Pilani in Software Engineering (8 CGPA).
 - **Certifications:** OCI Foundations Associate (Oracle Cloud), Basic Python, NIIT Java.
 - **Awards:** Star Team Award (Q2, 2021) and HighFlyer (2021) from HighRadius.
-- **GitHub (yo-sayantan):** Features projects like Book Exchange Platform, QuickTask Application, Investment Planner, OS Processes Scheduler, and West Bengal Tourism site. (https://github.com/yo-sayantan/)
-- **Live Netlify Portfolio:** https://sayantan-myportfolio.netlify.app/ (Built with React, Vite, Tailwind, Glassmorphism).
-- **LinkedIn Profile:** https://www.linkedin.com/in/yo-sayantan/
+- **GitHub:** Features projects like Book Exchange Platform, QuickTask Application, Investment Planner, OS Processes Scheduler, and West Bengal Tourism site. (${personal.socialLinks.github}/)
+- **Live Netlify Portfolio:** ${OWNER.portfolio}/ (Built with React, Vite, Tailwind, Glassmorphism).
+- **LinkedIn Profile:** ${personal.socialLinks.linkedin}/
 - **Key Resume Achievements:** 
   - Integrated Mastercard & HSBC payment services at Oracle Fusion Cloud Financials.
   - Upgrading PreciseMatch and PreciseID fraud detection at Experian (JDK, Spring, Hibernate).
@@ -76,8 +77,8 @@ export const sendMessageToGemini = async (
     if (!response.ok) {
       if (response.status === 404 && typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
         return {
-          text: "I'm currently running in **Local Frontend-only Mode**.\n\nIn the live production environment, I connect seamlessly to Google's Gemini AI to answer questions about Sayantan's experience!",
-          suggestions: ["View Projects", "Contact Sayantan", "Check Skills"]
+          text: `I'm currently running in **Local Frontend-only Mode**.\n\nIn the live production environment, I connect seamlessly to Google's Gemini AI to answer questions about ${OWNER.firstName}'s experience!`,
+          suggestions: ["View Projects", `Contact ${OWNER.firstName}`, "Check Skills"]
         };
       }
       const errorData = await response.json().catch(() => ({}));
@@ -89,8 +90,8 @@ export const sendMessageToGemini = async (
     // Handle Demo Mode response from backend
     if (data.mode === 'demo') {
       return {
-        text: "I'm currently running in **Demo Mode** because the API key is being configured securely on the server. \n\nIn a live environment, I would use Google's Gemini AI to answer your questions about Sayantan's experience with Java, Microservices, and Cloud Architecture.",
-        suggestions: ["View Projects", "Contact Sayantan", "Check Skills"]
+        text: `I'm currently running in **Demo Mode** because the API key is being configured securely on the server. \n\nIn a live environment, I would use Google's Gemini AI to answer your questions about ${OWNER.firstName}'s experience with Java, Microservices, and Cloud Architecture.`,
+        suggestions: ["View Projects", `Contact ${OWNER.firstName}`, "Check Skills"]
       };
     }
 
@@ -113,7 +114,7 @@ export const sendMessageToGemini = async (
     console.error("Gemini Service Error:", error);
     return {
       text: "I'm having a bit of trouble connecting to the server right now. Please try again in a moment!",
-      suggestions: ["Try again later", "Contact Sayantan directly"]
+      suggestions: ["Try again later", `Contact ${OWNER.firstName} directly`]
     };
   }
 };

@@ -4,6 +4,7 @@ import { SOCIAL_LINKS } from '../constants';
 import { Mail, MapPin, Send, Loader2, CheckCircle, AlertCircle, Linkedin, MessageCircle, User, Type, AlignLeft, AtSign, LucideIcon } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import { sendEmail } from '../services/emailService';
+import { OWNER } from '../ownerConfig';
 
 // Extract InputField outside the main component to prevent re-renders causing focus loss
 interface InputFieldProps {
@@ -220,13 +221,13 @@ const Contact: React.FC = () => {
                       </div>
                     </a>
 
-                    <a href="https://maps.google.com/?q=Kondapur,+Hyderabad,+Telangana" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 group p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
+                    <a href={OWNER.locationUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 group p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
                       <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-all duration-300">
                         <MapPin className="w-5 h-5" />
                       </div>
                       <div>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Location</p>
-                        <p className="text-base md:text-lg font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Kondapur, Hyderabad</p>
+                        <p className="text-base md:text-lg font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{OWNER.location}</p>
                       </div>
                     </a>
                   </div>

@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, Component, ErrorInfo } from 'react'
 import { MessageSquare, Send, X, Sparkles, Loader2, User, Bot, Trash2, Mail, Check } from 'lucide-react';
 import { sendMessageToGemini, ChatHistoryItem } from '../services/geminiService';
 import { sendEmail } from '../services/emailService';
+import { OWNER } from '../ownerConfig';
 
 // --- Error Boundary Component ---
 class ChatErrorBoundary extends Component<{ children: React.ReactNode }, { hasError: boolean }> {
@@ -77,7 +78,7 @@ const AIChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi! I'm Sayantan's AI assistant. How can I help you today?",
+      text: `Hi! I'm ${OWNER.firstName}'s AI assistant. How can I help you today?`,
       sender: 'ai',
       timestamp: new Date()
     }

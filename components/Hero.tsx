@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { ArrowRight, Github, Linkedin, Mail, ChevronDown, Terminal } from 'lucide-react';
 import { SOCIAL_LINKS } from '../constants';
+import { OWNER } from '../ownerConfig';
 
 const Hero: React.FC = () => {
 
@@ -75,7 +76,7 @@ const Hero: React.FC = () => {
               className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 max-w-4xl mb-6 leading-snug opacity-0 animate-fade-in-up"
               style={{ animationDelay: '0.3s' }}
             >
-              Senior Software Engineer developing and architecting scalable cloud solutions and AI-agents.
+              {OWNER.role} developing and architecting scalable cloud solutions and AI-agents.
             </p>
 
             {/* Detailed Description */}
@@ -144,8 +145,8 @@ const Hero: React.FC = () => {
               {/* Main Image Container - Circular */}
               <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border border-white/20 dark:border-white/5 bg-white dark:bg-slate-900 z-10 transform transition-transform duration-500 group-hover:scale-[1.02]">
                 <img
-                  src="https://github.com/yo-sayantan.png"
-                  alt="Sayantan Biswas"
+                  src={OWNER.avatarUrl}
+                  alt={OWNER.name}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

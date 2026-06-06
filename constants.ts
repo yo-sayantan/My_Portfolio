@@ -1,13 +1,14 @@
 
 import { Experience, Project, Skill, Certification, Education, Award } from './types';
+import { OWNER } from './ownerConfig';
 
 // --- Raw Data Definitions ---
 
 const SOCIAL_LINKS_DATA = {
-  github: "https://github.com/yo-sayantan",
-  linkedin: "https://www.linkedin.com/in/yo-sayantan",
-  email: "sayantanbiswas.mycareer@gmail.com",
-  phone: "+917381183721",
+  github: OWNER.github,
+  linkedin: OWNER.linkedin,
+  email: OWNER.email,
+  phone: OWNER.phone,
 };
 
 const SUMMARY_DATA = "Experienced Senior Software Engineer with over {{YRS}} years of expertise in Java backend development, AWS cloud architectures, and Microservices. I specialize in architecting high-performance, highly concurrent systems that solve complex, data-heavy enterprise challenges. By seamlessly blending traditional robust engineering with a touch of modern AI-driven workflows, I am able to significantly accelerate development lifecycles and maximize code quality. I am deeply committed to continuous innovation, mentoring cross-functional teams, and driving engineering excellence through scalable, intelligent solutions.";
@@ -130,7 +131,7 @@ const PROJECTS_DATA: Project[] = [
       'Responsive React UI with Dark Mode Support',
       'RESTful API Design with Swagger Documentation'
     ],
-    link: 'https://github.com/yo-sayantan/Book_Exchange_Project'
+    link: `${OWNER.github}/Book_Exchange_Project`
   },
   {
     id: 'quick-task',
@@ -146,7 +147,7 @@ const PROJECTS_DATA: Project[] = [
       'Customizable Task Categories & Priorities',
       'Push Notifications for Deadlines'
     ],
-    link: 'https://github.com/yo-sayantan/QuickTask_Pro'
+    link: `${OWNER.github}/QuickTask_Pro`
   },
   {
     id: 'legal-entity',
@@ -207,7 +208,7 @@ const PROJECTS_DATA: Project[] = [
       'Performance Metrics (Turnaround Time, Wait Time)',
       'Bash Scripts for Automated Testing'
     ],
-    link: 'https://github.com/yo-sayantan/OS_Scheduling'
+    link: `${OWNER.github}/OS_Scheduling`
   },
   {
     id: 'my-portfolio',
@@ -223,7 +224,7 @@ const PROJECTS_DATA: Project[] = [
       'Dynamic Content Rendering',
       'Performance Optimized'
     ],
-    link: 'https://github.com/yo-sayantan/My_Portfolio'
+    link: `${OWNER.github}/My_Portfolio`
   },
   {
     id: 'school-connect',
@@ -254,7 +255,7 @@ const PROJECTS_DATA: Project[] = [
       'Responsive Mobile-First Design',
       'Optimized Asset Loading'
     ],
-    link: 'https://github.com/yo-sayantan/Beautiful_Bengal_v3'
+    link: `${OWNER.github}/Beautiful_Bengal_v3`
   }
 ];
 
@@ -326,8 +327,8 @@ export interface PortfolioData {
 
 export const PORTFOLIO_DATA: PortfolioData = {
   personal: {
-    name: "Sayantan Biswas",
-    role: "Senior Software Engineer",
+    name: OWNER.name,
+    role: OWNER.role,
     summary: SUMMARY_DATA,
     socialLinks: SOCIAL_LINKS_DATA
   },
