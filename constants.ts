@@ -213,6 +213,22 @@ const PROJECTS_DATA: Project[] = [
     ]
   },
   {
+    id: 'my-portfolio',
+    title: 'My Career Portfolio',
+    type: 'Personal',
+    techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'AI Integrations'],
+    description: 'A dynamic, highly interactive personal portfolio website showcasing professional experience, projects, and skills. Built with modern web technologies and featuring advanced AI-driven conversational capabilities.',
+    longDescription: 'This project serves as a comprehensive digital resume. It leverages React and Vite for blazing-fast performance, TypeScript for robust type safety, and Tailwind CSS for a stunning, responsive design. The platform integrates intelligent AI chatbots to provide an interactive experience for visitors seeking to learn more about my background.',
+    features: [
+      'Modern React & Vite Architecture',
+      'Fully Responsive & Interactive UI',
+      'AI-Powered Chat Assistant',
+      'Dynamic Content Rendering',
+      'Performance Optimized'
+    ],
+    link: `${OWNER.github}/My_Portfolio`
+  },
+  {
     id: 'investment-tracker',
     title: 'Algorithmic Investment Tracker',
     type: 'Personal',
@@ -242,20 +258,6 @@ const PROJECTS_DATA: Project[] = [
     ]
   },
   {
-    id: 'financial-planner',
-    title: 'Financial Planner',
-    type: 'Personal',
-    techStack: ['Google Sheets', 'Financial Modeling', 'Tax Calculation'],
-    description: 'Developed a Google Sheets-based financial planner that calculates income tax and available investment amount by factoring in in-hand salary, EMIs, rent, insurance, and other deductions.',
-    longDescription: 'A comprehensive Google Sheets-based financial planner built to automate personal finance calculations. It factors in in-hand salary, EMIs, rent, insurance, and other deductions to calculate income tax liability and available investment amounts. The tool provides a clear picture of disposable income and investment capacity.',
-    features: [
-      'Automated Income Tax Calculation',
-      'Salary \u0026 Deduction Breakdown',
-      'Investment Capacity Analysis',
-      'EMI, Rent \u0026 Insurance Tracking'
-    ]
-  },
-  {
     id: 'os-scheduler',
     title: 'OS CPU Scheduler Simulator',
     type: 'Personal',
@@ -270,22 +272,6 @@ const PROJECTS_DATA: Project[] = [
       'Bash Scripts for Automated Testing'
     ],
     link: `${OWNER.github}/OS_Scheduling`
-  },
-  {
-    id: 'my-portfolio',
-    title: 'My Career Portfolio',
-    type: 'Personal',
-    techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'AI Integrations'],
-    description: 'A dynamic, highly interactive personal portfolio website showcasing professional experience, projects, and skills. Built with modern web technologies and featuring advanced AI-driven conversational capabilities.',
-    longDescription: 'This project serves as a comprehensive digital resume. It leverages React and Vite for blazing-fast performance, TypeScript for robust type safety, and Tailwind CSS for a stunning, responsive design. The platform integrates intelligent AI chatbots to provide an interactive experience for visitors seeking to learn more about my background.',
-    features: [
-      'Modern React & Vite Architecture',
-      'Fully Responsive & Interactive UI',
-      'AI-Powered Chat Assistant',
-      'Dynamic Content Rendering',
-      'Performance Optimized'
-    ],
-    link: `${OWNER.github}/My_Portfolio`
   },
   {
     id: 'school-connect',
