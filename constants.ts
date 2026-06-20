@@ -103,12 +103,30 @@ const EDUCATION_DATA: Education[] = [
 
 const PROJECTS_DATA: Project[] = [
   {
+    id: 'legacy-modernization',
+    title: 'Enterprise Legacy Modernization',
+    type: 'Work',
+    techStack: ['Java', 'AWS', 'Docker', 'Kubernetes', 'Spring Boot', 'Microservices', 'JDK21', 'Jenkins CI/CD'],
+    description: 'Led the end-to-end architectural migration of legacy monolithic applications to a modern, cloud-native microservices architecture deployed on AWS with Docker containerization and Kubernetes orchestration. Established zero-downtime CI/CD pipelines with Disaster Recovery.',
+    longDescription: 'A comprehensive enterprise modernization initiative at Experian to transform aging monolithic systems into scalable, resilient microservices. The project involved upgrading core systems from JDK8 to JDK21, decomposing tightly-coupled modules into independently deployable Docker-containerized services, and orchestrating them via Kubernetes on AWS. The migration also addressed risk mitigation through phased rollouts, automated rollback strategies, robust CI/CD pipelines using Jenkins, and a comprehensive Disaster Recovery strategy to ensure zero-downtime deployments and business continuity.',
+    features: [
+      'Monolith-to-Microservices Decomposition',
+      'JDK8 to JDK21 Core System Upgrade',
+      'Docker Containerization & Kubernetes Orchestration',
+      'AWS Cloud-Native Deployment Architecture',
+      'Zero-Downtime CI/CD Pipelines with Jenkins',
+      'Phased Rollout & Automated Rollback Strategies',
+      'Disaster Recovery & Business Continuity',
+      'Risk Mitigation & Legacy Dependency Resolution'
+    ]
+  },
+  {
     id: 'quickbooks-integration',
     title: 'QuickBooks Integration',
     type: 'Work',
-    techStack: ['Java', 'QuickBooks API', 'OAuth', 'Microservices', 'Data Synchronization'],
-    description: 'Designed and implemented a strategic integration between HighRadius Credit and QuickBooks. Engineered new credit limit functionalities that improved payment efficiency and directly drove the acquisition of new enterprise clients.',
-    longDescription: 'This high-impact, proprietary integration serves as a secure bridge between the HighRadius Credit and QuickBooks. The primary technical mandate involved handling complex OAuth authentication, fetching and processing raw invoices and transactions, and engineering an intelligent engine to process credits. By ensuring real-time bidirectional synchronization, the system guaranteed that both HighRadius and QuickBooks data remained perfectly aligned after transaction processing—a feature that became a major selling point for new client acquisition.',
+    techStack: ['Java', 'QuickBooks API', 'WorldPay', 'OAuth', 'CRM Integration', 'Microservices', 'Data Synchronization'],
+    description: 'Designed and developed seamless integration of QuickBooks and WorldPay with the HighRadius Credit Management, facilitating data import from CRM systems and optimizing payment and tax management. Streamlined financial operations, handling over 10,000 transactions monthly.',
+    longDescription: 'This high-impact, proprietary integration serves as a secure bridge between HighRadius Credit Management and QuickBooks/WorldPay. The primary technical mandate involved handling complex OAuth authentication, facilitating data import from CRM systems, and engineering an intelligent engine to process credits and tax management. By ensuring real-time bidirectional synchronization handling over 10,000 transactions monthly, the system guaranteed that both HighRadius and QuickBooks data remained perfectly aligned after transaction processing—a feature that became a major selling point for new client acquisition.',
     features: [
       'Secure QuickBooks OAuth Authentication',
       'Bidirectional Data Synchronization Engine',
@@ -154,8 +172,8 @@ const PROJECTS_DATA: Project[] = [
     title: 'Legal Entity Localization',
     type: 'Work',
     techStack: ['AWS', 'Java', 'Microservices', 'Compliance', 'PL/SQL', 'Spring Batch'],
-    description: 'Spearheaded the development of a mission-critical microservice on AWS for invoice localization. Engineered workflows to dynamically validate and fetch entity data, ensuring strict compliance with diverse international financial regulations.',
-    longDescription: 'This enterprise-grade microservice was architected to solve complex regulatory compliance challenges for multinational invoicing. Hosting on AWS, the service dynamically adjusts validation logic based on the legal entitys jurisdiction. It integrates with legacy PL/SQL systems while providing a modern REST interface for consuming applications, ensuring that all financial documents meet strict local legal standards.',
+    description: 'Solely developed and tested the implementation of Legal Entity Localization, enabling clients to issue invoices customized for individual companies, Legal Entity IDs, and currencies. Utilized AWS services to fetch critical legal entity information, improving invoice customization accuracy and ensuring compliance.',
+    longDescription: 'This enterprise-grade microservice was architected to solve complex regulatory compliance challenges for multinational invoicing. Built with sole ownership from design through testing, the service on AWS dynamically adjusts validation logic based on the legal entity\'s jurisdiction, enabling clients to issue invoices customized for individual companies, Legal Entity IDs, and currencies. It integrates with legacy PL/SQL systems while providing a modern REST interface, significantly enhancing invoice accuracy and compliance through the integration of dynamic billing criteria.',
     features: [
       'Dynamic Regulatory Rule Engine',
       'AWS Lambda & API Gateway Integration',
@@ -180,6 +198,21 @@ const PROJECTS_DATA: Project[] = [
     ]
   },
   {
+    id: 'dynamic-notifications',
+    title: 'Dynamic Notification Infrastructure',
+    type: 'Work',
+    techStack: ['Java', 'Spring Boot', 'Microservices', 'SaaS', 'Event-Driven Architecture'],
+    description: 'Developed a scalable infrastructure for dynamic notifications, enabling clients to send personalized alerts based on predefined parameters. Boosted client engagement by 25% through targeted communication strategies.',
+    longDescription: 'A key SaaS feature engineered for the HighRadius Credit platform, this Dynamic Notification Infrastructure enables merchants and users to configure customized in-portal notifications based on varying criteria. The system was designed for scalability, supporting personalized alert delivery across a large client base. Through targeted communication strategies driven by predefined parameters, the infrastructure boosted client engagement by 25%.',
+    features: [
+      'Customizable Notification Rules Engine',
+      'Merchant-Specific Alert Configuration',
+      'Scalable Event-Driven Architecture',
+      '25% Boost in Client Engagement',
+      'Real-time In-Portal Alert Delivery'
+    ]
+  },
+  {
     id: 'investment-tracker',
     title: 'Algorithmic Investment Tracker',
     type: 'Personal',
@@ -192,6 +225,34 @@ const PROJECTS_DATA: Project[] = [
       'Portfolio Rebalancing Alerts',
       'Visual Data Analysis with Matplotlib',
       'Google Sheets Bi-directional Sync'
+    ]
+  },
+  {
+    id: 'investment-planner',
+    title: 'Investment Planner',
+    type: 'Personal',
+    techStack: ['Java', 'Financial Algorithms', 'Risk Management'],
+    description: 'Developed a Java-based application for financial planning. Calculates required investments to achieve target profits and handles investment strategies for risk management.',
+    longDescription: 'A Java-based financial planning tool designed to help users calculate the required investments to achieve target profit goals. The application implements investment strategy algorithms that factor in risk management, enabling informed financial decision-making through data-driven projections.',
+    features: [
+      'Target Profit Calculation Engine',
+      'Investment Strategy Algorithms',
+      'Risk Management Analysis',
+      'Data-Driven Financial Projections'
+    ]
+  },
+  {
+    id: 'financial-planner',
+    title: 'Financial Planner',
+    type: 'Personal',
+    techStack: ['Google Sheets', 'Financial Modeling', 'Tax Calculation'],
+    description: 'Developed a Google Sheets-based financial planner that calculates income tax and available investment amount by factoring in in-hand salary, EMIs, rent, insurance, and other deductions.',
+    longDescription: 'A comprehensive Google Sheets-based financial planner built to automate personal finance calculations. It factors in in-hand salary, EMIs, rent, insurance, and other deductions to calculate income tax liability and available investment amounts. The tool provides a clear picture of disposable income and investment capacity.',
+    features: [
+      'Automated Income Tax Calculation',
+      'Salary \u0026 Deduction Breakdown',
+      'Investment Capacity Analysis',
+      'EMI, Rent \u0026 Insurance Tracking'
     ]
   },
   {

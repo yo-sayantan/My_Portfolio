@@ -1,0 +1,142 @@
+Sayantan Biswas                                           
++917381183721 | sayantanbiswas.mycareer@gmail.com | Hyderabad, Telangana 
+Summary 
+Experienced Senior Software Engineer with over 6 years of expertise in Java backend development, AWS cloud architectures, and Microservices. 
+Specialized in architecting high-performance, highly concurrent systems that solve complex, data-heavy enterprise challenges across Fraud 
+Detection, Financial Services, and SaaS domains. Proven track record of leading end-to-end modernization efforts — from legacy migrations to 
+JDK21 and containerized deployments with Docker and Kubernetes. Accelerates development lifecycles by integrating AI driven workflows, while 
+mentoring cross-functional teams and driving engineering excellence through scalable, intelligent solutions. 
+ 
+Skills 
+ Java 
+ MySQL 
+ AWS 
+ JBoss 
+ SpringBoot 
+ Hibernate 
+ System Design and Integration 
+ Data Structure and Algorithm 
+ Docker 
+ Micro-services 
+ Jenkins 
+ REST, SOAP 
+ Oracle Cloud 
+ JS & JSP 
+ Regex 
+ Git and GitHub 
+ JSON 
+ XML 
+ JUnits 
+ Claude 
+ 
+ 
+Experience 
+Experian | Hyderabad, Telangana 
+Senior Software Engineer | 12/2024 – Present 
+ 
+ Part of the FSD Team, which involves developing and improving the infrastructure for Fraud Detection in Financial Transaction. 
+ Worked on the upgradation of PreciseID, FraudAdmin, PreciseMatch and DeviceID tools, to provide better verification policies and rules. 
+ Worked on the API gateway, to gather data from different services and re-direct requests to correct services. 
+ Led the end-to-end architectural migration of legacy applications to AWS using Docker, while upgrading core systems from JDK8 to JDK21 to 
+maximize scalability and performance and fixing major vulnerabilities. 
+ Orchestrating containerized microservices using Docker and Kubernetes, ensuring high availability and seamless server management. 
+ Collaborated with Excalibur and CloudNine teams in developing new ideas, initiatives, products and services. 
+ Modernized the user interfaces of multiple enterprise portals by upgrading legacy codebases to the latest JavaScript frameworks, ensuring 
+seamless cross-browser compatibility and highly responsive frontend performance. 
+ Championing an AI-first culture by integrating Claude, Cursor, MCP servers, and other AI tools into the development lifecycle, boosting team 
+productivity by almost 50%. 
+ 
+Oracle | Hyderabad, Telangana 
+Applications Engineer 2 | 08/2022 – 11/2024 
+ 
+ Spearheaded a strategic payment service integration with Mastercard and HSBC for Oracle Fusion Cloud Financials, optimizing revenue 
+recognition and client cash flow. 
+ Architected and managed dynamic Docker deployments on Oracle VM, ensuring seamless Oracle DB integration and high system availability. 
+ Designed and implemented scalable microservices architectures to facilitate robust payment service integrations. 
+ Partnered with Tax and Project Management teams to innovate and launch new financial products on Fusion Payables for global enterprise and 
+government clients. 
+ Maintain software products including programs, webapps and databases. Designed and developed new business features and enhancements 
+on Fusion Payables. Incorporated new changes and solve bugs for corporations, universities and government organisations. 
+ Leveraged advanced PL/SQL optimization, SQLHC, and AWR analysis to boost database performance and ensure data integrity. 
+ Conducted SQLHC and AWR analyses and Implement data-fix scripts for database performance improvements. 
+ Integrated AI-driven workflows (Copilot and Claude) to automate coding tasks and documentation, achieving 30% increase in productivity. 
+ Established comprehensive automated testing frameworks using JUnit and UTPL/SQL to guarantee software quality. 
+ 
+HighRadius | Hyderabad, Telangana 
+Associate Software Engineer | 06/2021 - 07/2022 
+ 
+ Architected and developed core modules for the HighRadius Credit application using Java, Spring, Hibernate, ExtJS, and MySQL, implementing 
+robust RESTful APIs. Leveraged AWS to enhance cloud infrastructure and scalability. 
+ Optimized system performance by implementing strategic multithreading solutions in Java, significantly reducing latency for critical processes. 
+ Integrated QuickBooks and WorldPay with the HighRadius Credit product, designing and implementing new credit limit functionalities which 
+led to the acquisition of additional clients and significantly improved payment efficiency. 
+ Engineered a highly flexible Dynamic Notification System, enabling customized in-portal alerts based on specific merchant criteria to boost 
+user engagement. This system was tailored to meet varying criteria set by merchants or users, enhancing flexibility and user engagement. 
+ Delivered over 50+ functional enhancements and software features based on client requirements, while resolving critical production 
+bottlenecks. 
+ Mentored and trained a cohort of 20 interns and new hires, fostering best practices in SaaS development. 
+ 
+HighRadius | Bhubaneshwar, Odisha 
+Junior Engineer | 06/2020 - 05/2021 
+ Developed a high-efficiency framework for autonomous testing of flagship products like HighRadius Credit and EIPP. 
+ Led a team of 6 engineers in designing and delivering critical User Stories for the EIPP product suite. 
+ Enhanced the framework with database and mail verification systems. 
+ Established comprehensive test scripts and automation protocols in collaboration with the QA team. 
+ Engineered robust solutions for parsing complex PDF, TXT, and XLSX files using advanced Regex patterns. 
+
+ 
+Awards & Recognition  
+ NIKE Technology Transformation (2026) from Experian for completing the migration of multiple projects from on-Prem to AWS. 
+ Star Team Award (2021) from HighRadius for mentoring 20+ Highakos to complete their first project. 
+ The HighFlyer (2021) from HighRadius on R&D for integration and enhancements of mail and database systems in Automation framework 
+and are integrated to both Credit and EIPP. 
+ Projects 
+ Enterprise Legacy Modernization - Led the end-to-end architectural migration of legacy monolithic applications to a modern, cloud-native 
+microservices architecture deployed on AWS with Docker containerization and Kubernetes orchestration. Upgraded core systems from JDK8 
+to JDK21, implemented phased rollout strategies with automated rollbacks, and established zero-downtime CI/CD pipelines with Disaster 
+Recovery, significantly improving scalability, resilience, and deployment velocity. 
+ Legal Entity Localisation - Solely developed and tested the implementation of Legal Entity Localization, enabling clients to issue invoices 
+customized for individual companies, Legal Entity IDs, and currencies. Utilized AWS services to fetch critical legal entity information, improving 
+invoice customization accuracy and ensuring compliance. This initiative significantly enhanced invoice accuracy and compliance through the 
+integration of dynamic billing criteria. 
+ Parallel Invoice Processing - Engineered and integrated Parallel Invoice Processing across the Credit product, reducing Credit Limits and Risk 
+Factors approval time by almost 80% during financial year endings through automated processing. Enhanced operational efficiency, handling 
+up to 20 to 100 invoices concurrently. 
+ QuickBooks Integration – Designed and developed seamless integration of QuickBooks and WorldPay with the HighRadius Credit 
+Management, facilitating data import from CRM systems and optimizing payment and tax management. Streamlined financial operations, 
+handling over 10,000 transactions monthly. 
+ Dynamic Notification Infrastructure - Developed a scalable infrastructure for dynamic notifications, enabling clients to send personalized 
+alerts based on predefined parameters. Boosted client engagement by 25% through targeted communication strategies. 
+Education 
+Kalinga Institute of Industrial Technology (KIIT) University | B. Tech. (Computer Science and Engineering) 
+ Majored in Computer Science and Engineering 
+ Graduated with 9.13 CGPA 
+ 
+Birla Institute of Technology & Science (BITS) Pilani, Hyderabad | M. Tech. (Software Engineering) 
+ Specialised in Software Engineering  
+(Full Stack, Security, DevOps, Scalability, Cross-platform, Cloud, Software Architecture, Middleware, Open-Source, Agile) 
+ Post-Graduated with 8 CGPA 
+Certifications 
+ OCI Foundations Associate (11/2023) - Oracle Cloud Infrastructure 
+ Product Essentials Program (06/2021) 
+ Basic Python Certification (06/2019) 
+ NIIT Java Certification (05/2018) - Core Java 
+Personal Projects  
+ Book Exchange Platform - Engineered a Java and React-based web application using SpringBoot and MySQL. This platform allows users to list 
+books for rent or exchange via peer-to-peer, enhancing user interaction and book accessibility. 
+ QuickTask Application - Developed an Android application using Flutter and Dart for task management. Users can add, track, and complete 
+tasks efficiently, enhancing productivity and organization. 
+ Investment Planner - Developed a Java-based application for financial planning. It calculates required investments to achieve target profits 
+and handles investment strategies for risk management.  
+ Financial Planner - Developed a Google Sheets-based financial planner that calculates income tax and available investment amount by 
+factoring in in-hand salary, EMIs, rent, insurance, and other deductions.  
+ Algorithmic Investment Tracker - Implemented a Google Sheets-based complex tool to monitor real-time metrics of personal investment 
+portfolios. This tool facilitates informed decision-making based on current market data to maximise profit and minimise risk. 
+ My Career Portfolio - This project serves as a comprehensive digital resume. The platform integrates intelligent AI chatbot and to provide an 
+interactive experience for visitors seeking to learn more about my background. 
+ OS Processes Scheduler - Designed and implemented a C++ and bash project focused on OS Scheduling for a single-core CPU with infinite 
+I/O resources. Implemented detailed execution paths for processes, optimizing resource allocation and scheduling efficiency. 
+ Beautiful Bengal V3 - Developed and hosted a website showcasing West Bengal's tourism attractions. The site provides information to 
+promote tourism and cultural heritage, aiming to attract visitors and promote local tourism.  
+Language 
+English, Hindi, Bengali 
