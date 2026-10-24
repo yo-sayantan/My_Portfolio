@@ -452,9 +452,13 @@ const SKILLS_DATA: Skill[] = [
   }
 ];
 
+// Newest first, then by relevance
 const CERTIFICATIONS_DATA: Certification[] = [
   { name: "OCI Foundations Associate", date: "11/2023", issuer: "Oracle" },
+  { name: "Basics of Mutual Funds", date: "05/2023", issuer: "INDmoney" },
   { name: "Product Essentials Program", date: "06/2021", issuer: "HighRadius" },
+  { name: "Microsoft Technology Associate (MTA)", date: "07/2019", issuer: "NIIT" },
+  { name: "Microsoft Imagine Academy", date: "07/2019", issuer: "NIIT" },
   { name: "Basic Python Certification", date: "06/2019" },
   { name: "NIIT Java Certification", date: "05/2018", issuer: "NIIT" }
 ];

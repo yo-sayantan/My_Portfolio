@@ -4,6 +4,23 @@ All notable changes to this portfolio are documented here. GitHub Releases use t
 
 The site is a React 19, TypeScript, and Vite portfolio for Sayantan Biswas. It deploys to [Netlify](https://sayantan-myportfolio.netlify.app) and GitHub Pages.
 
+## [3.0.0] — 2026-10-25
+
+The About workflow card and the Education column. This release sits on top of [v2.1](https://github.com/yo-sayantan/My_Portfolio/releases/tag/v2.1).
+
+### Added
+
+- Three certifications: Basics of Mutual Funds (INDmoney, 05/2023), Microsoft Technology Associate (NIIT, 07/2019), and Microsoft Imagine Academy (NIIT, 07/2019). The list stays newest first.
+- The Intelligent Workflow card names three practices: MCP servers wired to Jira, Bitbucket, Jenkins, and Dynatrace; agent-assisted coding, tests, and documentation across the SDLC; and AI Jira Board, where local Ollama or cloud models write ticket briefs and PR readiness reports.
+- Tool chips for Claude Code, Cursor, ChatGPT, Gemini, Ollama, and MCP Servers.
+- Two result figures on that card: about 50% team productivity at Experian, and a 30% productivity gain at Oracle.
+
+### Changed
+
+- The Intelligent Workflow card is a static dark panel. It no longer scales on hover. A cyan grid, a top wash, and a border glow are the only motion.
+- Education and certification columns stretch to the same height. Certificate rows share that height equally, so adding certificates does not leave a short column beside Education. Dates stay on one line.
+- Skills, Projects, Education, and Contact grids set an explicit single column on small screens, with slightly tighter gaps until the `md` breakpoint.
+
 ## [2.1.0] — 2026-10-25
 
 Project cards and the skills section now explain the work instead of only listing it. This release sits on top of [v2.0](https://github.com/yo-sayantan/My_Portfolio/releases/tag/v2.0).
