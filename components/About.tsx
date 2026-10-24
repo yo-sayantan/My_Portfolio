@@ -22,10 +22,18 @@ const About: React.FC = () => {
   const dynamicSummary = SUMMARY.replace('{{YRS}}', experienceYears);
 
   const tools = [
-    { name: 'Cursor', icon: Command, color: 'text-blue-400', bg: 'group-hover/item:bg-blue-500/10', border: 'group-hover/item:border-blue-500/50', iconColor: 'group-hover/item:text-blue-400' },
-    { name: 'ChatGPT', icon: ChatGPTIcon, color: 'text-emerald-400', bg: 'group-hover/item:bg-emerald-500/10', border: 'group-hover/item:border-emerald-500/50', iconColor: 'group-hover/item:text-emerald-500 dark:group-hover/item:text-emerald-400' },
-    { name: 'Claude', icon: ClaudeIcon, color: 'text-amber-500', bg: 'group-hover/item:bg-amber-500/10', border: 'group-hover/item:border-amber-500/50', iconColor: 'group-hover/item:text-amber-500' },
-    { name: 'MCPs', icon: Bot, color: 'text-purple-400', bg: 'group-hover/item:bg-purple-500/10', border: 'group-hover/item:border-purple-500/50', iconColor: 'group-hover/item:text-purple-500 dark:group-hover/item:text-purple-400' },
+    { name: 'Claude Code', icon: ClaudeIcon },
+    { name: 'Cursor', icon: Command },
+    { name: 'ChatGPT', icon: ChatGPTIcon },
+    { name: 'Gemini', icon: Sparkles },
+    { name: 'Ollama', icon: Terminal },
+    { name: 'MCP Servers', icon: Bot },
+  ];
+
+  const aiPractices = [
+    'MCP servers connect agents to Jira, Bitbucket, Jenkins and Dynatrace, so they work with real engineering context.',
+    'Agent-assisted coding, test generation and documentation across the whole SDLC.',
+    'Built AI Jira Board: local (Ollama) or cloud LLMs write ticket briefs and PR readiness reports.',
   ];
 
   return (
@@ -62,70 +70,68 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Expanded AI Focus Block - 3D Hover & Modern AI Glassmorphic Theme */}
-          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg border-2 border-slate-200/50 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-cyan-400/50 shadow-lg hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(34,211,238,0.2)] transition-all duration-500 hover:scale-[1.02]">
-            
-            {/* Hover-based Shifting Inner Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-violet-500/0 to-cyan-500/0 group-hover:from-indigo-500/10 group-hover:via-violet-500/10 group-hover:to-cyan-500/10 transition-colors duration-700 pointer-events-none"></div>
-            
-            {/* Animated Glow Orbs - More prominent on hover */}
-            <div className="absolute top-[-50%] left-[-50%] w-full h-full bg-indigo-500/5 group-hover:bg-indigo-500/20 blur-[80px] animate-pulse rounded-full pointer-events-none transition-colors duration-700"></div>
-            <div className="absolute bottom-[-50%] right-[-50%] w-full h-full bg-cyan-500/5 group-hover:bg-cyan-500/20 blur-[80px] animate-pulse rounded-full delay-700 pointer-events-none transition-colors duration-700"></div>
+          {/* Intelligent Workflow — a deliberately dark "AI engineer" card: cyan/emerald on near-black,
+              static (no lift), with only a border + glow shift on hover */}
+          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-slate-950 border border-slate-800 shadow-lg hover:border-cyan-400/50 hover:shadow-[0_0_60px_-18px_rgba(34,211,238,0.45)] transition-[border-color,box-shadow] duration-500">
 
-            <div className="relative h-full p-8 flex flex-col justify-between z-10">
+            {/* Engineering-grid texture + soft cyan wash from the top */}
+            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(148,163,184,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.07)_1px,transparent_1px)] bg-[size:26px_26px] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_80%)]" />
+            <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-[radial-gradient(60%_100%_at_50%_0%,rgba(34,211,238,0.16),transparent)] opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
 
-              <div>
-                {/* Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="p-2.5 rounded-xl bg-indigo-100/50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
-                    <Bot className="w-6 h-6" />
-                  </div>
-                  <div className="px-3 py-1 rounded-full bg-indigo-100/50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-500/30 flex items-center gap-2">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500"></span>
-                    </span>
-                    <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-400 uppercase tracking-widest">AI Native</span>
-                  </div>
+            <div className="relative h-full p-7 flex flex-col gap-5 z-10">
+
+              {/* Header */}
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/20 text-cyan-300">
+                  <Bot className="w-6 h-6" />
                 </div>
-
-                <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-3 tracking-tight">Intelligent Workflow</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">
-                  Embedding Claude, Cursor, GPT and MCP servers across the entire SDLC: prompt and context engineering, building and wiring MCP servers into internal tools, and orchestrating AI agents to speed up architecture decisions, code reviews and test coverage. The result is natural language turned into robust, production-ready code.
-                </p>
-
-                {/* Tool Tokens */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {tools.map((tool) => (
-                    <div key={tool.name} className={`px-3 py-1.5 rounded-lg bg-white/20 dark:bg-white/5 border border-slate-200 dark:border-white/10 transition-all duration-300 flex items-center gap-2 group/item cursor-default backdrop-blur-sm ${tool.bg} ${tool.border}`}>
-                      <tool.icon className={`w-3 h-3 text-slate-500 transition-colors ${tool.iconColor}`} />
-                      <span className={`text-[11px] font-bold text-slate-700 dark:text-slate-300 transition-colors ${tool.iconColor}`}>{tool.name}</span>
-                    </div>
-                  ))}
+                <div className="px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/25 flex items-center gap-2">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">AI-Native</span>
                 </div>
               </div>
 
-              {/* Interactive Terminal/Code Snippet Visual */}
-              <div className="mt-auto p-4 rounded-xl bg-white/50 dark:bg-black/60 border border-slate-200 dark:border-white/5 font-mono text-[10px] text-slate-400 leading-relaxed relative overflow-hidden shadow-inner backdrop-blur-md">
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent opacity-50"></div>
-                <div className="flex items-center gap-2 mb-2 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700/50 pb-2">
-                  <Terminal size={10} />
-                  <span>agent.process_task()</span>
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Intelligent Workflow</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  AI is part of how I ship software, not an add-on. I rolled Claude, Cursor and MCP servers out across Experian&apos;s engineering workflow.
+                </p>
+              </div>
+
+              {/* Concrete practices */}
+              <ul className="space-y-2.5">
+                {aiPractices.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-[13px] leading-snug text-slate-300">
+                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Results */}
+              <div className="grid grid-cols-2 gap-3 mt-auto">
+                <div className="rounded-xl border border-slate-800 bg-slate-900/70 px-4 py-3">
+                  <p className="text-2xl font-black text-cyan-300 leading-none">~50%</p>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Team productivity · Experian</p>
                 </div>
-                <div className="space-y-1">
-                  <p className="flex gap-2">
-                    <span className="text-slate-500 dark:text-slate-600">1</span>
-                    <span><span className="text-purple-600 dark:text-purple-400">const</span> <span className="text-blue-600 dark:text-blue-400">context</span> = <span className="text-emerald-600 dark:text-emerald-400">await</span> load(docs);</span>
-                  </p>
-                  <p className="flex gap-2">
-                    <span className="text-slate-500 dark:text-slate-600">2</span>
-                    <span><span className="text-purple-600 dark:text-purple-400">return</span> <span className="text-indigo-600 dark:text-indigo-400">generate</span>(context);</span>
-                  </p>
+                <div className="rounded-xl border border-slate-800 bg-slate-900/70 px-4 py-3">
+                  <p className="text-2xl font-black text-emerald-300 leading-none">30%</p>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Productivity gain · Oracle</p>
                 </div>
-                <div className="mt-2 flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400/80">
-                  <span className="w-1 h-1 bg-indigo-500 dark:bg-indigo-400 rounded-full animate-pulse"></span>
-                  <span>Optimizing architecture...</span>
-                </div>
+              </div>
+
+              {/* Toolchain */}
+              <div className="flex flex-wrap gap-1.5">
+                {tools.map((tool) => (
+                  <span key={tool.name} className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-2.5 py-1 text-[11px] font-semibold text-slate-300 transition-colors duration-200 hover:border-cyan-400/40 hover:text-cyan-200">
+                    <tool.icon className="h-3 w-3 text-slate-500" />
+                    {tool.name}
+                  </span>
+                ))}
               </div>
 
             </div>

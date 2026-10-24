@@ -172,7 +172,7 @@ const Contact: React.FC = () => {
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/20 dark:bg-primary-600/10 blur-[100px] rounded-full pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-600/20 dark:bg-purple-600/10 blur-[100px] rounded-full pointer-events-none"></div>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
 
             {/* Left Side - Text & Info */}
             <div className="flex flex-col justify-between h-full">
