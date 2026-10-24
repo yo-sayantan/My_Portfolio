@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { SUMMARY, AWARDS } from '../constants';
-import { Bot, Trophy, Target, Brain, Sparkles, Terminal, Github, Command } from 'lucide-react';
+import { SUMMARY, AWARDS, getExperienceYears } from '../constants';
+import { Bot, Trophy, Target, Brain, Sparkles, Terminal, Command, Rocket } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const ChatGPTIcon = (props: any) => (
@@ -17,13 +17,7 @@ const ClaudeIcon = (props: any) => (
 );
 
 const About: React.FC = () => {
-  const experienceYears = React.useMemo(() => {
-    const startDate = new Date('2020-05-01');
-    const today = new Date();
-    const diffTime = Math.abs(today.getTime() - startDate.getTime());
-    const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
-    return diffYears.toFixed(1);
-  }, []);
+  const experienceYears = React.useMemo(() => getExperienceYears(), []);
 
   const dynamicSummary = SUMMARY.replace('{{YRS}}', experienceYears);
 
@@ -35,9 +29,9 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-32 bg-transparent relative">
+    <section id="about" className="pt-20 pb-14 md:pt-24 md:pb-16 bg-transparent relative">
       <div className="container mx-auto px-6">
-        <div className="mb-16 text-center md:text-left">
+        <div className="mb-10 text-center md:text-left">
           <ScrollReveal>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Beyond the Code</h2>
           </ScrollReveal>
@@ -56,11 +50,11 @@ const About: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 dark:text-white">Engineering Philosophy</h3>
             </div>
-            <p className="text-lg text-slate-700 dark:text-slate-300 leading-loose font-medium animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards">
+            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed md:leading-loose font-medium">
               {dynamicSummary}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              {['Java Champion', 'Backend Engineer', 'AI Enthusiast'].map(tag => (
+              {['Java & Spring Specialist', 'Cloud-Native Microservices', 'AI-Native Engineer'].map(tag => (
                 <span key={tag} className="px-4 py-2 rounded-full bg-white/20 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-semibold text-sm border border-slate-200 dark:border-white/10 shadow-sm">
                   {tag}
                 </span>
@@ -69,7 +63,7 @@ const About: React.FC = () => {
           </div>
 
           {/* Expanded AI Focus Block - 3D Hover & Modern AI Glassmorphic Theme */}
-          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg border-2 border-slate-200/50 dark:border-white/10 group-hover:border-indigo-500/50 dark:group-hover:border-cyan-400/50 shadow-lg hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(34,211,238,0.2)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02]">
+          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg border-2 border-slate-200/50 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-cyan-400/50 shadow-lg hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(34,211,238,0.2)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02]">
             
             {/* Hover-based Shifting Inner Glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-violet-500/0 to-cyan-500/0 group-hover:from-indigo-500/10 group-hover:via-violet-500/10 group-hover:to-cyan-500/10 transition-colors duration-700 pointer-events-none"></div>
@@ -97,7 +91,7 @@ const About: React.FC = () => {
 
                 <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-3 tracking-tight">Intelligent Workflow</h3>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">
-                  Fully integrating modern AI tools like GPT, Claude, Cursor, MCP Servers, and Generative AI agents into the development lifecycle. This involves prompt engineering, deploying and integrating MCP Servers, and orchestrating generative AI agents to drastically accelerate architecture decisions and automate test coverage. Transforming natural language into robust, production-ready infrastructure code.
+                  Embedding Claude, Cursor, GPT and MCP servers across the entire SDLC: prompt and context engineering, building and wiring MCP servers into internal tools, and orchestrating AI agents to speed up architecture decisions, code reviews and test coverage. The result is natural language turned into robust, production-ready code.
                 </p>
 
                 {/* Tool Tokens */}
@@ -160,37 +154,48 @@ const About: React.FC = () => {
           </div>
 
           {/* Impact Block */}
-          <div className="md:col-span-6 grid grid-rows-3 gap-6">
-            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-6 hover:-translate-y-1 transition-transform group">
-              <div className="p-4 bg-green-100/50 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl group-hover:scale-110 transition-transform">
+          <div className="md:col-span-6 grid grid-rows-4 gap-4">
+            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg px-6 py-5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-5 hover:-translate-y-1 transition-transform group">
+              <div className="p-3.5 shrink-0 bg-green-100/50 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl group-hover:scale-110 transition-transform">
                 <Target className="w-8 h-8" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Result Driven</h4>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Result Driven</h4>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                   Engineered high-concurrency parallel processing architectures that slashed credit approval times by <span className="text-slate-900 dark:text-white font-bold">80%</span>, optimizing financial workflows for enterprise clients.
                 </p>
               </div>
             </div>
-            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-6 hover:-translate-y-1 transition-transform group">
-              <div className="p-4 bg-purple-100/50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl group-hover:scale-110 transition-transform">
+            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg px-6 py-5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-5 hover:-translate-y-1 transition-transform group">
+              <div className="p-3.5 shrink-0 bg-purple-100/50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl group-hover:scale-110 transition-transform">
                 <Sparkles className="w-8 h-8" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Client Engagement</h4>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Client Engagement</h4>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                   Pioneered a configurable Dynamic Notification engine, driving a <span className="text-slate-900 dark:text-white font-bold">25% increase</span> in client engagement through personalized, rule-based alerting systems.
                 </p>
               </div>
             </div>
-            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-6 hover:-translate-y-1 transition-transform group">
-              <div className="p-4 bg-orange-100/50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-2xl group-hover:scale-110 transition-transform">
+            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg px-6 py-5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-5 hover:-translate-y-1 transition-transform group">
+              <div className="p-3.5 shrink-0 bg-orange-100/50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-2xl group-hover:scale-110 transition-transform">
                 <Brain className="w-8 h-8" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">AI-Driven Innovation</h4>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">AI-Driven Innovation</h4>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                   Architected an AI-native engineering ecosystem by integrating Generative AI agents and intelligent coding assistants. Automated complex workflows to boost overall team productivity by <span className="text-slate-900 dark:text-white font-bold">50%</span> and dramatically accelerate project delivery.
+                </p>
+              </div>
+            </div>
+            <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg px-6 py-5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-lg flex items-center gap-5 hover:-translate-y-1 transition-transform group">
+              <div className="p-3.5 shrink-0 bg-sky-100/50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 rounded-2xl group-hover:scale-110 transition-transform">
+                <Rocket className="w-8 h-8" />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Cloud-Native Modernizer</h4>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  Led the migration of legacy on-prem applications to <span className="text-slate-900 dark:text-white font-bold">AWS</span> with Docker and Kubernetes, upgraded core systems from <span className="text-slate-900 dark:text-white font-bold">JDK 8 to 21</span> with zero-downtime CI/CD, and closed critical vulnerabilities. Recognized with the 2026 NIKE Technology Transformation award.
                 </p>
               </div>
             </div>

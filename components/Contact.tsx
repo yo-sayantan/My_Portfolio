@@ -158,11 +158,12 @@ const Contact: React.FC = () => {
     } catch (error) {
       console.error('Submission error:', error);
       setStatus('error');
+      setResponseMessage(`Sorry, your message couldn't be sent right now. Please email me directly at ${SOCIAL_LINKS.email}.`);
     }
   };
 
   return (
-    <section id="contact" className="py-24 relative">
+    <section id="contact" className="pt-20 pb-14 md:pt-24 md:pb-16 relative">
 
       <div className="container mx-auto px-6 relative z-10">
 
@@ -174,10 +175,10 @@ const Contact: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
             {/* Left Side - Text & Info */}
-            <div className="flex flex-col justify-between h-full pt-4">
+            <div className="flex flex-col justify-between h-full">
               <div>
                 <ScrollReveal variant="slide-right">
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-snug pb-2">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight pb-2">
                     <span className="block text-slate-900 dark:text-white mb-1">Let's build something</span>
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-purple-600 inline-block">
                       extraordinary.
@@ -207,7 +208,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Call & WhatsApp</p>
-                        <p className="text-base md:text-lg font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">{SOCIAL_LINKS.phone}</p>
+                        <p className="text-base md:text-lg font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">{SOCIAL_LINKS.phone.replace(/^\+91(\d{5})(\d{5})$/, '+91 $1 $2')}</p>
                       </div>
                     </a>
 
@@ -348,7 +349,7 @@ const Contact: React.FC = () => {
 
                     {/* Status Messages */}
                     {responseMessage && (
-                      <div className={`p-4 rounded-xl text-sm font-medium text-center animate-in fade-in slide-in-from-bottom-2 ${status === 'success' ? 'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400' : 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400'
+                      <div role="status" aria-live="polite" className={`p-4 rounded-xl text-sm font-medium text-center animate-in fade-in slide-in-from-bottom-2 ${status === 'success' ? 'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400' : 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400'
                         }`}>
                         {responseMessage}
                       </div>

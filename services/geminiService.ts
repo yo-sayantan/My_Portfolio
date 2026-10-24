@@ -1,44 +1,5 @@
 
-import { PORTFOLIO_DATA } from '../constants';
 import { OWNER } from '../ownerConfig';
-
-// Construct a rich context object for the AI
-const { personal, professional } = PORTFOLIO_DATA;
-
-const SYSTEM_INSTRUCTION = `
-You are the AI assistant for ${personal.name}, a ${personal.role} expert in Java backend, cloud microservices, and API design.
-Highlight his ability to architect scalable systems and leverage AI-driven workflows (Prompt Engineering, AI Agents, MCP).
-
-**Context from Portfolio Data:**
-- **Role:** ${personal.role}
-- **Focus:** ${personal.summary}
-- **Skills:** ${professional.skills.map(s => s.items.join(', ')).join('; ')}
-- **Experience:** 
-  ${professional.experiences.map(e => `- ${e.role} at ${e.company}: ${e.description[0]}`).join('\n  ')}
-- **Projects:** 
-  ${professional.projects.map(p => `- ${p.title} (${p.techStack.join(', ')}): ${p.description}`).join('\n  ')}
-
-**Extended Context (Resume, GitHub, LinkedIn, Netlify):**
-- **Education:** B.Tech from KIIT (9.13 CGPA), M.Tech from BITS Pilani in Software Engineering (8 CGPA).
-- **Certifications:** OCI Foundations Associate (Oracle Cloud), Basic Python, NIIT Java.
-- **Awards:** Star Team Award (Q2, 2021) and HighFlyer (2021) from HighRadius.
-- **GitHub:** Features projects like Book Exchange Platform, QuickTask Application, Investment Planner, OS Processes Scheduler, and West Bengal Tourism site. (${personal.socialLinks.github}/)
-- **Live Netlify Portfolio:** ${OWNER.portfolio}/ (Built with React, Vite, Tailwind, Glassmorphism).
-- **LinkedIn Profile:** ${personal.socialLinks.linkedin}/
-- **Key Resume Achievements:** 
-  - Integrated Mastercard & HSBC payment services at Oracle Fusion Cloud Financials.
-  - Upgrading PreciseMatch and PreciseID fraud detection at Experian (JDK, Spring, Hibernate).
-  - Built a scalable Dynamic Notification Infrastructure at HighRadius, boosting engagement by 25%.
-  - Mentored 20+ interns.
-  - Utilizes AI tools (ChatGPT, Claude, Gemini) to boost engineering productivity by 30%.
-
-**Response Guidelines:**
-1. **Be Concise:** Avoid fluff. Use bullet points.
-2. **Be Specific:** Cite specific tools (e.g., Spring Boot, AWS, Docker) and metrics.
-3. **Contact:** Provide ${personal.socialLinks.email} clearly when asked.
-4. **Boundaries:** Politely decline unrelated queries and pivot back to engineering topics.
-5. **Page Context:** Acknowledge the user's current browsing context (URL) if they ask about the site.
-`;
 
 export interface ChatHistoryItem {
   role: 'user' | 'model';
@@ -58,9 +19,8 @@ export const sendMessageToGemini = async (
   history: ChatHistoryItem[] = []
 ): Promise<AIResponse> => {
   try {
-    // Add current page context if available
-    const currentUrl = typeof window !== 'undefined' ? window.location.href : 'Unknown';
-    const systemInstructionWithContext = `${SYSTEM_INSTRUCTION}\n\nUser Context: Browsing ${currentUrl}`;
+    // The system prompt is built server-side (see services/aiContext.ts); only page context is sent.
+    const currentPath = typeof window !== 'undefined' ? `${window.location.pathname}${window.location.hash}` : '/';
 
     const response = await fetch('/.netlify/functions/ai', {
       method: 'POST',
@@ -70,7 +30,7 @@ export const sendMessageToGemini = async (
       body: JSON.stringify({
         message,
         history,
-        systemInstruction: systemInstructionWithContext
+        pagePath: currentPath
       })
     });
 
