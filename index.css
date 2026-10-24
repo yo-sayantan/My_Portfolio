@@ -27,6 +27,14 @@
 }
 
 @layer utilities {
+  /* Gradient text (bg-clip-text) only paints inside its own box, so a tight line-height slices the
+     tails off g / y / p / j. Pad the box so the whole glyph, tails included, sits inside the painted area. */
+  .heading-clip {
+    line-height: 1.15;
+    padding-block: 0.16em;
+    padding-inline: 0.06em;
+  }
+
   .shake {
     animation: field-shake 0.4s ease-in-out;
   }

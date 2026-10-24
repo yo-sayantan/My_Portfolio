@@ -41,7 +41,7 @@ const About: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="mb-10 text-center md:text-left">
           <ScrollReveal>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Beyond the Code</h2>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-1 heading-clip bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Beyond the Code</h2>
           </ScrollReveal>
           <ScrollReveal delay="delay-100">
             <div className="h-1.5 w-24 bg-primary-600 rounded-full md:mx-0 mx-auto"></div>
@@ -51,14 +51,14 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
 
           {/* Main Summary Block */}
-          <div className="md:col-span-8 bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 md:p-12 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 group">
+          <div className="md:col-span-8 bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 group">
             <div className="flex items-center gap-4 mb-6">
               <div className="p-3 rounded-2xl bg-primary-100/50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400">
                 <Brain className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-bold text-slate-800 dark:text-white">Engineering Philosophy</h3>
             </div>
-            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed md:leading-loose font-medium">
+            <p className="text-[15px] md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed md:leading-loose font-medium">
               {dynamicSummary}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -72,14 +72,14 @@ const About: React.FC = () => {
 
           {/* Intelligent Workflow — a deliberately dark "AI engineer" card: cyan/emerald on near-black,
               static (no lift), with only a border + glow shift on hover */}
-          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-slate-950 border border-slate-800 shadow-lg hover:border-cyan-400/50 hover:shadow-[0_0_60px_-18px_rgba(34,211,238,0.45)] transition-[border-color,box-shadow] duration-500">
+          <div className="md:col-span-4 relative group rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-slate-950 border border-slate-800 shadow-lg hover:border-cyan-400/50 hover:shadow-[0_0_60px_-18px_rgba(34,211,238,0.45)] transition-[border-color,box-shadow] duration-500">
 
             {/* Engineering-grid texture + soft cyan wash from the top */}
             <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(148,163,184,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.07)_1px,transparent_1px)] bg-[size:26px_26px] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_80%)]" />
             <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-[radial-gradient(60%_100%_at_50%_0%,rgba(34,211,238,0.16),transparent)] opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
 
-            <div className="relative h-full p-7 flex flex-col gap-5 z-10">
+            <div className="relative h-full p-5 md:p-7 flex flex-col gap-5 z-10">
 
               {/* Header */}
               <div className="flex items-center justify-between">
@@ -138,17 +138,17 @@ const About: React.FC = () => {
           </div>
 
           {/* Awards Block */}
-          <div className="md:col-span-6 bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-4 mb-8">
+          <div className="md:col-span-6 bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center gap-4 mb-6 md:mb-8">
               <div className="p-3 rounded-2xl bg-yellow-100/50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400">
                 <Trophy className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-bold text-slate-800 dark:text-white">Recognition</h3>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {AWARDS.map((award, idx) => (
-                <div key={idx} className="flex items-start gap-4 p-4 rounded-2xl bg-white/20 dark:bg-white/5 hover:bg-white/30 dark:hover:bg-white/10 transition-colors">
-                  <span className="text-4xl">🏆</span>
+                <div key={idx} className="flex items-start gap-3 md:gap-4 p-3.5 md:p-4 rounded-2xl bg-white/20 dark:bg-white/5 hover:bg-white/30 dark:hover:bg-white/10 transition-colors">
+                  <span className="text-2xl md:text-4xl leading-none pt-0.5" aria-hidden="true">🏆</span>
                   <div>
                     <h4 className="font-bold text-slate-900 dark:text-white">{award.title}</h4>
                     <p className="text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider mb-1">{award.issuer} • {award.year}</p>

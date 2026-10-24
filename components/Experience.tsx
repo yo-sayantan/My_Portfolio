@@ -78,6 +78,8 @@ const Experience: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const tipRef = useRef<SVGCircleElement>(null);
+  const mobileLineRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches);
   const pathYRange = useRef({ start: 0, end: 0 });
   const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -163,6 +165,41 @@ const Experience: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [pathLength]);
 
+  // Track the lg breakpoint (cards slide sideways on desktop, fade up on phones)
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const update = () => setIsDesktop(mq.matches);
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  // Phone/tablet: the vertical rail fills with the scroll, same idea as the desktop snake
+  useEffect(() => {
+    if (isDesktop) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const line = mobileLineRef.current;
+      const container = containerRef.current;
+      if (!line || !container) return;
+      const rect = container.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (window.innerHeight * 0.6 - rect.top) / Math.max(rect.height, 1)));
+      line.style.transform = `scaleY(${progress})`;
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [isDesktop]);
+
   return (
     <section id="experience" className="pt-20 pb-14 md:pt-24 md:pb-16 bg-transparent relative overflow-hidden">
 
@@ -184,7 +221,7 @@ const Experience: React.FC = () => {
             </div>
           </ScrollReveal>
           <ScrollReveal variant="slide-up-spring">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-4 heading-clip bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
               Professional Journey
             </h2>
           </ScrollReveal>
@@ -220,14 +257,19 @@ const Experience: React.FC = () => {
           </svg>
 
           {/* Mobile timeline */}
-          <div className="absolute left-[18px] top-0 bottom-0 w-[1.5px] lg:hidden bg-gradient-to-b from-slate-300 via-slate-200 to-slate-300 dark:from-slate-700 dark:via-slate-800 dark:to-slate-700 opacity-50" />
+          <div className="absolute left-[9px] top-0 bottom-0 w-[2px] lg:hidden rounded-full bg-slate-200 dark:bg-slate-800" />
+          <div
+            ref={mobileLineRef}
+            className="absolute left-[9px] top-0 bottom-0 w-[2px] lg:hidden rounded-full origin-top bg-gradient-to-b from-[#632678] via-[#e51c20] to-[#2db6ec] will-change-transform"
+            style={{ transform: 'scaleY(0)' }}
+          />
 
           {/* Cards */}
           <div className="space-y-10 lg:space-y-12">
             {EXPERIENCES.map((exp, idx) => {
               const isEven = idx % 2 === 0;
               const theme = COMPANY_THEMES[exp.id] || FALLBACK_THEME;
-              const cardVariant = isEven ? 'slide-right' as const : 'slide-left' as const;
+              const cardVariant = !isDesktop ? 'fade-up' as const : isEven ? 'slide-right' as const : 'slide-left' as const;
 
               return (
                 // The connector dot sits OUTSIDE the animated wrapper. Previously the whole row was
@@ -237,14 +279,14 @@ const Experience: React.FC = () => {
                 // the gutter beside each card and the S-curve snakes from one gutter to the other.
                 <div key={exp.id} className="relative flex flex-col lg:block">
 
-                    <div className={`w-full pl-12 lg:pl-0 lg:w-[72%] ${isEven ? '' : 'lg:ml-auto'}`}>
+                    <div className={`w-full pl-8 lg:pl-0 lg:w-[72%] ${isEven ? '' : 'lg:ml-auto'}`}>
                       <ScrollReveal threshold={0.12} variant={cardVariant} staggerMs={idx * 80}>
 
                         {/* ── THE CARD ── */}
                         <div
                           className={`
                             bg-white/10 dark:bg-slate-900/30 backdrop-blur-md 
-                            p-6 md:p-8 rounded-2xl md:rounded-3xl
+                            p-5 md:p-8 rounded-2xl md:rounded-3xl
                             border border-slate-200/60 dark:border-white/10
                             [box-shadow:var(--glow)] hover:[box-shadow:var(--glow-hover)] hover:[border-color:var(--brand-border)]
                             transition-[box-shadow,border-color] duration-300 ease-out h-full group relative overflow-hidden cursor-default
@@ -292,6 +334,8 @@ const Experience: React.FC = () => {
                                 {exp.role}
                               </h3>
 
+                              <p className="md:hidden text-xs font-semibold text-slate-500 dark:text-slate-400">{exp.period}</p>
+
                               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                                 <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 font-semibold text-base md:text-lg group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-500">
                                   <Briefcase className="w-4 h-4 md:w-5 md:h-5 stroke-[2px] flex-shrink-0" />
@@ -303,9 +347,6 @@ const Experience: React.FC = () => {
                                     <span>{exp.location}</span>
                                   </div>
                                 )}
-                                <span className="md:hidden ml-auto text-[10px] font-semibold text-slate-400 dark:text-slate-500 bg-white/50 dark:bg-slate-800/40 backdrop-blur-sm px-2.5 py-1 rounded-md whitespace-nowrap">
-                                  {exp.period}
-                                </span>
                               </div>
                             </div>
 
@@ -353,12 +394,12 @@ const Experience: React.FC = () => {
 
                     {/* ── Connector dot — sits in the gutter beside its card ── */}
                     <div
-                      className="absolute left-0 top-6 lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-1/2 lg:[left:var(--dot-left)] flex items-center justify-center pointer-events-none"
+                      className="absolute left-0 top-7 lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-1/2 lg:[left:var(--dot-left)] flex items-center justify-center pointer-events-none"
                       style={{ '--dot-left': isEven ? 'calc(72% + 2.75rem)' : 'calc(28% - 2.75rem)' } as React.CSSProperties}
                     >
                       <div ref={(el) => { dotRefs.current[idx] = el; }} className="relative z-20 flex items-center justify-center pointer-events-auto">
                         {/* Mobile */}
-                        <div className="lg:hidden w-[10px] h-[10px] ml-[14px] rounded-full shadow-md" style={{ background: theme.gradientCSS }} />
+                        <div className="lg:hidden w-[14px] h-[14px] ml-[3px] rounded-full ring-4 ring-white dark:ring-slate-950 shadow-md" style={{ background: theme.gradientCSS }} />
 
                         {/* Desktop */}
                         <div className="hidden lg:flex relative w-14 h-14 items-center justify-center">
@@ -379,7 +420,7 @@ const Experience: React.FC = () => {
                       className={`hidden lg:flex absolute top-1/2 -translate-y-1/2 w-[20%] flex-col gap-1 pointer-events-none select-none ${isEven ? 'right-0 items-start pl-6' : 'left-0 items-end pr-6 text-right'}`}
                     >
                       <span
-                        className="text-4xl xl:text-5xl whitespace-nowrap font-black tracking-tighter leading-none bg-clip-text text-transparent opacity-30"
+                        className="text-4xl xl:text-5xl whitespace-nowrap font-black tracking-tighter heading-clip bg-clip-text text-transparent opacity-30"
                         style={{ backgroundImage: theme.gradientCSS }}
                       >
                         {exp.period.split(' – ')[0]}

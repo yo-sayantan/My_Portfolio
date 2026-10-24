@@ -6,7 +6,26 @@ The site is a React 19, TypeScript, and Vite portfolio for Sayantan Biswas. It d
 
 ## [3.0.0] — 2026-10-25
 
-The About workflow card and the Education column. This release sits on top of [v2.1](https://github.com/yo-sayantan/My_Portfolio/releases/tag/v2.1).
+Mobile layout, clipped gradient headings, and a tighter skill list. This release sits on top of [v2.2](https://github.com/yo-sayantan/My_Portfolio/releases/tag/v2.2).
+
+### Added
+
+- `.heading-clip` in `index.css`. Gradient headings pad their line box so descenders (`g`, `y`, `p`, `j`) are not sliced off by `background-clip: text`. Applied to the hero, section titles, and the desktop experience years.
+- A scroll-filled rail on the phone and tablet experience timeline. The brand gradient grows with the section, and each role gets a 14px dot with a ring. Below the `lg` breakpoint the cards fade up instead of sliding in from the side. The employment dates sit under the role title.
+- Safe-area offsets for the chatbot and the scroll-to-top button, so they sit above the home indicator.
+
+### Changed
+
+- Hero, About, Contact, Education, and project cards use tighter padding and smaller radii on a phone, and return to the previous sizes from `md` up. The hero no longer forces a full viewport height on small screens. The portrait starts at 14rem.
+- Project cards grow with their content below `md`. Titles can wrap, summaries show three lines, and the tag row is not clipped. The detail window uses `dvh` so the mobile browser chrome does not cover the close button.
+- The chatbot panel is `calc(100vw - 2rem)` wide and at most `78dvh` tall. The launcher is 48px on a phone and 56px from `md`.
+- Contact fields use 16px type on small screens so iOS does not zoom the page on focus. The email address can break anywhere. Name and email stack in one column until `md`.
+- Certification dates move next to the issuer below `sm`, and the date pill returns from `sm` up.
+- Skill pills are curated to what the resume and recent roles actually use. Dropped from the grid: JSP and Servlets, regex parsing, Rust, C, JBoss, Oracle VM, AWR, stored procedures, Liquibase, Prisma, SQLite, Material UI, Vite, Framer Motion, and ExtJS. Added or renamed: Spring Cloud, REST APIs, multithreading, distributed systems, cloud migration, high availability, SQL tuning, data modeling, agentic workflows, LLM integration, JavaScript (ES6+), CI/CD pipelines, and vulnerability fixes.
+
+## [2.2.0] — 2026-10-25
+
+The About workflow card and the Education column. Previously published as v3; the tag is now v2.2. This release sits on top of [v2.1](https://github.com/yo-sayantan/My_Portfolio/releases/tag/v2.1).
 
 ### Added
 

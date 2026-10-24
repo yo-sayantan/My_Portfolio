@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-32 pb-20 overflow-hidden selection:bg-primary-500/30">
+    <section id="hero" className="relative md:min-h-screen flex items-center justify-center pt-24 pb-14 md:pt-32 md:pb-20 overflow-hidden selection:bg-primary-500/30">
 
       {/* Modern Background Elements - Localized to Hero */}
       <div className="absolute inset-0 pointer-events-none -z-10">
@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Grid Layout: Text Left (Left Aligned), Image Right */}
-        <div className="grid lg:grid-cols-[2.2fr_0.8fr] gap-12 lg:gap-8 items-center w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[2.2fr_0.8fr] gap-8 lg:gap-8 items-center w-full">
 
           {/* Text Content - Left Aligned */}
           <div className="flex flex-col items-start text-left order-2 lg:order-1 relative z-20">
@@ -56,11 +56,11 @@ const Hero: React.FC = () => {
             </div> */}
 
             {/* Main Headline - Increased leading and padding to prevent clipping */}
-            <h1 className="text-5xl sm:text-6xl md:text-8xl xl:text-9xl font-black tracking-tight mb-10 leading-[1.05] opacity-0 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-              <span className="block bg-clip-text text-transparent bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-500 drop-shadow-sm pb-4 pr-4">
+            <h1 className="text-[2.6rem] sm:text-6xl md:text-8xl xl:text-9xl font-black tracking-tight mb-6 md:mb-10 leading-[1.1] opacity-0 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+              <span className="block heading-clip bg-clip-text text-transparent bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-500 drop-shadow-sm">
                 Engineering
               </span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-blue-500 to-purple-600 animate-gradient-x bg-[length:200%_auto] pb-4 pr-4 pt-2 block">
+              <span className="heading-clip bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-blue-500 to-purple-600 animate-gradient-x bg-[length:200%_auto] block">
                 Intelligent Systems
               </span>
             </h1>
@@ -127,9 +127,9 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Image Section - Right Column */}
-          <div className="flex justify-center lg:justify-end order-1 lg:order-2 relative z-10 mb-12 lg:mb-0 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <div className="flex justify-center lg:justify-end order-1 lg:order-2 relative z-10 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             {/* Increased size slightly from 320px to 400px for desktop, and proportional increases for other breakpoints */}
-            <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] pointer-events-auto group perspective-1000">
+            <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] pointer-events-auto group perspective-1000">
 
               {/* Partition/Background Elements - Circular */}
               <div className="absolute inset-0 bg-gradient-to-tr from-primary-600 to-purple-600 rounded-full rotate-6 scale-105 opacity-20 dark:opacity-40 group-hover:rotate-12 transition-transform duration-500"></div>
@@ -151,7 +151,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Experience Badge - Elegant & Optimised (Smaller) */}
-              <div className="absolute bottom-2 -right-2 md:bottom-4 md:-right-4 z-20 animate-bounce-slow">
+              <div className="absolute bottom-0 right-0 md:bottom-4 md:-right-4 z-20 animate-bounce-slow">
                 <div className="relative group">
                   <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-600 rounded-full blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
                   <div className="relative flex items-center gap-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/60 dark:border-white/10 py-2 pl-2 pr-5 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)] transition-transform duration-300 group-hover:scale-105">

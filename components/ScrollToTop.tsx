@@ -33,7 +33,7 @@ const ScrollToTop: React.FC = () => {
     <button
       onClick={scrollToTop}
       className={`
-        fixed bottom-6 left-6 z-50 p-4 rounded-2xl
+        fixed left-4 bottom-[max(1rem,env(safe-area-inset-bottom))] md:left-6 md:bottom-6 z-50 p-3 md:p-4 rounded-2xl
         bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl 
         border border-slate-200/50 dark:border-slate-700/50 
         text-slate-600 dark:text-slate-300 

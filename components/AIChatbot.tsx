@@ -224,14 +224,14 @@ const AIChatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans flex flex-col items-end pointer-events-none">
+    <div className="fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] md:right-6 md:bottom-6 z-50 font-sans flex flex-col items-end pointer-events-none">
       
       {/* Chat Window */}
       <div 
         className={`
           pointer-events-auto origin-bottom-right transition-all duration-500 ease-in-out transform
           ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-8 pointer-events-none'}
-          w-[90vw] sm:w-[400px] h-[600px] max-h-[80vh]
+          w-[calc(100vw-2rem)] sm:w-[400px] h-[600px] max-h-[78dvh]
           bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl shadow-2xl 
           border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden mb-4
           relative
@@ -393,7 +393,7 @@ const AIChatbot: React.FC = () => {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="pointer-events-auto group relative flex items-center justify-center w-14 h-14 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xl shadow-slate-900/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+        className="pointer-events-auto group relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xl shadow-slate-900/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
       >
         <div className="absolute inset-0 rounded-full bg-inherit opacity-0 group-hover:opacity-10 transition-opacity" />
         

@@ -46,7 +46,7 @@ const InputField = ({
         className={`
           w-full pl-11 pr-4 py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 
           border transition-all duration-300 outline-none
-          text-slate-900 dark:text-white placeholder:text-slate-400/60 font-medium text-sm
+          text-slate-900 dark:text-white placeholder:text-slate-400/60 font-medium text-base md:text-sm
           shadow-sm hover:border-slate-300 dark:hover:border-slate-600
           ${error
             ? 'border-red-400 bg-red-50/50 dark:bg-red-900/10 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
@@ -167,7 +167,7 @@ const Contact: React.FC = () => {
 
       <div className="container mx-auto px-6 relative z-10">
 
-        <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg rounded-[3rem] p-8 md:p-12 overflow-hidden relative shadow-2xl border border-slate-200 dark:border-white/10">
+        <div className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg rounded-[2rem] md:rounded-[3rem] p-5 md:p-12 overflow-hidden relative shadow-2xl border border-slate-200 dark:border-white/10">
           {/* Background Accents */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/20 dark:bg-primary-600/10 blur-[100px] rounded-full pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-600/20 dark:bg-purple-600/10 blur-[100px] rounded-full pointer-events-none"></div>
@@ -180,7 +180,7 @@ const Contact: React.FC = () => {
                 <ScrollReveal variant="slide-right">
                   <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight pb-2">
                     <span className="block text-slate-900 dark:text-white mb-1">Let's build something</span>
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-purple-600 inline-block">
+                    <span className="heading-clip bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-purple-600 inline-block">
                       extraordinary.
                     </span>
                   </h2>
@@ -192,18 +192,18 @@ const Contact: React.FC = () => {
                 <ScrollReveal delay="delay-100" variant="fade-up">
                   <div className="space-y-4">
                     {/* Contact Items */}
-                    <a href={`mailto:${SOCIAL_LINKS.email}`} className="flex items-center gap-5 group p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-all duration-300">
+                    <a href={`mailto:${SOCIAL_LINKS.email}`} className="flex items-center gap-4 md:gap-5 group p-2.5 md:p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
+                      <div className="w-11 h-11 md:w-12 md:h-12 shrink-0 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-all duration-300">
                         <Mail className="w-5 h-5" />
                       </div>
                       <div>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Email Me</p>
-                        <p className="text-base md:text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors break-all">{SOCIAL_LINKS.email}</p>
+                        <p className="text-[15px] md:text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors [overflow-wrap:anywhere]">{SOCIAL_LINKS.email}</p>
                       </div>
                     </a>
 
-                    <a href={`tel:${SOCIAL_LINKS.phone}`} className="flex items-center gap-5 group p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white shadow-lg shadow-green-500/30 group-hover:scale-110 transition-all duration-300">
+                    <a href={`tel:${SOCIAL_LINKS.phone}`} className="flex items-center gap-4 md:gap-5 group p-2.5 md:p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
+                      <div className="w-11 h-11 md:w-12 md:h-12 shrink-0 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white shadow-lg shadow-green-500/30 group-hover:scale-110 transition-all duration-300">
                         <MessageCircle className="w-5 h-5" />
                       </div>
                       <div>
@@ -212,8 +212,8 @@ const Contact: React.FC = () => {
                       </div>
                     </a>
 
-                    <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 group p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0077b5] to-[#005582] flex items-center justify-center text-white shadow-lg shadow-blue-600/30 group-hover:scale-110 transition-all duration-300">
+                    <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 md:gap-5 group p-2.5 md:p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
+                      <div className="w-11 h-11 md:w-12 md:h-12 shrink-0 rounded-2xl bg-gradient-to-br from-[#0077b5] to-[#005582] flex items-center justify-center text-white shadow-lg shadow-blue-600/30 group-hover:scale-110 transition-all duration-300">
                         <Linkedin className="w-5 h-5" />
                       </div>
                       <div>
@@ -222,8 +222,8 @@ const Contact: React.FC = () => {
                       </div>
                     </a>
 
-                    <a href={OWNER.locationUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 group p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-all duration-300">
+                    <a href={OWNER.locationUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 md:gap-5 group p-2.5 md:p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200/50 dark:hover:border-white/10">
+                      <div className="w-11 h-11 md:w-12 md:h-12 shrink-0 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-all duration-300">
                         <MapPin className="w-5 h-5" />
                       </div>
                       <div>
@@ -239,7 +239,7 @@ const Contact: React.FC = () => {
             {/* Right Side - Form */}
             <div className="relative mt-8 lg:mt-0">
               <ScrollReveal delay="delay-200" variant="slide-left">
-                <div className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] p-6 md:p-10 shadow-2xl border border-slate-100 dark:border-slate-800">
+                <div className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[1.75rem] md:rounded-[2.5rem] p-5 md:p-10 shadow-2xl border border-slate-100 dark:border-slate-800">
 
                   <div className="mb-8">
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Start a Conversation</h3>
@@ -248,7 +248,7 @@ const Contact: React.FC = () => {
 
                   <form onSubmit={handleSubmit} className="space-y-6">
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                       <InputField
                         id="name"
                         label="Your Name"
@@ -298,7 +298,7 @@ const Contact: React.FC = () => {
                           className={`
                                   w-full pl-11 pr-4 py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 
                                   border transition-all duration-300 outline-none resize-none
-                                  text-slate-900 dark:text-white placeholder:text-slate-400/60 font-medium text-sm
+                                  text-slate-900 dark:text-white placeholder:text-slate-400/60 font-medium text-base md:text-sm
                                   shadow-sm hover:border-slate-300 dark:hover:border-slate-600
                                   ${errors.message
                               ? 'border-red-400 bg-red-50/50 dark:bg-red-900/10 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
