@@ -1,17 +1,11 @@
 import React, { useMemo } from 'react';
 import { ArrowRight, Github, Linkedin, Mail, ChevronDown, Terminal } from 'lucide-react';
-import { SOCIAL_LINKS } from '../constants';
+import { SOCIAL_LINKS, getExperienceYears } from '../constants';
 import { OWNER } from '../ownerConfig';
 
 const Hero: React.FC = () => {
 
-  const experienceYears = useMemo(() => {
-    const startDate = new Date('2020-05-01');
-    const today = new Date();
-    const diffTime = Math.abs(today.getTime() - startDate.getTime());
-    const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
-    return diffYears.toFixed(1);
-  }, []);
+  const experienceYears = useMemo(() => getExperienceYears(), []);
 
   const socials = [
     {
@@ -62,7 +56,7 @@ const Hero: React.FC = () => {
             </div> */}
 
             {/* Main Headline - Increased leading and padding to prevent clipping */}
-            <h1 className="text-6xl md:text-8xl xl:text-9xl font-black tracking-tight mb-14 leading-tight opacity-0 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h1 className="text-5xl sm:text-6xl md:text-8xl xl:text-9xl font-black tracking-tight mb-10 leading-[1.05] opacity-0 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
               <span className="block bg-clip-text text-transparent bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-500 drop-shadow-sm pb-4 pr-4">
                 Engineering
               </span>
@@ -73,18 +67,18 @@ const Hero: React.FC = () => {
 
             {/* Introduction Text - Animated fade-in with upward motion */}
             <p
-              className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 max-w-4xl mb-6 leading-snug opacity-0 animate-fade-in-up"
+              className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 max-w-4xl mb-6 leading-snug opacity-0 animate-fade-in-up"
               style={{ animationDelay: '0.3s' }}
             >
-              {OWNER.role} developing and architecting scalable cloud solutions and AI-agents.
+              {OWNER.role} architecting scalable cloud platforms, real-time fraud detection and AI-native engineering workflows.
             </p>
 
             {/* Detailed Description */}
             <p
-              className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mb-10 leading-relaxed opacity-0 animate-fade-in-up"
+              className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mb-10 leading-relaxed opacity-0 animate-fade-in-up"
               style={{ animationDelay: '0.4s' }}
             >
-              I transform Complex Business Requirements into High-Performance, Scalable Microservices. Specializing in <span className="text-slate-900 dark:text-white font-bold">Java, SQL/NoSQL, AWS Ecosystems</span> and <span className="text-slate-900 dark:text-white font-bold">AI-Driven Development</span>.
+              I turn complex business requirements into high-performance, scalable microservices, specializing in <span className="text-slate-900 dark:text-white font-bold">Java &amp; Spring Boot, AWS &amp; Kubernetes, SQL/NoSQL</span> and <span className="text-slate-900 dark:text-white font-bold">AI-assisted development with Claude, Cursor &amp; MCP</span>.
             </p>
 
             {/* Action Buttons */}
@@ -146,7 +140,11 @@ const Hero: React.FC = () => {
               <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border border-white/20 dark:border-white/5 bg-white dark:bg-slate-900 z-10 transform transition-transform duration-500 group-hover:scale-[1.02]">
                 <img
                   src={OWNER.avatarUrl}
-                  alt={OWNER.name}
+                  alt={`Portrait of ${OWNER.name}`}
+                  width={400}
+                  height={400}
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -161,10 +159,10 @@ const Hero: React.FC = () => {
                       <Terminal size={16} className="drop-shadow-md" />
                     </div>
                     <div className="flex flex-col justify-center">
-                      <p className="text-[8px] md:text-[9px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">Experience</p>
+                      <p className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-0.5">Experience</p>
                       <div className="flex items-baseline gap-1">
                         <span className="text-lg md:text-xl font-black text-slate-900 dark:text-white leading-none">{experienceYears}</span>
-                        <span className="text-[9px] md:text-[10px] font-bold text-primary-600 dark:text-primary-400 leading-none">Years</span>
+                        <span className="text-[10px] md:text-xs font-bold text-primary-600 dark:text-primary-400 leading-none">Years</span>
                       </div>
                     </div>
                   </div>
@@ -178,7 +176,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
+      <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
         <a href="#skills" aria-label="Scroll to Skills">
           <ChevronDown className="text-slate-300 dark:text-slate-600 w-8 h-8 cursor-pointer hover:text-primary-500 transition-colors" />
         </a>

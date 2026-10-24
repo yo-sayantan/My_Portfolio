@@ -1,207 +1,45 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { PROJECTS } from '../constants';
-import { Code2, Github, Lock, X, ExternalLink, CheckCircle, Loader2, ArrowRight } from 'lucide-react';
+import { Code2, Github, Lock, X, ExternalLink, CheckCircle, ArrowRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import { Project } from '../types';
+import ProjectScene from './ProjectScenes';
 
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'All' | 'Work' | 'Personal'>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isRedirecting, setIsRedirecting] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   
   const filteredProjects = PROJECTS.filter(p => filter === 'All' || p.type === filter);
 
-  // Lock body scroll when modal is open
+  // Lock body scroll, close on Escape, and move focus into the modal while it's open
   useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-      // Reset redirect state when modal opens
-      setIsRedirecting(false);
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    if (!selectedProject) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSelectedProject(null);
+    window.addEventListener('keydown', onKey);
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+      previouslyFocused?.focus();
     };
   }, [selectedProject]);
 
-  const handleGithubClick = (e: React.MouseEvent, link: string) => {
-    e.stopPropagation();
-    if (isRedirecting) return;
-
-    setIsRedirecting(true);
-    
-    // Simulate a brief loading/preparation phase for visual feedback
-    setTimeout(() => {
-      window.open(link, '_blank');
-      setIsRedirecting(false);
-    }, 1500);
-  };
-
-  const renderDoodle = (project: Project) => {
-    switch (project.id) {
-      case 'book-exchange':
-        return (
-          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
-               <path d="M50 150 Q 100 50 150 150 T 250 150" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary-300" strokeDasharray="8,8" />
-               <rect x="120" y="60" width="40" height="60" rx="4" className="fill-primary-100 dark:fill-primary-900/50 stroke-primary-400" strokeWidth="2" />
-               <rect x="130" y="50" width="40" height="60" rx="4" className="fill-white dark:fill-slate-800 stroke-primary-400" strokeWidth="2" />
-               <path d="M140 80 H160 M140 95 H160 M140 110 H155" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
-               
-               <circle cx="280" cy="80" r="15" className="fill-purple-100 dark:fill-purple-900/50 stroke-purple-400 animate-pulse" strokeWidth="2" />
-               <circle cx="320" cy="120" r="10" className="fill-blue-100 dark:fill-blue-900/50 stroke-blue-400" strokeWidth="2" />
-               <line x1="295" y1="80" x2="320" y2="120" stroke="currentColor" className="text-slate-300" />
-            </svg>
-          </div>
-        );
-
-      case 'quick-task':
-        return (
-          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-1">
-            <div className="absolute top-8 left-12 w-28 h-48 border-4 border-slate-300 dark:border-slate-600 rounded-[1.5rem] bg-white dark:bg-slate-800 transform -rotate-12 shadow-xl overflow-hidden group-hover:-rotate-6 transition-transform duration-500">
-               <div className="h-4 w-full bg-slate-100 dark:bg-slate-700 border-b border-slate-200"></div>
-               <div className="p-3 space-y-2">
-                  <div className="flex items-center gap-2">
-                     <div className="w-4 h-4 rounded-full border-2 border-green-500 bg-green-500/20"></div>
-                     <div className="w-16 h-2 bg-slate-200 dark:bg-slate-600 rounded-full"></div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                     <div className="w-4 h-4 rounded-full border-2 border-green-500 bg-green-500/20"></div>
-                     <div className="w-12 h-2 bg-slate-200 dark:bg-slate-600 rounded-full"></div>
-                  </div>
-                  <div className="flex items-center gap-2 opacity-50">
-                     <div className="w-4 h-4 rounded-full border-2 border-slate-300"></div>
-                     <div className="w-14 h-2 bg-slate-100 dark:bg-slate-700 rounded-full"></div>
-                  </div>
-               </div>
-               <div className="absolute bottom-4 right-4 w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-lg font-bold">+</div>
-            </div>
-            <div className="absolute top-20 right-16 w-6 h-6 rounded-full bg-yellow-400/50 animate-bounce"></div>
-          </div>
-        );
-
-      case 'investment-tracker':
-        return (
-          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
-             <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
-               <defs>
-                 <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                   <stop offset="0%" stopColor="#10b981" stopOpacity="0.4"/>
-                   <stop offset="100%" stopColor="#10b981" stopOpacity="0"/>
-                 </linearGradient>
-               </defs>
-               <path d="M0 150 L 60 130 L 120 160 L 180 100 L 240 120 L 320 40 L 400 60 V 200 H 0 Z" fill="url(#chartGrad)" className="group-hover:translate-y-1 transition-transform duration-500"/>
-               <polyline points="0,150 60,130 120,160 180,100 240,120 320,40 400,60" fill="none" stroke="#10b981" strokeWidth="3" className="group-hover:stroke-[4px] transition-all duration-500"/>
-            </svg>
-            <div className="absolute top-10 right-10 px-3 py-1 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 text-xs font-bold rounded-full border border-green-200 dark:border-green-800 shadow-sm group-hover:scale-110 transition-transform duration-300">
-              +24.5%
-            </div>
-          </div>
-        );
-
-      case 'os-scheduler':
-        return (
-          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
-             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
-               <rect x="160" y="60" width="80" height="80" rx="8" className="fill-slate-100 dark:fill-slate-800 stroke-blue-500 group-hover:stroke-blue-400 transition-colors" strokeWidth="3" />
-               <rect x="175" y="75" width="50" height="50" rx="4" className="fill-blue-500/20 stroke-blue-400" strokeWidth="2" />
-               <path d="M140 70 h20 M140 90 h20 M140 110 h20 M140 130 h20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
-               <path d="M240 70 h20 M240 90 h20 M240 110 h20 M240 130 h20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
-               <path d="M170 40 v20 M190 40 v20 M210 40 v20 M230 40 v20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
-               <path d="M170 140 v20 M190 140 v20 M210 140 v20 M230 140 v20" stroke="currentColor" strokeWidth="2" className="text-slate-400" />
-               <circle cx="200" cy="100" r="10" className="fill-blue-400 animate-pulse" />
-             </svg>
-          </div>
-        );
-
-      case 'my-portfolio':
-        return (
-          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-1">
-             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
-               <path d="M120 140 Q 150 100 200 120 T 280 80" fill="none" stroke="currentColor" strokeWidth="3" className="text-purple-400" strokeDasharray="6,6" />
-               <rect x="150" y="50" width="100" height="70" rx="10" className="fill-white dark:fill-slate-800 stroke-purple-500" strokeWidth="3" />
-               <path d="M150 85 h100" stroke="currentColor" strokeWidth="2" className="text-slate-200 dark:text-slate-700" />
-               <circle cx="180" cy="105" r="5" className="fill-purple-400 animate-bounce" style={{animationDelay: '0ms'}} />
-               <circle cx="200" cy="105" r="5" className="fill-purple-400 animate-bounce" style={{animationDelay: '150ms'}} />
-               <circle cx="220" cy="105" r="5" className="fill-purple-400 animate-bounce" style={{animationDelay: '300ms'}} />
-               <path d="M220 120 l20 20 l-10 -20 Z" className="fill-white dark:fill-slate-800 stroke-purple-500" strokeWidth="3" strokeLinejoin="round" />
-             </svg>
-          </div>
-        );
-
-      case 'school-connect':
-        return (
-          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
-             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
-               <polygon points="200,50 280,90 200,130 120,90" className="fill-blue-100 dark:fill-blue-900/30 stroke-blue-500 group-hover:-translate-y-2 transition-transform duration-500" strokeWidth="3" strokeLinejoin="round" />
-               <path d="M150 110 v30 Q 200 160 250 140 v-30" fill="none" stroke="currentColor" strokeWidth="3" className="text-blue-400 group-hover:-translate-y-2 transition-transform duration-500" />
-               <line x1="280" y1="90" x2="280" y2="140" stroke="currentColor" strokeWidth="2" className="text-blue-500 group-hover:-translate-y-2 transition-transform duration-500" />
-               <circle cx="280" cy="140" r="5" className="fill-blue-500 group-hover:-translate-y-2 transition-transform duration-500" />
-             </svg>
-          </div>
-        );
-
-      case 'beautiful-bengal':
-        return (
-          <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
-             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
-               <rect x="100" y="40" width="200" height="120" rx="8" className="fill-slate-100 dark:fill-slate-800 stroke-amber-500" strokeWidth="4" />
-               <circle cx="250" cy="70" r="20" className="fill-amber-400 group-hover:scale-110 transition-transform duration-500" style={{ transformOrigin: '250px 70px' }} />
-               <path d="M100 160 Q 150 100 200 160" className="fill-green-500/20 stroke-green-500" strokeWidth="2" />
-               <path d="M150 160 Q 220 80 300 160" className="fill-green-600/20 stroke-green-600" strokeWidth="2" />
-               <rect x="90" y="30" width="220" height="140" rx="12" fill="none" className="stroke-slate-300 dark:stroke-slate-600 group-hover:stroke-amber-400 transition-colors duration-500" strokeWidth="2" strokeDasharray="8,8" />
-             </svg>
-          </div>
-        );
-
-      default:
-        if (project.type === 'Work') {
-          return (
-            <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
-              <div className="absolute top-8 left-10 w-24 h-32 border-2 border-blue-400/30 rounded-lg flex flex-col gap-2 p-2 group-hover:-translate-y-2 transition-transform duration-500">
-                <div className="h-2 w-full bg-blue-400/20 rounded-full animate-pulse"></div>
-                <div className="h-2 w-2/3 bg-blue-400/20 rounded-full"></div>
-                <div className="h-2 w-full bg-blue-400/20 rounded-full"></div>
-                <div className="mt-auto flex gap-1">
-                   <div className="w-2 h-2 rounded-full bg-green-400 animate-ping"></div>
-                   <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-                </div>
-              </div>
-              <svg className="absolute inset-0 w-full h-full">
-                 <path d="M140 60 Q 200 100 250 60" stroke="currentColor" strokeWidth="1" fill="none" className="text-slate-300 dark:text-slate-600" strokeDasharray="5,5" />
-                 <circle cx="140" cy="60" r="3" className="fill-blue-400" />
-                 <circle cx="250" cy="60" r="3" className="fill-purple-400" />
-              </svg>
-            </div>
-          );
-        } else {
-          return (
-            <div className="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-105">
-              <div className="absolute top-6 right-8 w-32 h-24 bg-slate-800/5 border border-purple-400/30 rounded-lg p-2 flex flex-col gap-1.5 transform -rotate-3 group-hover:rotate-0 transition-transform duration-500">
-                 <div className="flex gap-1 mb-1">
-                    <div className="w-1.5 h-1.5 rounded-full bg-red-400"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-yellow-400"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div>
-                 </div>
-                 <div className="w-3/4 h-1 bg-slate-400/30 rounded-full"></div>
-                 <div className="w-1/2 h-1 bg-slate-400/30 rounded-full ml-2"></div>
-                 <div className="w-2/3 h-1 bg-slate-400/30 rounded-full"></div>
-              </div>
-              <div className="absolute bottom-8 left-12 text-purple-500/30 rotate-12 group-hover:rotate-[360deg] transition-transform duration-1000">
-                  <Code2 size={40} />
-              </div>
-            </div>
-          );
-        }
+  const openOnKey = (e: React.KeyboardEvent, project: Project) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setSelectedProject(project);
     }
   };
 
   return (
-    <section id="projects" className="py-32 relative z-10">
+    <section id="projects" className="pt-20 pb-14 md:pt-24 md:pb-16 relative z-10">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col items-center mb-20">
+        <div className="flex flex-col items-center mb-12">
           <ScrollReveal>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
               <span className="bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Featured </span>
@@ -214,10 +52,11 @@ const Projects: React.FC = () => {
                {['All', 'Work', 'Personal'].map((type) => (
                  <button
                    key={type}
-                   onClick={() => setFilter(type as any)}
-                   className={`px-8 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+                   onClick={() => setFilter(type as typeof filter)}
+                   aria-pressed={filter === type}
+                   className={`px-6 sm:px-8 py-2.5 rounded-full text-sm font-bold transition-[background-color,color,box-shadow,transform] duration-200 ${
                      filter === type 
-                     ? 'bg-slate-900 text-white shadow-lg scale-105' 
+                     ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-lg scale-105' 
                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5'
                    }`}
                  >
@@ -230,20 +69,25 @@ const Projects: React.FC = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
-            <ScrollReveal key={project.id} delay={`delay-[${index * 100}ms]`}>
+            <ScrollReveal key={project.id} staggerMs={(index % 3) * 80}>
               <div
+                 role="button"
+                 tabIndex={0}
+                 aria-label={`Open details for ${project.title}`}
                  onClick={() => setSelectedProject(project)}
+                 onKeyDown={(e) => openOnKey(e, project)}
                  className={`
                     group relative h-[420px] rounded-[2.5rem] bg-white dark:bg-slate-900 
                     border border-slate-200 dark:border-slate-800 overflow-hidden 
-                    transition-all duration-500 
-                    hover:-translate-y-4 hover:scale-[1.03] hover:shadow-[0_20px_80px_-15px_rgba(14,165,233,0.3)] hover:border-primary-500/30
+                    transition-[transform,box-shadow,border-color] duration-300 ease-out
+                    hover:-translate-y-2 hover:shadow-[0_20px_80px_-15px_rgba(14,165,233,0.3)] hover:border-primary-500/30
+                    active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950
                     cursor-pointer flex flex-col
                  `}
               >
                  {/* Project Visual / Doodle Background */}
                  <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 transition-colors duration-500 group-hover:from-primary-50/50 group-hover:to-purple-50/50 dark:group-hover:from-primary-900/20 dark:group-hover:to-purple-900/20 z-0">
-                    {renderDoodle(project)}
+                    <ProjectScene id={project.id} type={project.type} />
                  </div>
                  
                  {/* Content Overlay - Removed complex pointer-events for better touch support */}
@@ -283,20 +127,25 @@ const Projects: React.FC = () => {
                         {/* Action Buttons */}
                         <div className="pt-4 border-t border-slate-200/50 dark:border-slate-700/50 mt-auto flex items-center gap-3">
                             {/* Main 'See Details' Button for better mobile interaction */}
-                            <button type="button" className="py-2.5 px-6 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm shadow-md group-hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+                            <span className="py-2.5 px-6 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm shadow-md group-hover:shadow-lg transition-shadow duration-300 flex items-center gap-2">
                                 See Project
                                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                            </button>
+                            </span>
 
                             {/* Secondary Github Button */}
                             {project.link ? (
-                                <button 
-                                  onClick={(e) => handleGithubClick(e, project.link!)}
-                                  className="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 ml-auto"
-                                  title="View Code"
+                                <a
+                                  href={project.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  onKeyDown={(e) => e.stopPropagation()}
+                                  className="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-[background-color,transform] duration-150 border border-slate-200 dark:border-slate-700 ml-auto"
+                                  title="View code on GitHub"
+                                  aria-label={`View ${project.title} source code on GitHub`}
                                 >
                                     <Github size={20} />
-                                </button>
+                                </a>
                             ) : (
                                 <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-600 border border-slate-100 dark:border-slate-800 cursor-not-allowed ml-auto" title="Private Repo">
                                     <Lock size={16} />
@@ -311,24 +160,25 @@ const Projects: React.FC = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+      {/* Modal — portalled to <body> so the section's stacking context can't trap it under the fixed header */}
+      {selectedProject && createPortal(
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
           <div 
-            className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300" 
-            onClick={() => !isRedirecting && setSelectedProject(null)}
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200" 
+            onClick={() => setSelectedProject(null)}
           ></div>
-          <div className={`bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl relative z-10 animate-in zoom-in-95 duration-300 border border-slate-200 dark:border-white/10 flex flex-col transition-opacity duration-300 ${isRedirecting ? 'pointer-events-none opacity-90' : ''}`}>
+          <div className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto overscroll-contain rounded-[2rem] shadow-2xl relative z-10 animate-in fade-in zoom-in-95 duration-300 ease-out-strong border border-slate-200 dark:border-white/10 flex flex-col">
              
              {/* Modal Header */}
-             <div className={`relative h-48 md:h-64 shrink-0 bg-slate-100 dark:bg-slate-950 overflow-hidden group ${isRedirecting ? 'opacity-50' : ''}`}>
+             <div className="relative h-48 md:h-64 shrink-0 bg-slate-100 dark:bg-slate-950 overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-purple-500/10">
-                   {renderDoodle(selectedProject)}
+                   <ProjectScene id={selectedProject.id} type={selectedProject.type} className="absolute inset-0 pb-10" />
                 </div>
                 <button 
+                  ref={closeButtonRef}
                   onClick={() => setSelectedProject(null)}
-                  disabled={isRedirecting}
-                  className="absolute top-6 right-6 p-2.5 bg-white/20 backdrop-blur-md border border-white/10 text-slate-900 dark:text-white rounded-full hover:bg-white/40 transition-colors z-20"
+                  aria-label="Close project details"
+                  className="absolute top-6 right-6 p-2.5 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-slate-900 dark:text-white rounded-full hover:bg-white/80 dark:hover:bg-slate-700/80 active:scale-95 transition-[background-color,transform] duration-150 z-20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                 >
                   <X size={20} />
                 </button>
@@ -336,14 +186,14 @@ const Projects: React.FC = () => {
                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/30 dark:bg-black/30 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2">
                       {selectedProject.type} Project
                    </div>
-                   <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
+                   <h2 id="project-modal-title" className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight pr-16">
                      {selectedProject.title}
                    </h2>
                 </div>
              </div>
 
              {/* Modal Content */}
-             <div className={`p-6 md:p-10 grid lg:grid-cols-3 gap-10 transition-opacity duration-300 ${isRedirecting ? 'opacity-50' : ''}`}>
+             <div className="p-6 md:p-10 grid lg:grid-cols-3 gap-10">
                
                {/* Main Info - Left Col */}
                <div className="lg:col-span-2 space-y-8">
@@ -386,33 +236,18 @@ const Projects: React.FC = () => {
                     <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                        <h4 className="font-bold text-slate-900 dark:text-white mb-2">Interested in the code?</h4>
                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                         Check out the repository to see the implementation details and contribution guidelines.
+                         Browse the repository for the full implementation, architecture and setup instructions.
                        </p>
-                       <button 
-                         onClick={(e) => handleGithubClick(e, selectedProject.link!)}
-                         disabled={isRedirecting}
-                         className={`
-                           flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm 
-                           transition-all duration-300 shadow-lg
-                           ${isRedirecting 
-                              ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-wait translate-y-0 shadow-none' 
-                              : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:-translate-y-0.5 hover:shadow-xl active:scale-95'
-                           }
-                         `}
+                       <a
+                         href={selectedProject.link}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm transition-[transform,box-shadow] duration-200 shadow-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.97]"
                        >
-                         {isRedirecting ? (
-                            <>
-                              <Loader2 size={18} className="animate-spin" />
-                              <span className="animate-pulse">Redirecting to GitHub...</span>
-                            </>
-                         ) : (
-                            <>
-                              <Github size={18} />
-                              <span>View on GitHub</span>
-                              <ExternalLink size={14} className="ml-0.5 opacity-70" />
-                            </>
-                         )}
-                       </button>
+                         <Github size={18} />
+                         <span>View on GitHub</span>
+                         <ExternalLink size={14} className="ml-0.5 opacity-70" />
+                       </a>
                     </div>
                   ) : (
                     <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 opacity-75">
@@ -433,7 +268,8 @@ const Projects: React.FC = () => {
 
              </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

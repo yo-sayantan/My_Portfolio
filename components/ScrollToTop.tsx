@@ -42,7 +42,7 @@ const ScrollToTop: React.FC = () => {
         hover:bg-white dark:hover:bg-slate-800 
         hover:text-primary-600 dark:hover:text-primary-400 
         hover:border-primary-200 dark:hover:border-primary-700/50 
-        transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+        transition-all duration-500 ease-out-expo
         ${isVisible ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-12 scale-90 pointer-events-none'}
       `}
       aria-label="Scroll to top"

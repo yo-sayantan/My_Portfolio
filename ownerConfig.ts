@@ -18,7 +18,7 @@ export const OWNER = {
   email: "sayantanbiswas.mycareer@gmail.com",
   phone: "+917381183721",
   github: "https://github.com/yo-sayantan",
-  linkedin: "https://www.linkedin.com/in/yo-sayantan",
+  linkedin: "https://in.linkedin.com/in/yo-sayantan",
   portfolio: "https://sayantan-myportfolio.netlify.app",
   avatarUrl: "https://github.com/yo-sayantan.png",
   location: "Kondapur, Hyderabad",

@@ -14,9 +14,9 @@ const Skills: React.FC = () => {
   };
 
   return (
-    <section id="skills" className="py-32 bg-transparent relative">
+    <section id="skills" className="pt-20 pb-14 md:pt-24 md:pb-16 bg-transparent relative">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <ScrollReveal>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Technical Arsenal</h2>
           </ScrollReveal>
@@ -29,7 +29,7 @@ const Skills: React.FC = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {SKILLS.map((skillGroup, idx) => (
-            <ScrollReveal key={idx} delay={`delay-[${(idx * 100)}ms]`}>
+            <ScrollReveal key={skillGroup.category} staggerMs={idx * 80}>
               <div
                 className="bg-white/10 dark:bg-slate-900/30 backdrop-blur-md p-8 rounded-[2rem] shadow-lg border border-slate-200 dark:border-white/10 hover:border-primary-300 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full group relative overflow-hidden"
               >

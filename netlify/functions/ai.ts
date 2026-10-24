@@ -1,5 +1,10 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
+import { buildSystemInstruction } from "../../services/aiContext";
+
+const MAX_MESSAGE_CHARS = 2000;
+const MAX_HISTORY_ITEMS = 20;
+const MAX_HISTORY_CHARS = 4000;
 
 // Support both variable names
 const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
@@ -34,10 +39,10 @@ export default async (req: Request) => {
 
   try {
     const body = await req.json();
-    const { message, history, systemInstruction } = body;
+    const { message, history, pagePath } = body;
 
-    if (!message) {
-      return new Response(JSON.stringify({ error: "Message is required" }), {
+    if (typeof message !== 'string' || !message.trim() || message.length > MAX_MESSAGE_CHARS) {
+      return new Response(JSON.stringify({ error: `Message is required (max ${MAX_MESSAGE_CHARS} characters)` }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -65,10 +70,14 @@ export default async (req: Request) => {
     // Format history for Gemini API
     // Frontend sends: { role: 'user' | 'model', text: string }
     // SDK expects: { role: string, parts: [{ text: string }] }
-    const contents = (history || []).map((msg: any) => ({
+    // Only well-formed, size-capped turns are forwarded; the system prompt is built here, never taken from the client.
+    const contents = (Array.isArray(history) ? history : [])
+      .filter((msg: any) => (msg?.role === 'user' || msg?.role === 'model') && typeof msg?.text === 'string')
+      .slice(-MAX_HISTORY_ITEMS)
+      .map((msg: any) => ({
         role: msg.role,
-        parts: [{ text: msg.text }]
-    }));
+        parts: [{ text: msg.text.slice(0, MAX_HISTORY_CHARS) }]
+      }));
 
     // Add the current user message
     contents.push({ role: 'user', parts: [{ text: message }] });
@@ -77,7 +86,7 @@ export default async (req: Request) => {
       model: 'gemini-2.5-flash',
       contents: contents,
       config: {
-        systemInstruction: systemInstruction,
+        systemInstruction: buildSystemInstruction(typeof pagePath === 'string' ? pagePath : '/'),
         temperature: 0.7,
         responseMimeType: "application/json",
         responseSchema: responseSchema,
@@ -94,7 +103,7 @@ export default async (req: Request) => {
 
   } catch (error: any) {
     console.error("Gemini Function Error:", error);
-    return new Response(JSON.stringify({ error: error.message || "AI Service Error" }), {
+    return new Response(JSON.stringify({ error: "AI Service Error" }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });

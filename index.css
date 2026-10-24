@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* Anchor jumps: each section's own top padding clears the fixed header (~64px),
+       so no extra scroll-padding is added on top of it. */
+    /* Reserve the scrollbar gutter so locking scroll for the modal doesn't shift the layout */
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgb(14 165 233 / 0.25);
+  }
+}
+
+/* Shake feedback for invalid form fields */
+@keyframes field-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+@layer utilities {
+  .shake {
+    animation: field-shake 0.4s ease-in-out;
+  }
+}
+
+/* ── Theme switching ─────────────────────────────────────────────
+   View Transition path: we animate the new snapshot with a clip-path circle from JS,
+   so turn off the default cross-fade and per-element transitions while it runs. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
+/* Fallback path: one shared, synchronized colour cross-fade */
+.theme-fade *,
+.theme-fade *::before,
+.theme-fade *::after {
+  transition-property: color, background-color, border-color, fill, stroke, box-shadow !important;
+  transition-duration: 350ms !important;
+  transition-timing-function: ease !important;
+  transition-delay: 0ms !important;
+}
+
+/* ── Project card scenes (components/ProjectScenes.tsx) ────────────
+   Timing and distances come from per-element CSS variables: --dur, --delay, --dx, --dy.
+   Only transform / opacity / stroke-dashoffset are animated. */
+.ps-el {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-duration: var(--dur, 3s);
+  animation-delay: var(--delay, 0s);
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+.ps-origin-top { transform-origin: 50% 0%; }
+.ps-origin-bottom { transform-origin: 50% 100%; }
+.ps-dash { stroke-dasharray: 1; }
+
+.ps-travel { animation-name: ps-travel; animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1); }
+.ps-shuttle { animation-name: ps-shuttle; animation-direction: alternate; }
+.ps-pulse { animation-name: ps-pulse; }
+.ps-ripple { animation-name: ps-ripple; animation-timing-function: ease-out; }
+.ps-spin { animation-name: ps-spin; animation-timing-function: linear; }
+.ps-swing { animation-name: ps-swing; }
+.ps-pop { animation-name: ps-pop; }
+.ps-growx { animation-name: ps-growx; transform-origin: 0% 50%; }
+.ps-growy { animation-name: ps-growy; }
+.ps-draw { animation-name: ps-draw; }
+.ps-fade { animation-name: ps-fade; }
+.ps-rise { animation-name: ps-rise; }
+.ps-bounce { animation-name: ps-bounce; }
+.ps-float { animation-name: ps-float; }
+
+@keyframes ps-travel {
+  0% { opacity: 0; transform: translate(0, 0); }
+  12% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx, 0), var(--dy, 0)); }
+}
+@keyframes ps-shuttle {
+  0%, 14% { transform: translate(0, 0); }
+  86%, 100% { transform: translate(var(--dx, 0), var(--dy, 0)); }
+}
+@keyframes ps-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+@keyframes ps-ripple {
+  0% { opacity: 0.7; transform: scale(0.5); }
+  100% { opacity: 0; transform: scale(2); }
+}
+@keyframes ps-spin { to { transform: rotate(360deg); } }
+@keyframes ps-swing {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+@keyframes ps-pop {
+  0%, 8% { opacity: 0; transform: scale(0.4); }
+  18% { opacity: 1; transform: scale(1.12); }
+  26%, 82% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1); }
+}
+@keyframes ps-growx {
+  0% { opacity: 1; transform: scaleX(0); }
+  65%, 88% { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(1); }
+}
+@keyframes ps-growy {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+@keyframes ps-draw {
+  0% { opacity: 1; stroke-dashoffset: 1; }
+  62%, 88% { opacity: 1; stroke-dashoffset: 0; }
+  100% { opacity: 0; stroke-dashoffset: 0; }
+}
+@keyframes ps-fade {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+@keyframes ps-rise {
+  0%, 100% { transform: translateY(24px); }
+  50% { transform: translateY(0); }
+}
+@keyframes ps-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes ps-float {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-7px) rotate(1.5deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Static composition: show every scene element at its resting pose */
+  .ps-el { animation: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -16,6 +16,21 @@ const GMAIL_USER = process.env.GMAIL_USER;
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
 const OWNER_EMAIL = OWNER.email;
 
+const LIMITS = { name: 100, email: 254, subject: 200, message: 5000, transcriptItems: 60, transcriptText: 4000 };
+const EMAIL_RE = /^[^\s@<>"'()]+@[^\s@<>"'()]+\.[^\s@<>"'()]+$/;
+
+/** Escapes user-supplied text before it is placed inside the HTML email templates. */
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+const clean = (value: unknown, max: number) =>
+  typeof value === 'string' ? value.replace(/\r/g, '').trim().slice(0, max) : '';
+
 export default async (req: Request) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -38,14 +53,30 @@ export default async (req: Request) => {
     // Netlify headers for IP
     const ip = req.headers.get('x-nf-client-connection-ip') || req.headers.get('client-ip') || 'Unknown';
 
-    if (!body.email || !body.message) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+    // Normalise + cap every user-controlled field before it goes anywhere near a template
+    body.name = clean(body.name, LIMITS.name).replace(/\n/g, ' ');
+    body.email = clean(body.email, LIMITS.email);
+    body.subject = clean(body.subject, LIMITS.subject).replace(/\n/g, ' ');
+    body.message = clean(body.message, LIMITS.message);
+
+    if (!body.name || !body.message || !EMAIL_RE.test(body.email)) {
+      return new Response(JSON.stringify({ error: "Missing or invalid fields" }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
     const isTranscript = body.type === 'transcript';
+
+    // HTML-safe copies for the templates (plain-text bodies keep the raw values)
+    const h = {
+      name: escapeHtml(body.name),
+      email: escapeHtml(body.email),
+      subject: escapeHtml(body.subject || ''),
+      message: escapeHtml(body.message),
+      ip: escapeHtml(ip),
+      userAgent: escapeHtml(userAgent.slice(0, 300)),
+    };
 
     // --- DEMO MODE / FALLBACK ---
     if (!GMAIL_USER || !GMAIL_APP_PASSWORD) {
@@ -72,12 +103,15 @@ export default async (req: Request) => {
 
     if (isTranscript) {
       // CASE 1: SEND TRANSCRIPT TO USER (Chat UI Style)
-      const transcriptList = body.transcript || [];
+      const transcriptList = (Array.isArray(body.transcript) ? body.transcript : [])
+        .filter((msg: any) => typeof msg?.text === 'string')
+        .slice(-LIMITS.transcriptItems);
 
       // Generate Chat Bubbles HTML
       const chatBubbles = transcriptList.map((msg: any) => {
         const isUser = msg.sender === 'user';
-        const time = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const sentAtDate = new Date(msg.timestamp);
+        const time = Number.isNaN(sentAtDate.getTime()) ? '' : sentAtDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         return `
           <div style="margin-bottom: 20px; display: flex; justify-content: ${isUser ? 'flex-end' : 'flex-start'}; align-items: flex-end;">
@@ -98,7 +132,7 @@ export default async (req: Request) => {
             : 'background-color: #f8fafc; color: #334155; border: 1px solid #e2e8f0; border-bottom-left-radius: 4px;'
           }
               ">
-                ${msg.text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
+                ${escapeHtml(msg.text.slice(0, LIMITS.transcriptText)).replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
               </div>
               <div style="font-size: 10px; color: #94a3b8; margin-top: 4px; ${isUser ? 'text-align: right;' : 'text-align: left;'}">
                 ${time}
@@ -263,7 +297,7 @@ export default async (req: Request) => {
                                       <table role="presentation" width="52" height="52" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 16px; overflow: hidden;">
                                         <tr>
                                           <td align="center" valign="middle" style="width: 52px; height: 52px; color: #ffffff; font-size: 20px; font-weight: 800; text-align: center; font-family: 'Inter', -apple-system, sans-serif;">
-                                            ${senderInitial}
+                                            ${escapeHtml(senderInitial)}
                                           </td>
                                         </tr>
                                       </table>
@@ -271,10 +305,10 @@ export default async (req: Request) => {
                                     <!-- Info -->
                                     <td style="padding-left: 16px; vertical-align: top;">
                                       <p style="margin: 0 0 2px; font-size: 18px; font-weight: 700; color: #0f172a; line-height: 1.3;">
-                                        ${body.name}
+                                        ${h.name}
                                       </p>
                                       <p style="margin: 0; font-size: 13px; color: #6366f1; font-weight: 600;">
-                                        ${body.email}
+                                        ${h.email}
                                       </p>
                                     </td>
                                     <!-- Priority Badge -->
@@ -292,7 +326,7 @@ export default async (req: Request) => {
                               <td style="padding: 0 24px 20px;">
                                 <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 16px;">
                                   <span style="font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Subject</span>
-                                  <p style="margin: 4px 0 0; font-size: 15px; font-weight: 600; color: #1e293b;">${body.subject}</p>
+                                  <p style="margin: 4px 0 0; font-size: 15px; font-weight: 600; color: #1e293b;">${h.subject}</p>
                                 </div>
                               </td>
                             </tr>
@@ -315,7 +349,7 @@ export default async (req: Request) => {
                             <tr>
                               <td style="background-color: #fafbfc; border: 1px solid #e8ecf1; border-radius: 14px; padding: 24px 28px;">
                                 <p style="margin: 0; font-size: 15px; line-height: 1.75; color: #334155; font-weight: 450; white-space: pre-wrap; word-wrap: break-word;">
-${body.message}
+${h.message}
                                 </p>
                               </td>
                             </tr>
@@ -330,15 +364,15 @@ ${body.message}
                             <tr>
                               <td align="center">
                                 <!--[if mso]>
-                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="mailto:${body.email}?subject=Re: ${encodeURIComponent(body.subject || 'Your Portfolio Inquiry')}&body=${encodeURIComponent('Hi ' + body.name + ',\\n\\nThank you for reaching out through my portfolio.\\n\\n')}" style="height:52px;v-text-anchor:middle;width:280px;" arcsize="50%" fillcolor="#0f172a">
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="mailto:${h.email}?subject=Re: ${encodeURIComponent(body.subject || 'Your Portfolio Inquiry')}&body=${encodeURIComponent('Hi ' + body.name + ',\\n\\nThank you for reaching out through my portfolio.\\n\\n')}" style="height:52px;v-text-anchor:middle;width:280px;" arcsize="50%" fillcolor="#0f172a">
                                   <w:anchorlock/>
-                                  <center style="color:#ffffff;font-family:sans-serif;font-size:15px;font-weight:bold;">Reply to ${body.name}</center>
+                                  <center style="color:#ffffff;font-family:sans-serif;font-size:15px;font-weight:bold;">Reply to ${h.name}</center>
                                 </v:roundrect>
                                 <![endif]-->
                                 <!--[if !mso]><!-->
-                                <a href="mailto:${body.email}?subject=Re: ${encodeURIComponent(body.subject || 'Your Portfolio Inquiry')}&body=${encodeURIComponent('Hi ' + body.name + ',\n\nThank you for reaching out through my portfolio.\n\n')}"
+                                <a href="mailto:${h.email}?subject=Re: ${encodeURIComponent(body.subject || 'Your Portfolio Inquiry')}&body=${encodeURIComponent('Hi ' + body.name + ',\n\nThank you for reaching out through my portfolio.\n\n')}"
                                    style="display: inline-block; background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 700; padding: 16px 40px; border-radius: 14px; letter-spacing: 0.3px; box-shadow: 0 4px 14px rgba(15,23,42,0.25), 0 0 0 1px rgba(255,255,255,0.05) inset; transition: all 0.2s;">
-                                  &#9993;&nbsp;&nbsp;Reply to ${body.name} →
+                                  &#9993;&nbsp;&nbsp;Reply to ${h.name} →
                                 </a>
                                 <!--<![endif]-->
                               </td>
@@ -362,7 +396,7 @@ ${body.message}
                               <td style="padding: 14px 18px;">
                                 <p style="margin: 0 0 2px; font-size: 9px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1.5px;">Request Metadata</p>
                                 <p style="margin: 0; font-size: 11px; color: #94a3b8; line-height: 1.6; word-break: break-all;">
-                                  <span style="color: #64748b; font-weight: 600;">IP</span>&nbsp; ${ip}&nbsp;&nbsp;·&nbsp;&nbsp;<span style="color: #64748b; font-weight: 600;">UA</span>&nbsp; ${userAgent}
+                                  <span style="color: #64748b; font-weight: 600;">IP</span>&nbsp; ${h.ip}&nbsp;&nbsp;·&nbsp;&nbsp;<span style="color: #64748b; font-weight: 600;">UA</span>&nbsp; ${h.userAgent}
                                 </p>
                               </td>
                             </tr>
@@ -455,7 +489,7 @@ ${body.message}
 
   } catch (error: any) {
     console.error("SMTP Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to send email", details: error.message }), {
+    return new Response(JSON.stringify({ error: "Failed to send email" }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
