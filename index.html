@@ -1,116 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="https://vitejs.dev/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sayantan Biswas | Senior Software Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sayantan Biswas | Senior Software Engineer · Java, AWS &amp; AI</title>
+    <meta name="description" content="Sayantan Biswas — Senior Software Engineer at Experian. Java & Spring Boot microservices, AWS cloud-native modernization, Kubernetes, fraud-detection platforms and AI-assisted engineering (Claude, Cursor, MCP)." />
+    <meta name="author" content="Sayantan Biswas" />
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sayantan Biswas | Senior Software Engineer" />
+    <meta property="og:description" content="Java & Spring Boot microservices, AWS cloud-native modernization, fraud-detection platforms and AI-assisted engineering." />
+    <meta property="og:url" content="https://sayantan-myportfolio.netlify.app/" />
+    <meta property="og:image" content="https://github.com/yo-sayantan.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230ea5e9'/%3E%3Cstop offset='1' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='800' fill='white' text-anchor='middle'%3ESB%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-            colors: {
-              primary: {
-                50: '#f0f9ff',
-                100: '#e0f2fe',
-                200: '#bae6fd',
-                300: '#7dd3fc',
-                400: '#38bdf8',
-                500: '#0ea5e9',
-                600: '#0284c7',
-                700: '#0369a1',
-                800: '#075985',
-                900: '#0c4a6e',
-              },
-              secondary: '#0f172a',
-            },
-            keyframes: {
-              'gradient-x': {
-                '0%, 100%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'left center'
-                },
-                '50%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'right center'
-                },
-              },
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              'shimmer': {
-                '0%': { 'background-position': '-200% 0' },
-                '100%': { 'background-position': '200% 0' },
-              },
-              'pulse-glow': {
-                '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-                '50%': { opacity: '1', transform: 'scale(1.15)' },
-              },
-              'float': {
-                '0%, 100%': { transform: 'translateY(0px)' },
-                '50%': { transform: 'translateY(-12px)' },
-              },
-              'ripple': {
-                '0%': { transform: 'scale(0.8)', opacity: '1' },
-                '100%': { transform: 'scale(2.2)', opacity: '0' },
-              },
-              'border-dance': {
-                '0%, 100%': { 'background-position': '0% 50%' },
-                '50%': { 'background-position': '100% 50%' },
-              },
-              'rotate-slow': {
-                '0%': { transform: 'rotate(0deg)' },
-                '100%': { transform: 'rotate(360deg)' },
-              },
-            },
-            animation: {
-              'spin-slow': 'spin 8s linear infinite',
-              'bounce-slow': 'bounce 3s infinite',
-              'gradient-x': 'gradient-x 3s ease infinite',
-              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-              'shimmer': 'shimmer 2.5s ease-in-out infinite',
-              'pulse-glow': 'pulse-glow 2.5s ease-in-out infinite',
-              'float': 'float 6s ease-in-out infinite',
-              'float-slow': 'float 8s ease-in-out infinite',
-              'float-slower': 'float 10s ease-in-out infinite',
-              'ripple': 'ripple 2s ease-out infinite',
-              'border-dance': 'border-dance 4s ease infinite',
-              'rotate-slow': 'rotate-slow 12s linear infinite',
-            }
-          },
-        },
-      }
+      // Apply the saved (or system) theme before first paint to avoid a light→dark flash
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
     </script>
-
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "url": "https://aistudiocdn.com/url@^0.11.4",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
-    "path": "https://aistudiocdn.com/path@^0.12.7",
-    "vite": "https://aistudiocdn.com/vite@^7.2.4",
-    "nodemailer": "https://aistudiocdn.com/nodemailer@^7.0.10"
-  }
-}
-</script>
-  <script type="module" crossorigin src="/assets/index-C7dH0TI8.js"></script>
-</head>
-  <body class="font-medium bg-white dark:bg-slate-950 text-slate-900 dark:text-white antialiased transition-colors duration-500 select-none">
+    <script type="module" crossorigin src="/assets/index-BqcR3mxA.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CGsdBXeW.css">
+  </head>
+  <body class="font-medium bg-white dark:bg-slate-950 text-slate-900 dark:text-white antialiased">
     <div id="root"></div>
   </body>
 </html>
