@@ -45,8 +45,8 @@ const Projects: React.FC = () => {
         <div className="flex flex-col items-center mb-12">
           <ScrollReveal>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
-              <span className="bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Featured </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-purple-500">Projects</span>
+              <span className="inline-block heading-clip bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Featured&nbsp;</span>
+              <span className="inline-block heading-clip text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-purple-500">Projects</span>
             </h2>
           </ScrollReveal>
           
@@ -80,7 +80,7 @@ const Projects: React.FC = () => {
                  onClick={() => setSelectedProject(project)}
                  onKeyDown={(e) => openOnKey(e, project)}
                  className={`
-                    group relative h-[450px] rounded-[2.5rem] bg-white dark:bg-slate-900 
+                    group relative md:h-[450px] rounded-[2rem] md:rounded-[2.5rem] bg-white dark:bg-slate-900 
                     border border-slate-200 dark:border-slate-800 overflow-hidden 
                     transition-[transform,box-shadow,border-color] duration-300 ease-out
                     hover:-translate-y-2 hover:shadow-[0_20px_80px_-15px_rgba(14,165,233,0.3)] hover:border-primary-500/30
@@ -94,10 +94,10 @@ const Projects: React.FC = () => {
                  </div>
                  
                  {/* Content Overlay - Removed complex pointer-events for better touch support */}
-                 <div className="relative z-10 p-8 flex flex-col h-full">
+                 <div className="relative z-10 p-6 md:p-8 flex flex-col h-full">
                     
                     {/* Icon Header */}
-                    <div className="mb-auto">
+                    <div className="mb-auto max-md:h-[150px]">
                        <div className="flex justify-between items-start mb-4">
                           <div className={`p-3 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 text-slate-900 dark:text-white group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
                              {project.type === 'Work' ? <Lock size={20} /> : <Code2 size={20} />}
@@ -108,15 +108,15 @@ const Projects: React.FC = () => {
                     {/* Text Content */}
                     <div>
                        {/* Fixed-height rows (title / summary / tags) keep every card's text on the same lines */}
-                       <h3 title={project.title} className="h-7 text-xl xl:text-[22px] leading-7 font-bold text-slate-900 dark:text-white mb-2.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
+                       <h3 title={project.title} className="md:h-7 text-xl xl:text-[22px] leading-7 font-bold text-slate-900 dark:text-white mb-2.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors md:truncate">
                          {project.title}
                        </h3>
-                       <p className="h-[46px] text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">
+                       <p className="md:h-[46px] text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3 md:line-clamp-2">
                          {project.summary ?? project.description}
                        </p>
                        
                        {/* Key stack: techStack is ordered by importance, so the card shows the first few */}
-                       <div className="flex flex-wrap content-start gap-1.5 h-[60px] overflow-hidden mb-4">
+                       <div className="flex flex-wrap content-start gap-1.5 md:h-[60px] md:overflow-hidden mb-4">
                           {project.techStack.slice(0, CARD_TAGS).map((tech) => (
                              <span key={tech} className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/60 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">
                                {tech}
@@ -173,7 +173,7 @@ const Projects: React.FC = () => {
             onClick={() => setSelectedProject(null)}
           ></div>
           {/* One fixed size per project type (work projects have less to show, so their window is shorter) */}
-          <div className={`bg-white dark:bg-slate-900 w-full max-w-[1075px] ${selectedProject.type === 'Work' ? 'h-[min(92vh,750px)]' : 'h-[min(92vh,940px)]'} rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-300 ease-out-strong border border-slate-200 dark:border-white/10`}>
+          <div className={`bg-white dark:bg-slate-900 w-full max-w-[1075px] ${selectedProject.type === 'Work' ? 'h-[min(92dvh,750px)]' : 'h-[min(92dvh,940px)]'} rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-300 ease-out-strong border border-slate-200 dark:border-white/10`}>
 
              {/* Close button lives outside the scroller so it never scrolls away */}
              <button 

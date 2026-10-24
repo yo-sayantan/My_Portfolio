@@ -17,7 +17,7 @@ const Education: React.FC = () => {
                             <div className="p-3 bg-primary-100/50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl">
                                 <GraduationCap className="w-8 h-8" />
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Education</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight heading-clip bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Education</h2>
                         </div>
                     </ScrollReveal>
                 </div>
@@ -25,7 +25,7 @@ const Education: React.FC = () => {
                 <div className="flex flex-col gap-6 flex-1">
                     {EDUCATION.map((edu, index) => (
                         <ScrollReveal key={edu.school} staggerMs={index * 80} className="flex-1">
-                        <div className="h-full bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-8 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all">
+                        <div className="h-full bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg p-5 md:p-8 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">{edu.school}</h3>
                             <p className="text-lg font-medium text-primary-600 dark:text-primary-400 mb-1">{edu.degree}</p>
                             <p className="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider mb-4">{edu.location}</p>
@@ -51,7 +51,7 @@ const Education: React.FC = () => {
                             <div className="p-3 bg-purple-100/50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl">
                                 <Award className="w-8 h-8" />
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Certifications</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight heading-clip bg-clip-text text-transparent bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Certifications</h2>
                         </div>
                     </ScrollReveal>
                 </div>
@@ -68,10 +68,10 @@ const Education: React.FC = () => {
                                 </div>
                                 <div className="min-w-0">
                                     <h4 className="text-[15px] leading-snug font-bold text-slate-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-400 transition-colors">{cert.name}</h4>
-                                    {cert.issuer && <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{cert.issuer}</p>}
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{cert.issuer}<span className="sm:hidden">{cert.issuer ? " · " : ""}{cert.date}</span></p>
                                 </div>
                             </div>
-                            <span className="shrink-0 text-xs font-bold text-slate-400 dark:text-slate-500 bg-white/20 dark:bg-white/10 px-3 py-1 rounded-full">
+                            <span className="hidden sm:inline-block shrink-0 text-xs font-bold text-slate-400 dark:text-slate-500 bg-white/20 dark:bg-white/10 px-3 py-1 rounded-full">
                                 {cert.date}
                             </span>
                         </div>

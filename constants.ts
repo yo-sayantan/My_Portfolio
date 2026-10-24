@@ -415,44 +415,44 @@ const PROJECTS_DATA: Project[] = [
   }
 ];
 
-// Items are ordered by importance (strongest, most relevant first) and kept short so the pills pack
-// tightly: Skills.tsx stretches each row of pills to the full card width.
+// Curated to skills that are current in the job market AND backed by the resume / work history.
+// Items are ordered by importance (strongest, most relevant first); Skills.tsx stretches each row of
+// pills to the full card width, so keep labels short.
 const SKILLS_DATA: Skill[] = [
   {
     category: "Backend Engineering",
-    items: ["Java 8–21", "Spring Boot", "Hibernate / JPA", "REST & SOAP", "Spring Security", "Spring Batch", "Concurrency", "JSP & Servlets", "Regex Parsing", "Python", "Rust", "C"]
+    items: ["Java 8–21", "Spring Boot", "Spring Security", "Spring Cloud", "Hibernate / JPA", "REST APIs", "Multithreading", "Python"]
   },
   {
     category: "Architecture & Integration",
-    items: ["Microservices", "System Design", "API Gateway", "Spring Cloud & Eureka", "Event-Driven", "OAuth 2.0 & JWT", "Legacy Modernization", "Payments APIs", "QuickBooks & WorldPay", "DSA"]
+    items: ["Microservices", "System Design", "API Gateway", "Event-Driven", "Distributed Systems", "OAuth 2.0 & JWT", "Legacy Modernization", "Payments APIs", "DSA"]
   },
   {
     category: "Cloud & Containers",
-    items: ["AWS", "Docker", "Kubernetes", "AWS Lambda", "Oracle Cloud (OCI)", "Zero-Downtime", "Disaster Recovery", "JBoss", "Oracle VM"]
+    items: ["AWS", "Docker", "Kubernetes", "AWS Lambda", "Cloud Migration", "Oracle Cloud (OCI)", "Zero-Downtime", "High Availability"]
   },
   {
     category: "Databases & Performance",
-    items: ["MySQL", "Oracle DB", "PL/SQL", "Redis / NoSQL", "AWR Tuning", "Stored Procedures", "Liquibase", "Prisma ORM", "SQLite"]
+    items: ["MySQL", "Oracle DB", "PL/SQL", "SQL Tuning", "Redis / NoSQL", "Data Modeling"]
   },
   {
     category: "AI & Agentic Engineering",
-    items: ["Claude Code", "Cursor", "MCP Servers", "AI Agents", "Prompt Engineering", "GitHub Copilot", "ChatGPT / GPT-5", "Gemini API", "Ollama"]
+    items: ["Claude Code", "Cursor", "MCP Servers", "AI Agents", "Agentic Workflows", "Prompt Engineering", "GitHub Copilot", "LLM Integration", "Ollama (Local LLMs)"]
   },
   {
     category: "Frontend & Mobile",
-    items: ["React", "TypeScript", "JavaScript", "Next.js", "Redux", "Tailwind CSS", "Material UI", "Vite", "Framer Motion", "ExtJS", "Flutter & Dart"]
+    items: ["React", "TypeScript", "JavaScript (ES6+)", "Next.js", "Tailwind CSS", "Redux", "Flutter & Dart"]
   },
   {
     category: "DevOps, Quality & Tooling",
-    items: ["CI/CD", "Jenkins", "Git / GitHub", "GitHub Actions", "Maven / Gradle", "JUnit", "Test Automation", "Bitbucket", "Dynatrace", "Jira & Confluence"]
+    items: ["CI/CD Pipelines", "Jenkins", "GitHub Actions", "Git / GitHub", "Dynatrace", "Vulnerability Fixes", "JUnit", "Test Automation", "Maven / Gradle"]
   },
   {
     category: "Domain Expertise",
-    items: ["Fraud Detection", "Identity Verification", "Financial Services", "Payments", "Transaction Monitoring", "Risk Rules", "Fusion Financials", "Payables & Tax", "SaaS Credit"]
+    items: ["Fraud Detection", "Identity Verification", "Financial Services", "Payments", "Transaction Monitoring", "Risk Rules", "SaaS Credit", "Fusion Financials"]
   }
 ];
 
-// Newest first, then by relevance
 const CERTIFICATIONS_DATA: Certification[] = [
   { name: "OCI Foundations Associate", date: "11/2023", issuer: "Oracle" },
   { name: "Basics of Mutual Funds", date: "05/2023", issuer: "INDmoney" },
