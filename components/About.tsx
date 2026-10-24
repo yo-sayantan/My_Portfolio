@@ -63,7 +63,7 @@ const About: React.FC = () => {
           </div>
 
           {/* Expanded AI Focus Block - 3D Hover & Modern AI Glassmorphic Theme */}
-          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg border-2 border-slate-200/50 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-cyan-400/50 shadow-lg hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(34,211,238,0.2)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02]">
+          <div className="md:col-span-4 relative group rounded-[2.5rem] overflow-hidden bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg border-2 border-slate-200/50 dark:border-white/10 hover:border-indigo-500/50 dark:hover:border-cyan-400/50 shadow-lg hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(34,211,238,0.2)] transition-all duration-500 hover:scale-[1.02]">
             
             {/* Hover-based Shifting Inner Glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-violet-500/0 to-cyan-500/0 group-hover:from-indigo-500/10 group-hover:via-violet-500/10 group-hover:to-cyan-500/10 transition-colors duration-700 pointer-events-none"></div>

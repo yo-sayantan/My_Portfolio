@@ -247,8 +247,7 @@ const Experience: React.FC = () => {
                             p-6 md:p-8 rounded-2xl md:rounded-3xl
                             border border-slate-200/60 dark:border-white/10
                             [box-shadow:var(--glow)] hover:[box-shadow:var(--glow-hover)] hover:[border-color:var(--brand-border)]
-                            hover:-translate-y-1.5
-                            transition-[transform,box-shadow,border-color] duration-300 ease-out h-full group relative overflow-hidden cursor-default
+                            transition-[box-shadow,border-color] duration-300 ease-out h-full group relative overflow-hidden cursor-default
                           `}
                           style={{
                             '--glow': theme.glowCSS,

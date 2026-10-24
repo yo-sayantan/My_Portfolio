@@ -2,10 +2,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { PROJECTS } from '../constants';
-import { Code2, Github, Lock, X, ExternalLink, CheckCircle, ArrowRight } from 'lucide-react';
+import { Code2, Github, Lock, X, ExternalLink, CheckCircle, ArrowRight, Terminal } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import { Project } from '../types';
 import ProjectScene from './ProjectScenes';
+
+/** How many tech tags a card shows before collapsing the rest into "+N". */
+const CARD_TAGS = 5;
 
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'All' | 'Work' | 'Personal'>('All');
@@ -77,7 +80,7 @@ const Projects: React.FC = () => {
                  onClick={() => setSelectedProject(project)}
                  onKeyDown={(e) => openOnKey(e, project)}
                  className={`
-                    group relative h-[420px] rounded-[2.5rem] bg-white dark:bg-slate-900 
+                    group relative h-[450px] rounded-[2.5rem] bg-white dark:bg-slate-900 
                     border border-slate-200 dark:border-slate-800 overflow-hidden 
                     transition-[transform,box-shadow,border-color] duration-300 ease-out
                     hover:-translate-y-2 hover:shadow-[0_20px_80px_-15px_rgba(14,165,233,0.3)] hover:border-primary-500/30
@@ -104,22 +107,24 @@ const Projects: React.FC = () => {
 
                     {/* Text Content */}
                     <div>
-                       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
+                       {/* Fixed-height rows (title / summary / tags) keep every card's text on the same lines */}
+                       <h3 title={project.title} className="h-7 text-xl xl:text-[22px] leading-7 font-bold text-slate-900 dark:text-white mb-2.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
                          {project.title}
                        </h3>
-                       <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3">
-                         {project.description}
+                       <p className="h-[46px] text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">
+                         {project.summary ?? project.description}
                        </p>
                        
-                       <div className="flex flex-wrap gap-2 mb-6">
-                          {project.techStack.slice(0, 3).map((tech, i) => (
-                             <span key={i} className="px-3 py-1 rounded-lg text-xs font-bold bg-white/60 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">
+                       {/* Key stack: techStack is ordered by importance, so the card shows the first few */}
+                       <div className="flex flex-wrap content-start gap-1.5 h-[60px] overflow-hidden mb-4">
+                          {project.techStack.slice(0, CARD_TAGS).map((tech) => (
+                             <span key={tech} className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/60 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">
                                {tech}
                              </span>
                           ))}
-                          {project.techStack.length > 3 && (
-                             <span className="px-3 py-1 rounded-lg text-xs font-bold bg-white/60 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 text-slate-500">
-                               +{project.techStack.length - 3}
+                          {project.techStack.length > CARD_TAGS && (
+                             <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/60 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 text-slate-500">
+                               +{project.techStack.length - CARD_TAGS}
                              </span>
                           )}
                        </div>
@@ -167,105 +172,134 @@ const Projects: React.FC = () => {
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200" 
             onClick={() => setSelectedProject(null)}
           ></div>
-          <div className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto overscroll-contain rounded-[2rem] shadow-2xl relative z-10 animate-in fade-in zoom-in-95 duration-300 ease-out-strong border border-slate-200 dark:border-white/10 flex flex-col">
-             
-             {/* Modal Header */}
-             <div className="relative h-48 md:h-64 shrink-0 bg-slate-100 dark:bg-slate-950 overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-purple-500/10">
-                   <ProjectScene id={selectedProject.id} type={selectedProject.type} className="absolute inset-0 pb-10" />
-                </div>
-                <button 
-                  ref={closeButtonRef}
-                  onClick={() => setSelectedProject(null)}
-                  aria-label="Close project details"
-                  className="absolute top-6 right-6 p-2.5 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-slate-900 dark:text-white rounded-full hover:bg-white/80 dark:hover:bg-slate-700/80 active:scale-95 transition-[background-color,transform] duration-150 z-20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
-                >
-                  <X size={20} />
-                </button>
-                <div className="absolute bottom-6 left-6 md:left-10 z-10">
-                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/30 dark:bg-black/30 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2">
-                      {selectedProject.type} Project
-                   </div>
-                   <h2 id="project-modal-title" className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight pr-16">
-                     {selectedProject.title}
-                   </h2>
-                </div>
-             </div>
+          {/* One fixed size per project type (work projects have less to show, so their window is shorter) */}
+          <div className={`bg-white dark:bg-slate-900 w-full max-w-[1075px] ${selectedProject.type === 'Work' ? 'h-[min(92vh,750px)]' : 'h-[min(92vh,940px)]'} rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-300 ease-out-strong border border-slate-200 dark:border-white/10`}>
 
-             {/* Modal Content */}
-             <div className="p-6 md:p-10 grid lg:grid-cols-3 gap-10">
-               
-               {/* Main Info - Left Col */}
-               <div className="lg:col-span-2 space-y-8">
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Overview</h4>
-                    <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-                      {selectedProject.longDescription || selectedProject.description}
-                    </p>
+             {/* Close button lives outside the scroller so it never scrolls away */}
+             <button 
+               ref={closeButtonRef}
+               onClick={() => setSelectedProject(null)}
+               aria-label="Close project details"
+               className="absolute top-5 right-5 md:top-6 md:right-6 p-2.5 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/70 dark:border-white/10 text-slate-900 dark:text-white rounded-full hover:bg-white/90 dark:hover:bg-slate-700/80 active:scale-95 transition-[background-color,transform] duration-150 z-40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+             >
+               <X size={20} />
+             </button>
+
+             <div className="h-full overflow-y-auto overscroll-contain">
+
+               {/* Tall animated header at rest. It is sticky with a negative offset, so on scroll it
+                   slides away until only the bottom strip (chip + title) is left, pinned as frosted
+                   glass with the content blurring underneath it. */}
+               <div className="sticky -top-24 md:-top-40 z-30 group h-48 md:h-64 overflow-hidden border-b border-slate-200/70 dark:border-white/10 bg-white/55 dark:bg-slate-900/55 backdrop-blur-2xl backdrop-saturate-150">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-purple-500/10 pointer-events-none" />
+                  <ProjectScene id={selectedProject.id} type={selectedProject.type} fade={false} className="absolute inset-y-0 right-0 w-[62%] md:w-[58%] pb-8 pr-6" />
+                  <div className="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-10 pb-4 md:pb-5 pr-20">
+                     <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/50 dark:bg-black/30 border border-slate-200/70 dark:border-white/15 text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-white mb-1.5">
+                        {selectedProject.type === 'Work' ? <Lock size={11} /> : <Code2 size={11} />}
+                        {selectedProject.type} Project
+                     </div>
+                     <h2 id="project-modal-title" className="text-2xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
+                       {selectedProject.title}
+                     </h2>
                   </div>
+               </div>
 
-                  {selectedProject.features && (
+               {/* Content */}
+               <div className="p-6 md:p-8 grid lg:grid-cols-3 gap-x-8 gap-y-7">
+
+                 {/* Main column */}
+                 <div className="lg:col-span-2 space-y-7">
                     <div>
-                      <h4 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Key Features</h4>
-                      <ul className="grid sm:grid-cols-2 gap-3">
-                        {selectedProject.features.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
-                             <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
-                             {feature}
-                          </li>
+                      <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Overview</h4>
+                      <p className="text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed">
+                        {selectedProject.longDescription || selectedProject.description}
+                      </p>
+                    </div>
+
+                    {selectedProject.features && (
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Key Features</h4>
+                        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                          {selectedProject.features.map((feature) => (
+                            <li key={feature} className="flex items-start gap-2.5 text-slate-700 dark:text-slate-300 text-sm font-medium leading-snug">
+                               <CheckCircle className="w-[18px] h-[18px] mt-px text-green-500 shrink-0" />
+                               {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {selectedProject.requirements && (
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Run It With</h4>
+                        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5">
+                          {selectedProject.requirements.map((req) => (
+                            <li key={req} className="flex items-start gap-2.5 text-sm font-medium text-slate-700 dark:text-slate-300">
+                              <Terminal className="w-4 h-4 mt-0.5 text-slate-400 shrink-0" />
+                              {req}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                 </div>
+
+                 {/* Sidebar */}
+                 <div className="space-y-7">
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Technology Stack</h4>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedProject.techStack.map((tech) => (
+                          <span key={tech} className="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+                            {tech}
+                          </span>
                         ))}
-                      </ul>
+                      </div>
                     </div>
-                  )}
+
+                    {selectedProject.skills && (
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Skills Demonstrated</h4>
+                        <div className="flex flex-wrap gap-1.5">
+                          {selectedProject.skills.map((skill) => (
+                            <span key={skill} className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800/40 text-primary-700 dark:text-primary-300">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedProject.link ? (
+                      <a
+                        href={selectedProject.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm transition-[transform,box-shadow] duration-200 shadow-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.97]"
+                      >
+                        <Github size={18} />
+                        <span>View Source on GitHub</span>
+                        <ExternalLink size={14} className="ml-0.5 opacity-70" />
+                      </a>
+                    ) : (
+                      <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 opacity-80">
+                         <div className="flex items-center gap-2 mb-1.5">
+                           <Lock className="text-slate-400" size={18} />
+                           <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+                             {selectedProject.type === 'Work' ? 'Internal Project' : 'Private Repository'}
+                           </h4>
+                         </div>
+                         <p className="text-xs text-slate-500 dark:text-slate-400">
+                           {selectedProject.type === 'Work' 
+                             ? 'The source code for this project is proprietary and cannot be shared publicly due to company policies.' 
+                             : 'The source code for this project is kept private and is not available for public access.'}
+                         </p>
+                      </div>
+                    )}
+                 </div>
+
                </div>
-
-               {/* Sidebar - Right Col */}
-               <div className="space-y-8">
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Technology Stack</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.techStack.map((tech, i) => (
-                        <span key={i} className="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {selectedProject.link ? (
-                    <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                       <h4 className="font-bold text-slate-900 dark:text-white mb-2">Interested in the code?</h4>
-                       <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                         Browse the repository for the full implementation, architecture and setup instructions.
-                       </p>
-                       <a
-                         href={selectedProject.link}
-                         target="_blank"
-                         rel="noopener noreferrer"
-                         className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm transition-[transform,box-shadow] duration-200 shadow-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.97]"
-                       >
-                         <Github size={18} />
-                         <span>View on GitHub</span>
-                         <ExternalLink size={14} className="ml-0.5 opacity-70" />
-                       </a>
-                    </div>
-                  ) : (
-                    <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 opacity-75">
-                       <div className="flex items-center gap-2 mb-2">
-                         <Lock className="text-slate-400" size={20} />
-                         <h4 className="font-bold text-slate-900 dark:text-white">
-                           {selectedProject.type === 'Work' ? 'Internal Project' : 'Private Repository'}
-                         </h4>
-                       </div>
-                       <p className="text-xs text-slate-500 dark:text-slate-400">
-                         {selectedProject.type === 'Work' 
-                           ? 'The source code for this project is proprietary and cannot be shared publicly due to company policies.' 
-                           : 'The source code for this project is kept private and is not available for public access.'}
-                       </p>
-                    </div>
-                  )}
-               </div>
-
              </div>
           </div>
         </div>,

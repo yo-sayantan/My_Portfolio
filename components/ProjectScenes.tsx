@@ -205,7 +205,7 @@ const Scene: React.FC<{ id: string; type: 'Work' | 'Personal' }> = ({ id, type }
         </>
       );
 
-    case 'mf-portfolio-tracker':
+    case 'investment-planner':
       return (
         <>
           <g className="ps-el ps-spin" style={m(26)}>
@@ -231,18 +231,6 @@ const Scene: React.FC<{ id: string; type: 'Work' | 'Personal' }> = ({ id, type }
             <rect x="270" y="22" width="62" height="22" rx="11" className="fill-emerald-500/20 stroke-emerald-500" strokeWidth="2" />
             <text x="301" y="38" textAnchor="middle" className={`${GLYPH} fill-emerald-500 text-[12px]`}>+24.5%</text>
           </g>
-        </>
-      );
-
-    case 'investment-planner':
-      return (
-        <>
-          <path d="M50 58H350" fill="none" className="stroke-indigo-400/80" strokeWidth="2" strokeDasharray="7 7" />
-          <path d="M352 30v30M352 30l20 8-20 8" className="ps-el ps-pulse stroke-indigo-500 fill-indigo-500/40" strokeWidth="2.5" strokeLinejoin="round" style={m(2.4)} />
-          {[0, 1, 2, 3, 4, 5].map((i) => (
-            <rect key={i} x={62 + i * 46} y={164 - (28 + i * 20)} width="30" height={28 + i * 20} rx="6" className="ps-el ps-growy ps-origin-bottom fill-indigo-500/60" style={m(3.4, i * 0.3)} />
-          ))}
-          <path d="M40 164H350" className={LINE} strokeWidth="2" strokeLinecap="round" />
         </>
       );
 
@@ -316,12 +304,14 @@ interface ProjectSceneProps {
   type: 'Work' | 'Personal';
   /** Positioning/size classes for the scene box. Cards use the top band; the modal header fills itself. */
   className?: string;
+  /** Fade the scene out at the bottom (cards, where text sits below it). Off for the modal header. */
+  fade?: boolean;
 }
 
-const ProjectScene: React.FC<ProjectSceneProps> = ({ id, type, className = 'absolute inset-x-0 top-0 h-[210px]' }) => (
+const ProjectScene: React.FC<ProjectSceneProps> = ({ id, type, className = 'absolute inset-x-0 top-0 h-[190px]', fade = true }) => (
   <div
     aria-hidden="true"
-    className={`${className} pointer-events-none opacity-50 dark:opacity-60 transition-[opacity,transform] duration-500 ease-out group-hover:opacity-90 group-hover:scale-[1.04] [mask-image:linear-gradient(to_bottom,black_72%,transparent)]`}
+    className={`${className} pointer-events-none opacity-50 dark:opacity-60 transition-[opacity,transform] duration-500 ease-out group-hover:opacity-90 group-hover:scale-[1.04] ${fade ? '[mask-image:linear-gradient(to_bottom,black_72%,transparent)]' : ''}`}
   >
     <svg viewBox="0 0 400 200" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
       <Scene id={id} type={type} />
